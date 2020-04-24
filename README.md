@@ -1,12 +1,12 @@
-# zpevnik-proscholy-spa
+# Regenschori web UI
 
->  User frontend of zpevnik.proscholy.cz written in Nuxt.js
+>  User frontend of regenschori.cz written in Nuxt.js
 
 ## Build Setup
 
 ```bash
 # install dependencies
-$ yarn install
+$ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev
