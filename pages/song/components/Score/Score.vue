@@ -18,7 +18,7 @@
       <badge title="Tenor"></badge>
       <badge title="Bas"></badge>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam volutpat, odio at volutpat pellentesque, eros erat fermentum mi, at tristique tortor lectus non dolor.
+      <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam volutpat, odio at volutpat pellentesque, eros erat fermentum mi, at tristique tortor lectus non dolor.
         Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas eu ligula elit. Sed ut auctor risus, ut dictum libero. Nulla finibus velit id
         ornare venenatis. Donec a velit eleifend, scelerisque sapien ut, hendrerit diam. Nunc e!citur rutrum nulla, sit amet dapibus aug.</p>
     </div>

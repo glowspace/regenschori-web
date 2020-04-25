@@ -15,20 +15,15 @@
       <i class="fas fa-search"></i>
     </a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container">
-        <nuxt-link to="/"
-                   class="btn">
-          <img src="/img/logo_v2.png"
-               height="24"
-               alt="logo"></nuxt-link>
-        <nuxt-link to="/"
-                   class="btn btn-secondary"><i class="fas fa-search"></i></nuxt-link>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-scrolled">
+      <div class="container d-flex">
+        <div class="div">
+          <nuxt-link to="/"
+                     class="btn btn-logo">
+            Regenschori</nuxt-link>
+        </div>
 
-        <nuxt-link to="/o-zpevniku"
-                   class="btn btn-secondary"><i class="fas fa-info"></i></nuxt-link>
-
-        <dark-mode-button></dark-mode-button>
+        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
       </div>
     </nav>
   </div>
@@ -56,23 +51,23 @@
 
     .navbar-brand {
       h1 {
-        line-height: 32px;
-        font-family: Helvetica, sans-serif;
+        line-height:   32px;
+        font-family:   Helvetica, sans-serif;
 
         margin-bottom: 3px;
       }
 
       p {
         font-family: PingFang, sans-serif;
-        font-size: 12px;
-        color: #bababa
+        font-size:   12px;
+        color:       #bababa
       }
     }
 
     .navbar {
-      z-index: 200;
+      z-index:          200;
       background-color: #292929;
-      min-height: 66px;
+      min-height:       66px;
     }
 
     .navbar-brand {
@@ -80,18 +75,29 @@
     }
 
     .navbar-label {
-      padding: 3px 10px;
+      padding:          3px 10px;
 
       background-color: #292929;
-      color: white;
+      color:            white;
     }
 
 
     .navbar-caption {
       font-family: PingFang, sans-serif;
-      color: #bababa;
+      color:       #bababa;
 
-      font-size: 12px;
+      font-size:   12px;
+    }
+  }
+
+  .navbar-scrolled {
+    height: 35px;
+
+    .btn-logo {
+      font-family:    Helvetica,sans-serif;
+      text-transform: uppercase;
+
+      color: white;
     }
   }
 </style>
