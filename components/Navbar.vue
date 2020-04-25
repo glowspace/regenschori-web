@@ -2,14 +2,12 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
       <div class="container d-flex justify-content-between">
-        <nuxt-link to="/"
-                   class="navbar-brand">
+        <div class="navbar-brand">
           <h1 class="text-uppercase mb-0 ">Regenschori</h1>
-          <p class="small" style="color: #bababa">Lorem ipsum moribundus dolor sit amet</p>
-        </nuxt-link>
+          <p class="small">Otevřená databáze křesťanské hudby</p>
+        </div>
 
-        <div class="">Kdo zpívá, dvakrát se modlí.</div>
-
+        <div class="navbar-caption">Kdo zpívá, dvakrát se modlí.</div>
       </div>
     </nav>
 
@@ -46,7 +44,8 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped
+       lang="scss">
   .navbar {
     height:           130px;
 
@@ -58,9 +57,41 @@
     .navbar-brand {
       h1 {
         line-height: 32px;
+        font-family: Helvetica, sans-serif;
+
+        margin-bottom: 3px;
+      }
+
+      p {
+        font-family: PingFang, sans-serif;
+        font-size: 12px;
+        color: #bababa
       }
     }
+
+    .navbar {
+      z-index: 200;
+      background-color: #292929;
+      min-height: 66px;
+    }
+
+    .navbar-brand {
+      padding: 0 0.5rem;
+    }
+
+    .navbar-label {
+      padding: 3px 10px;
+
+      background-color: #292929;
+      color: white;
+    }
+
+
+    .navbar-caption {
+      font-family: PingFang, sans-serif;
+      color: #bababa;
+
+      font-size: 12px;
+    }
   }
-
-
 </style>
