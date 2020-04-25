@@ -7,7 +7,7 @@
           <p class="small">Otevřená databáze křesťanské hudby</p>
         </div>
 
-        <div class="navbar-caption">Kdo zpívá, dvakrát se modlí.</div>
+        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
       </div>
     </nav>
 
