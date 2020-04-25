@@ -28,7 +28,7 @@
             darkModeInit: function() {
                 if (process.client && window.localStorage) {
                     if (localStorage.getItem("dark") === "true") {
-                        document.getElementsByTagName("body")[0].className = "dark";
+                     //   document.getElementsByTagName("body")[0].className = "dark";
                     }
                 }
             }
