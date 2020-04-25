@@ -16,7 +16,7 @@
         <song-author-label :authors="score.authors"/>
       </div>
 
-      <badge :title="tag.name" v-for="tag in score.tags"></badge>
+      <badge :title="tag.name" v-for="tag in score.tags" :key="tag.id"></badge>
 
       <div>
       <a :href="score.url" class="mr-3">Zobrazit</a>

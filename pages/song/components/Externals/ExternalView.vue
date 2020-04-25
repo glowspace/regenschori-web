@@ -13,14 +13,14 @@
 
         <i :class="typeClass"></i>
         <span v-for="(author, index) in authors"
-              v-bind:key="author.id"><span v-if="index">,</span>
-                {{ author.name }}
-            </span>
+              v-bind:key="author.id"><span v-if="index">, </span>{{ author.name }}</span>
       </span>
       </div>
 
       <div v-if="opened"
            class="content mb-3">
+
+        <song-author-label :authors="authors" class="mb-2"/>
 
         <iframe v-if="type === 1"
                 :src="iframeSrc"
@@ -64,7 +64,9 @@
 
 <script>
 
+  import SongAuthorLabel from "~/pages/song/components/SongAuthorLabel";
   export default {
+    components: {SongAuthorLabel},
     props: {
       url: String,
       downloadUrl: String,
