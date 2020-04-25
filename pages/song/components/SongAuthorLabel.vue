@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <span v-if="song.authors.length === 1">Autor:</span>
-    <span v-if="song.authors.length >1">Autoři:</span>
+  <div class="authors">
+    <span v-if="authors.length === 1">Autor:</span>
+    <span v-if="authors.length >1">Autoři:</span>
 
     <!-- Original -->
-    <nuxt-link v-for="(author, index) in song.authors"
+    <nuxt-link v-for="(author, index) in authors"
                to="/"
-               :key="author.id">
-      {{author.name}} {{ index !== 0 ?', ' : '' }}
+               :key="author.id"
+               class="link-author">
+      {{author.name}}{{ index !== authors.length -1 ?', ' : '' }}
     </nuxt-link>
 
   </div>
@@ -16,14 +17,21 @@
 <script>
   export default {
     name: "SongAuthorLabel",
-    props: ['song'],
+    props: ['authors'],
 
     mounted() {
-      console.log(this.song.authors);
+      console.log(this.authors);
     }
   }
 </script>
 
 <style scoped>
+  .link-author {
+    color: #6d6d6d;
+  }
 
+
+  .authors {
+    color: #6d6d6d;
+  }
 </style>

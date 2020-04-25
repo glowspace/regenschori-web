@@ -16,6 +16,7 @@
       id
       name
       type
+      lyrics_no_chords
       externals(orderBy: { field: "type", order: ASC }) {
         id
         public_name
@@ -59,7 +60,6 @@
           lang_string
         }
       }
-      capo
       # songbook_records{number, songbook{id, name, shortcut}}
     }
   }

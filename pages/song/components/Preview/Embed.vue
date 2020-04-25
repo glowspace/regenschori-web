@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "External"
+        name: "Embed"
     }
 </script>
 

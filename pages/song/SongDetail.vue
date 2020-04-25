@@ -36,35 +36,24 @@
 
                             </div>
                             <div class="col-6 text-right">
-                                <h2 class="song-title">{{ song.name }}</h2>
-                                <song-author-label :song="song"></song-author-label>
+                                <h1 class="song-title">{{ song.name }}</h1>
+                                <song-author-label :authors="song.authors"></song-author-label>
 
-                                <badge title="Originální skladba"
-                                       v-if="song.type === 0"
-                                       class="mt-2"></badge>
-
-                                <badge title="Překlad"
-                                       v-if="song.type === 1"
-                                       class="mt-2"></badge>
-
-                                <badge title="Aranž"
-                                       v-if="song.type === 2"
-                                       class="mt-2"></badge>
+                                <song-type :song="song"/>
                             </div>
                         </div>
                         <hr>
 
                         <div class="row">
                             <div class="col-6">
-                                <h5>Náhled</h5>
+                                <song-preview :song="song"></song-preview>
                             </div>
                             <div class="col-6">
-                                <h5>Noty</h5>
-                                <scores :scores="song"></scores>
+                                <scores :song="song"/>
 
-                                <h5 class="mt-3">Nahrávky</h5>
+                                <externals :song="song"/>
 
-                                <h5 class="mt-3">Související</h5>
+                                <h5>Související</h5>
                             </div>
                         </div>
 
@@ -83,11 +72,17 @@
     import Badge from "~/components/Badge";
     import SearchBox from "~/pages/search/components/SearchBox";
     import Scores from "~/pages/song/components/Score/Scores";
+    import SongPreview from "~/pages/song/components/Preview/SongPreview";
+    import SongType from "~/pages/song/components/SongType";
+    import Externals from "~/pages/song/components/Externals/Externals";
 
     export default {
         name: "SongDetail",
 
         components: {
+            Externals,
+            SongType,
+            SongPreview,
             Scores,
             SearchBox,
             Badge,

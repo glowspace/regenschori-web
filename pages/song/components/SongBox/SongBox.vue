@@ -67,9 +67,7 @@
                                   <i>Načítám...</i>
                                 </span>
 
-                <span v-else>
-                                  <i>Žádné noty nebyly nalezeny.</i>
-                                </span>
+                <span v-else><i>Žádné noty nebyly nalezeny.</i></span>
               </div>
             </div>
           </div>
@@ -424,7 +422,7 @@
   import Transposition from "./Transposition";
   import TranslationLine from "./TranslationLine.vue";
   import SongLyricParts from "../Renderer/SongLyricParts.vue";
-  import ExternalView from "../../../../components/ExternalView.vue";
+  import ExternalView from "../Externals/ExternalView.vue";
   import ExternalLine from "./ExternalLine.vue";
 
   /**

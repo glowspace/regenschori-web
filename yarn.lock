@@ -7497,6 +7497,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+nuxt-user-agent@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/nuxt-user-agent/-/nuxt-user-agent-1.2.2.tgz#696462fcbdbc32d5be2bc63976afd9eef6e9f6b7"
+  integrity sha512-Z9d+r1/PzJAvrr4rX70IWvRyI3qw3RukAGrRZPZ9WeByuCWmVKiW8G1AhdkUOyrDrVoBUC59iLqIVkop/NjSuQ==
+  dependencies:
+    woothee "^1.8.1"
+
 nuxt@^2.12.0:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.12.1.tgz#68489eeeaa287e8b8896d425265c6d951dae8247"
@@ -10916,6 +10923,11 @@ window-size@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
   integrity sha1-+OGqHuWlPsW/FR/6CXQqatdpeHY=
+
+woothee@^1.8.1:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/woothee/-/woothee-1.11.0.tgz#f31dc5ee2c956f6137df6dea9f9bfc7f3ac1a7d1"
+  integrity sha512-3xCoZEpXujyJwmo2KzcJYjAMJZCvGsL4jGrjJNUBI1jhryVDzduqr808Wgk6ZkFTCINApZJUONWILJB9tiDEFg==
 
 workbox-cdn@^4.3.1:
   version "4.3.1"

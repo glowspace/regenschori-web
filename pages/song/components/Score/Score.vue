@@ -2,34 +2,45 @@
   <div>
     <div @click="opened = !opened"
          class="toggler">
-      <span><i class="fas fa-chevron-down"></i> Název not</span>
+      <span>
+        <i class="fas fa-chevron-right ml-2" style="width: 15px"
+           v-if="!opened"></i>
+        <i class="fas fa-chevron-down ml-2" style="width: 15px"
+           v-else></i>
+        {{score.public_name}}</span>
     </div>
 
     <div v-if="opened"
-         class="content">
-      <p>Autor:</p>
+         class="content mb-3">
+      <div class="mb-2">
+        <song-author-label :authors="score.authors"/>
+      </div>
 
-      <p>Editor:</p>
+      <badge :title="tag.name" v-for="tag in score.tags"></badge>
 
-      <badge title="Varhany"></badge>
-      <badge title="Zpěv"></badge>
-      <badge title="Soprán"></badge>
-      <badge title="Alt"></badge>
-      <badge title="Tenor"></badge>
-      <badge title="Bas"></badge>
+      <div>
+      <a :href="score.url" class="mr-3">Zobrazit</a>
+      <a :href="score.download_url">Stáhnout noty</a>
 
-      <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam volutpat, odio at volutpat pellentesque, eros erat fermentum mi, at tristique tortor lectus non dolor.
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas eu ligula elit. Sed ut auctor risus, ut dictum libero. Nulla finibus velit id
-        ornare venenatis. Donec a velit eleifend, scelerisque sapien ut, hendrerit diam. Nunc e!citur rutrum nulla, sit amet dapibus aug.</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import Badge from "~/components/Badge";
+  import SongAuthorLabel from "~/pages/song/components/SongAuthorLabel";
+
   export default {
     name: "Score",
-    components: {Badge},
+
+    components: {SongAuthorLabel, Badge},
+    props: ['score'],
+
+    mounted() {
+      console.log(this.score)
+    },
+
     data: () => {
       return {
         opened: false,
@@ -40,13 +51,13 @@
 
 <style scoped>
   .toggler {
-    cursor:        pointer;
+    cursor:         pointer;
 
-    display:       block;
+    display:        block;
 
-    border-bottom: 1px #d0d0d0 solid;
+    border-bottom:  1px #d0d0d0 solid;
     padding-bottom: 8px;
-    margin-bottom: 10px;
+    margin-bottom:  10px;
   }
 
 
