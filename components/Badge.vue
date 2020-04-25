@@ -18,7 +18,6 @@
 
     display:          inline-block;
 
-    margin-right:     5px;
     padding:          4px 12px 3px;
 
     color:            #fa541c;

@@ -3,7 +3,7 @@
          style="min-height: calc(100vh - 100px)">
         <div class="row">
             <div class="col-12 text-center">
-                Načítání...
+                Načítání písně
             </div>
         </div>
 

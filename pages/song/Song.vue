@@ -15,6 +15,7 @@
     song_lyric(id: $id) {
       id
       name
+      type
       externals(orderBy: { field: "type", order: ASC }) {
         id
         public_name
@@ -26,6 +27,10 @@
           name
           public_url
         }
+      }
+      authors {
+        id,
+        name
       }
       files {
         id
