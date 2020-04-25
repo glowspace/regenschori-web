@@ -17,17 +17,32 @@
 
         <div class="search-category">Typ</div>
 
-        <badge-toggle title="Úvod"/>
-        <badge-toggle title="Obětování"/>
-        <badge-toggle title="Přijímání"/>
-        <badge-toggle title="Závěr"/>
+        <badge-toggle title=""/>
+        <badge-toggle title="Píseň"/>
+        <badge-toggle title="Ordinárium"/>
+        <badge-toggle title="Proprium"/>
 
         <div class="search-category">Období</div>
 
-        <badge-toggle title="Úvod"/>
-        <badge-toggle title="Obětování"/>
-        <badge-toggle title="Přijímání"/>
-        <badge-toggle title="Závěr"/>
+        <badge-toggle title="Baroko"/>
+        <badge-toggle title="Renesance"/>
+        <badge-toggle title="Současné"/>
+
+        <div class="search-category">Instrumentace</div>
+
+        <badge-toggle title="Varhany"/>
+        <badge-toggle title="Housle"/>
+        <badge-toggle title="Viola"/>
+        <badge-toggle title="Violoncello"/>
+        <badge-toggle title="Trubka"/>
+        <badge-toggle title="Trombon"/>
+        <badge-toggle title="Baryton"/>
+        <badge-toggle title="Tenor"/>
+        <badge-toggle title="Bas"/>
+        <badge-toggle title="Soprán"/>
+        <badge-toggle title="Alt"/>
+
+        <a class="btn btn-search" href="">Vyhledat</a>
       </div>
     </div>
 </template>
@@ -49,4 +64,8 @@
 
   border-bottom: 1px solid #d7d7d7;
 }
+
+  .btn-search {
+    background-color: red;
+  }
 </style>
