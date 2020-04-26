@@ -8,7 +8,7 @@
            v-if="song.type === 1"
            class="mt-2"></badge>
 
-    <badge title="Aranž"
+    <badge title="Autorizovaný překlad"
            v-if="song.type === 2"
            class="mt-2"></badge>
 
