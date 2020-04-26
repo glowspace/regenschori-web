@@ -28,5 +28,7 @@
 <style scoped>
  .text-preview {
    white-space: pre;
+
+   border: none;
  }
 </style>
