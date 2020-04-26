@@ -15,8 +15,6 @@
 
       <div class="search-category">Typ</div>
 
-
-
       <div class="search-category">Období</div>
 
       <filter-tag-select-badge :tag="tag"
@@ -66,7 +64,7 @@
     type_enum
   }
 
-  tags_historical_period: tags_enum(type: HISTORICAL_PERIOD) {
+  tags_historical_period: tags_enum(type: HISTORY_PERIOD) {
     id
     name
     type_enum
@@ -128,6 +126,6 @@
     display:          inline-block;
     color:            white;
 
-    background-color: #d90404;
+    background-color: #c40000;
   }
 </style>

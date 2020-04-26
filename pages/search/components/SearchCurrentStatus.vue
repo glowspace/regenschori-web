@@ -19,14 +19,14 @@
     </div>
 
     <div class="mb-2" v-if="selected_tags.historical_period_tags.length">
-      <h5>Období</h5>
+      <h5>Období:</h5>
       <badge :title="tag.name"
              :key="tag.id"
              v-for="tag in selected_tags.historical_period_tags" class="mr-2"></badge>
     </div>
 
     <div class="mb-2" v-if="selected_tags.instrumentation_tags.length">
-      <h5>Instrumentace</h5>
+      <h5>Instrumentace:</h5>
       <badge :title="tag.name"
              :key="tag.id"
              v-for="tag in selected_tags.instrumentation_tags" class="mr-2"></badge>

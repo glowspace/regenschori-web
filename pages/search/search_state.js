@@ -1,4 +1,6 @@
 export default {
+  query: '',
+
   selected_tags: {
     liturgy_part_tags: [],
     liturgy_period_tags: [],

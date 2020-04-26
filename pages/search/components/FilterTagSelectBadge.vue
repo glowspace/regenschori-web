@@ -48,7 +48,7 @@
           this.selected_tags.liturgy_period_tags.push(this.tag);
         }
 
-        if (this.tag.type_enum === 'HISTORICAL_PERIOD') {
+        if (this.tag.type_enum === 'HISTORY_PERIOD') {
           this.selected_tags.historical_period_tags.push(this.tag);
         }
 
@@ -71,7 +71,7 @@
 
         }
 
-        if (this.tag.type_enum === 'HISTORICAL_PERIOD') {
+        if (this.tag.type_enum === 'HISTORY_PERIOD') {
           this.selected_tags.historical_period_tags = this.selected_tags.historical_period_tags.filter(obj => obj.id !== this.tag.id);
 
         }

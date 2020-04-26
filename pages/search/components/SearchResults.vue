@@ -1,27 +1,30 @@
 <template>
-  <div class="card">
-      <div class="card-body">
-          <div class="row">
-            <div class="col-8">
-              <search-current-status />
-            </div>
-            <div class="col-4 text-right">
-              <h2>Výsledky vyhledávání</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Název</th>
+      <th>Autor</th>
+      <th>Typ záznamu</th>
+      <th>Část mše</th>
+      <th>Název</th>
+    </tr>
+    </thead>
 
-              <p>Nalezeno x záznamů</p>
-            </div>
-          </div>
-      </div>
-  </div>
+    <search-result-line :song="song" v-for="song in songs" :key="song.id"></search-result-line>
+  </table>
 </template>
 
 <script>
   import Filters from "~/pages/search/components/Filters";
   import SearchCurrentStatus from "~/pages/search/components/SearchCurrentStatus";
+  import SongAuthorLabel from "~/pages/song/components/SongAuthorLabel";
+  import SearchResultLine from "~/pages/search/components/SearchResultLine";
 
   export default {
     name: "SearchResults",
-    components: {SearchCurrentStatus, Filters}
+    components: {SearchResultLine, SongAuthorLabel, SearchCurrentStatus, Filters},
+    props: ['songs']
   }
 </script>
 

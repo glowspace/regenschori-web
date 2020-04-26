@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
       <div class="container d-flex justify-content-between">
         <div class="navbar-brand">
-          <h1 class="text-uppercase mb-0 ">Regenschori</h1>
+          <nuxt-link class="text-uppercase mb-0 h1" to="/">Regenschori</nuxt-link>
           <p class="small">Otevřená databáze křesťanské hudby</p>
         </div>
 
@@ -50,11 +50,19 @@
     box-shadow:       none;
 
     .navbar-brand {
-      h1 {
+      .h1 {
         line-height:   32px;
         font-family:   Helvetica, sans-serif;
 
         margin-bottom: 3px;
+
+        margin-top: 25px;
+        display: inline-block;
+
+        &:hover {
+          color: white;
+          text-decoration: none;
+        }
       }
 
       p {

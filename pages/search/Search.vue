@@ -1,15 +1,34 @@
 <template>
   <div>
     <div class="container-fluid">
+      <search-input></search-input>
 
       <div class="row mt-5">
         <div class="col-3">
           <search-box></search-box>
         </div>
         <div class="col-9">
-          <search-results></search-results>
-        </div>
+          <div class="card">
+            <div class="card-body">
 
+              <div class="row">
+                <div class="col-8">
+                  <search-current-status />
+                </div>
+
+                <div class="col-4 text-right">
+                  <h2>Výsledky vyhledávání</h2>
+
+                  <p>Nalezeno {{search_records_count}} záznamů</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <search-results :songs="[]"></search-results>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +45,10 @@
   import {isEmpty} from "lodash";
   import SearchBox from "~/pages/search/components/SearchBox";
   import SearchResults from "~/pages/search/components/SearchResults";
+  import SearchCurrentStatus from "~/pages/search/components/SearchCurrentStatus";
+  import SearchInput from "~/pages/search/components/SearchInput";
+
+  import search_state from "~/pages/search/search_state";
 
   /**
    * Root search component.
@@ -39,6 +62,9 @@
 
     data() {
       return {
+        // Search component state storage
+        state: search_state,
+
         // Search data
         search_string: "",
         selected_songbooks: {},
@@ -49,8 +75,9 @@
         selected_tags_dcnf: {},
 
         // View state
-        init: true,
-        displayFilter: false
+        displayFilter: false,
+
+        search_records_count: 0
       }
     },
 
@@ -157,6 +184,8 @@
     },
 
     components: {
+      SearchInput,
+      SearchCurrentStatus,
       SearchResults,
       SearchBox,
       Logo,
