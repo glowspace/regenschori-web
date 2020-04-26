@@ -23,7 +23,8 @@ $main-blue: #3961ad;
 $main-green: #098845;
 $main-yellow: #faa61b;
 
-@import "~bootstrap-material-design/scss/bootstrap-material-design"; // Materialize.css
+@import "~bootstrap/scss/bootstrap";
+//@import "~bootstrap-material-design/scss/bootstrap-material-design"; // Materialize.css
 @import "dark";
 @import "navbar";
 @import "print";

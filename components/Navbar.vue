@@ -93,6 +93,8 @@
   .navbar-scrolled {
     height: 35px;
 
+    z-index: 150;
+
     .btn-logo {
       font-family:    Helvetica,sans-serif;
       text-transform: uppercase;
