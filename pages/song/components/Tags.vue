@@ -43,25 +43,22 @@
             }}"><span class="songbook-name">{{ $record->name }}</span><span class="songbook-number">{{ $record->pivot->number }}</span></a>
             @endforeach
         </div>-->
-
     </div>
 </template>
 
 <script>
-    /**
-     * Song tags component.
-     *
-     * It renders:
-     * 1) related tags
-     * 2) related songbooks
-     */
-    export default {
-        name: "Tags",
+/**
+ * Song tags component.
+ *
+ * It renders:
+ * 1) related tags
+ * 2) related songbooks
+ */
+export default {
+    name: 'Tags',
 
-        props: ['song']
-    }
+    props: ['song']
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

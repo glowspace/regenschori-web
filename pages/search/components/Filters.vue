@@ -3,56 +3,86 @@
         <!-- todo: make component -->
         <h4>Liturgie – mše svatá</h4>
         <a
-            v-bind:class="['tag', 'tag-blue', isSelectedTag(tag) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-blue',
+                isSelectedTag(tag) ? 'tag-selected' : ''
+            ]"
             v-for="tag in tags_liturgy_part"
-            v-bind:key="'tag-'+tag.id"
+            v-bind:key="'tag-' + tag.id"
             v-on:click="selectTag(tag)"
-        >{{ tag.name }}</a>
+            >{{ tag.name }}</a
+        >
 
         <h4>Liturgický rok</h4>
         <a
-            v-bind:class="['tag', 'tag-blue', isSelectedTag(tag) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-blue',
+                isSelectedTag(tag) ? 'tag-selected' : ''
+            ]"
             v-for="tag in tags_liturgy_period"
-            v-bind:key="'tag-'+tag.id"
+            v-bind:key="'tag-' + tag.id"
             v-on:click="selectTag(tag)"
-        >{{ tag.name }}</a>
+            >{{ tag.name }}</a
+        >
 
         <h4>Příležitosti</h4>
         <a
-            v-bind:class="['tag', 'tag-green', isSelectedTag(tag) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-green',
+                isSelectedTag(tag) ? 'tag-selected' : ''
+            ]"
             v-for="tag in tags_generic"
-            v-bind:key="'tag-'+tag.id"
+            v-bind:key="'tag-' + tag.id"
             v-on:click="selectTag(tag)"
-        >{{ tag.name }}</a>
+            >{{ tag.name }}</a
+        >
 
         <h4>Ke svatým</h4>
         <a
-            v-bind:class="['tag', 'tag-green', isSelectedTag(tag) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-green',
+                isSelectedTag(tag) ? 'tag-selected' : ''
+            ]"
             v-for="tag in tags_saints"
-            v-bind:key="'tag-'+tag.id"
+            v-bind:key="'tag-' + tag.id"
             v-on:click="selectTag(tag)"
-        >{{ tag.name }}</a>
+            >{{ tag.name }}</a
+        >
 
         <h4>Zpěvníky</h4>
         <a
-            v-bind:class="['tag', 'tag-yellow', isSelectedSongbook(songbook) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-yellow',
+                isSelectedSongbook(songbook) ? 'tag-selected' : ''
+            ]"
             v-for="songbook in songbooks"
-            v-bind:key="'songbook-'+songbook.id"
+            v-bind:key="'songbook-' + songbook.id"
             v-on:click="selectSongbook(songbook)"
-        >{{ songbook.name }}</a>
+            >{{ songbook.name }}</a
+        >
 
         <h4>Jazyky</h4>
         <a
-            v-bind:class="['tag', 'tag-red', isSelectedLanguage(lang_code) ? 'tag-selected' : '']"
+            v-bind:class="[
+                'tag',
+                'tag-red',
+                isSelectedLanguage(lang_code) ? 'tag-selected' : ''
+            ]"
             v-for="(lang_name, lang_code) in all_languages"
-            v-bind:key="'lang-'+lang_code"
+            v-bind:key="'lang-' + lang_code"
             v-on:click="selectLanguage(lang_code)"
-        >{{ lang_name }}</a>
+            >{{ lang_name }}</a
+        >
     </div>
 </template>
 
 <script>
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const fetch_items = gql`
     query {
@@ -73,36 +103,37 @@ const fetch_items = gql`
 `;
 
 const FETCH_TAGS_GENERIC = gql`
-  query {
-    tags_generic: tags_enum(type: GENERIC) {
-      id
-      name
+    query {
+        tags_generic: tags_enum(type: GENERIC) {
+            id
+            name
+        }
     }
-  }
 `;
 const FETCH_TAGS_LITURGY_PART = gql`
-  query {
-    tags_liturgy_part: tags_enum(type: LITURGY_PART) {
-      id
-      name
+    query {
+        tags_liturgy_part: tags_enum(type: LITURGY_PART) {
+            id
+            name
+        }
     }
-  }
 `;
 const FETCH_TAGS_LITURGY_PERIOD = gql`
-  query {
-    tags_liturgy_period: tags_enum(type: LITURGY_PERIOD) {
-      id
-      name
+    query {
+        tags_liturgy_period: tags_enum(type: LITURGY_PERIOD) {
+            id
+            name
+        }
     }
-  }
 `;
 const FETCH_TAGS_SAINTS = gql`
-  query {
-    tags_saints: tags_enum(type: SAINTS) {
-      id
-      name
+    query {
+        tags_saints: tags_enum(type: SAINTS) {
+            id
+            name
+        }
     }
-}`;
+`;
 
 const fetch_songbooks = gql`
     query {
@@ -115,7 +146,7 @@ const fetch_songbooks = gql`
 `;
 
 export default {
-    props: ["selected-tags", "selected-songbooks", "selected-languages"],
+    props: ['selected-tags', 'selected-songbooks', 'selected-languages'],
 
     data() {
         return {
@@ -123,26 +154,26 @@ export default {
             selected_songbooks: {},
             selected_languages: {},
             all_languages: {
-                cs: "čeština",
-                sk: "slovenština",
-                en: "angličtina",
-                la: "latina",
-                pl: "polština",
-                de: "němčina",
-                fr: "francouzština",
-                es: "španělština",
-                it: "italština",
-                sv: "svahilština",
-                he: "hebrejština",
-                cu: "staroslověnština",
-                mixed: "vícejazyčná píseň"
+                cs: 'čeština',
+                sk: 'slovenština',
+                en: 'angličtina',
+                la: 'latina',
+                pl: 'polština',
+                de: 'němčina',
+                fr: 'francouzština',
+                es: 'španělština',
+                it: 'italština',
+                sv: 'svahilština',
+                he: 'hebrejština',
+                cu: 'staroslověnština',
+                mixed: 'vícejazyčná píseň'
             }
         };
     },
 
     apollo: {
         tags_generic: {
-            query: FETCH_TAGS_GENERIC,
+            query: FETCH_TAGS_GENERIC
         },
         tags_liturgy_part: {
             query: FETCH_TAGS_LITURGY_PART
@@ -167,8 +198,8 @@ export default {
             }
 
             // notify the parent that sth has changed
-            this.$emit("update:selected-tags", this.selected_tags);
-            this.$emit("input", null);
+            this.$emit('update:selected-tags', this.selected_tags);
+            this.$emit('input', null);
         },
 
         selectSongbook(songbook) {
@@ -179,8 +210,8 @@ export default {
             }
 
             // notify the parent that sth has changed
-            this.$emit("update:selected-songbooks", this.selected_songbooks);
-            this.$emit("input", null);
+            this.$emit('update:selected-songbooks', this.selected_songbooks);
+            this.$emit('input', null);
         },
 
         selectLanguage(language) {
@@ -191,8 +222,8 @@ export default {
             }
 
             // notify the parent that sth has changed
-            this.$emit("update:selected-languages", this.selected_languages);
-            this.$emit("input", null);
+            this.$emit('update:selected-languages', this.selected_languages);
+            this.$emit('input', null);
         },
 
         isSelectedTag(tag) {
@@ -208,17 +239,16 @@ export default {
         },
 
         getSelectedTagsDcnf() {
-            const filterMapTags = tags => 
-                            tags.filter(tag => this.isSelectedTag(tag))
-                                .map(tag => tag.id);
+            const filterMapTags = tags =>
+                tags.filter(tag => this.isSelectedTag(tag)).map(tag => tag.id);
 
-            return ({
+            return {
                 liturgy_part: filterMapTags(this.tags_liturgy_part),
                 liturgy_period: filterMapTags(this.tags_liturgy_period),
                 generic: filterMapTags(this.tags_generic),
-                saints: filterMapTags(this.tags_saints),
-            });
-        },
+                saints: filterMapTags(this.tags_saints)
+            };
+        }
     },
 
     watch: {
@@ -236,7 +266,7 @@ export default {
 
             // ok this needs to be here because otherwise the applyStateChange method on Search.vue
             // doesn't work properly when updating only the selectedTags property
-            this.$emit("update:selected-tags-dcnf", this.getSelectedTagsDcnf());
+            this.$emit('update:selected-tags-dcnf', this.getSelectedTagsDcnf());
         },
 
         selectedSongbooks(val, prev) {

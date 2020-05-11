@@ -1,105 +1,109 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
-      <div class="container d-flex justify-content-between">
-        <div class="navbar-brand">
-          <h1 class="text-uppercase mb-0 ">Regenschori</h1>
-          <p class="small">Otevřená databáze křesťanské hudby</p>
-        </div>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
+            <div class="container d-flex justify-content-between">
+                <div class="navbar-brand">
+                    <h1 class="text-uppercase mb-0 ">Regenschori</h1>
+                    <p class="small">Otevřená databáze křesťanské hudby</p>
+                </div>
 
-        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
-      </div>
-    </nav>
+                <div class="navbar-caption">
+                    "Kdo zpívá, dvakrát se modlí." - sv. Augustin
+                </div>
+            </div>
+        </nav>
 
-    <a class="invisible btn btn-secondary mobile-padding-button mb-0">
-      <i class="fas fa-search"></i>
-    </a>
+        <a class="invisible btn btn-secondary mobile-padding-button mb-0">
+            <i class="fas fa-search"></i>
+        </a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-scrolled">
-      <div class="container d-flex">
-        <div class="div">
-          <nuxt-link to="/"
-                     class="btn btn-logo">
-            Regenschori</nuxt-link>
-        </div>
+        <nav
+            class="navbar navbar-expand-lg navbar-dark fixed-top navbar-scrolled"
+        >
+            <div class="container d-flex">
+                <div class="div">
+                    <nuxt-link to="/" class="btn btn-logo">
+                        Regenschori</nuxt-link
+                    >
+                </div>
 
-        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
-      </div>
-    </nav>
-  </div>
+                <div class="navbar-caption">
+                    "Kdo zpívá, dvakrát se modlí." - sv. Augustin
+                </div>
+            </div>
+        </nav>
+    </div>
 </template>
 
 <script>
-  import DarkModeButton from "~/components/DarkModeButton";
+import DarkModeButton from '~/components/DarkModeButton';
 
-  export default {
-    name: "Navbar",
+export default {
+    name: 'Navbar',
 
-    components: {DarkModeButton}
-  }
+    components: { DarkModeButton }
+};
 </script>
 
-<style scoped
-       lang="scss">
-  .navbar {
-    height:           130px;
+<style scoped lang="scss">
+.navbar {
+    height: 130px;
 
     background-color: #151e26;
-    color:            white;
+    color: white;
 
-    box-shadow:       none;
+    box-shadow: none;
 
     .navbar-brand {
-      h1 {
-        line-height:   32px;
-        font-family:   Helvetica, sans-serif;
+        h1 {
+            line-height: 32px;
+            font-family: Helvetica, sans-serif;
 
-        margin-bottom: 3px;
-      }
+            margin-bottom: 3px;
+        }
 
-      p {
-        font-family: PingFang, sans-serif;
-        font-size:   12px;
-        color:       #bababa
-      }
+        p {
+            font-family: PingFang, sans-serif;
+            font-size: 12px;
+            color: #bababa;
+        }
     }
 
     .navbar {
-      z-index:          200;
-      background-color: #292929;
-      min-height:       66px;
+        z-index: 200;
+        background-color: #292929;
+        min-height: 66px;
     }
 
     .navbar-brand {
-      padding: 0 0.5rem;
+        padding: 0 0.5rem;
     }
 
     .navbar-label {
-      padding:          3px 10px;
+        padding: 3px 10px;
 
-      background-color: #292929;
-      color:            white;
+        background-color: #292929;
+        color: white;
     }
-
 
     .navbar-caption {
-      font-family: PingFang, sans-serif;
-      color:       #bababa;
+        font-family: PingFang, sans-serif;
+        color: #bababa;
 
-      font-size:   12px;
+        font-size: 12px;
     }
-  }
+}
 
-  .navbar-scrolled {
+.navbar-scrolled {
     height: 35px;
 
     z-index: 150;
 
     .btn-logo {
-      font-family:    Helvetica,sans-serif;
-      text-transform: uppercase;
+        font-family: Helvetica, sans-serif;
+        text-transform: uppercase;
 
-      color: white;
+        color: white;
     }
-  }
+}
 </style>

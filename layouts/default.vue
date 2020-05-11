@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    <navbar />
-    <nuxt />
-  </div>
+    <div id="app">
+        <navbar />
+        <nuxt />
+    </div>
 </template>
 
 <script>
-import Navbar from '~/components/Navbar'
+import Navbar from '~/components/Navbar';
 
 export default {
-  components: { Navbar }
-}
+    components: { Navbar }
+};
 </script>

@@ -1,180 +1,186 @@
 <template>
-  <client-only>
-    <div>
-      <div @click="opened = !opened"
-           class="toggler">
-      <span>
-        <i class="fas fa-chevron-right ml-2"
-           style="width: 15px"
-           v-if="!opened"></i>
-        <i class="fas fa-chevron-down ml-2"
-           style="width: 15px"
-           v-else></i>
+    <client-only>
+        <div>
+            <div @click="opened = !opened" class="toggler">
+                <span>
+                    <i
+                        class="fas fa-chevron-right ml-2"
+                        style="width: 15px"
+                        v-if="!opened"
+                    ></i>
+                    <i
+                        class="fas fa-chevron-down ml-2"
+                        style="width: 15px"
+                        v-else
+                    ></i>
 
-        <i :class="typeClass"></i>
-        <span v-for="(author, index) in authors"
-              v-bind:key="author.id"><span v-if="index">, </span>{{ author.name }}</span>
-      </span>
-      </div>
+                    <i :class="typeClass"></i>
+                    <span
+                        v-for="(author, index) in authors"
+                        v-bind:key="author.id"
+                        ><span v-if="index">, </span>{{ author.name }}</span
+                    >
+                </span>
+            </div>
 
-      <div v-if="opened"
-           class="content mb-3">
+            <div v-if="opened" class="content mb-3">
+                <song-author-label :authors="authors" class="mb-2" />
 
-        <song-author-label :authors="authors" class="mb-2"/>
+                <iframe
+                    v-if="type === 1"
+                    :src="iframeSrc"
+                    width="100%"
+                    height="80"
+                    frameborder="0"
+                    allowtransparency="true"
+                    allow="encrypted-media"
+                ></iframe>
 
-        <iframe v-if="type === 1"
-                :src="iframeSrc"
-                width="100%"
-                height="80"
-                frameborder="0"
-                allowtransparency="true"
-                allow="encrypted-media"></iframe>
+                <iframe
+                    v-else-if="type == 2"
+                    width="100%"
+                    height="120"
+                    scrolling="no"
+                    frameborder="no"
+                    allow="autoplay"
+                    :src="iframeSrc"
+                ></iframe>
 
-        <iframe v-else-if="type == 2"
-                width="100%"
-                height="120"
-                scrolling="no"
-                frameborder="no"
-                allow="autoplay"
-                :src="iframeSrc"></iframe>
+                <div
+                    class="embed-responsive embed-responsive-16by9"
+                    v-else-if="type === 3"
+                >
+                    <iframe
+                        :src="iframeSrc"
+                        frameborder="0"
+                        allowfullscreen
+                    ></iframe>
+                </div>
 
-        <div class="embed-responsive embed-responsive-16by9"
-             v-else-if="type === 3">
-          <iframe :src="iframeSrc"
-                  frameborder="0"
-                  allowfullscreen></iframe>
+                <!-- audio soubor -->
+                <audio controls :src="iframeSrc" v-else-if="type == 7">
+                    Váš prohlížeč bohužel nepodporuje přehrávání nahraných
+                    souborů.
+                </audio>
+
+                <iframe
+                    v-else
+                    :src="iframeSrc"
+                    frameborder="0"
+                    width="100%"
+                    :height="height || 300"
+                ></iframe>
+            </div>
         </div>
-
-        <!-- audio soubor -->
-        <audio controls
-               :src="iframeSrc"
-               v-else-if="type == 7">
-          Váš prohlížeč bohužel nepodporuje přehrávání nahraných souborů.
-        </audio>
-
-        <iframe v-else
-                :src="iframeSrc"
-                frameborder="0"
-                width="100%"
-                :height="height || 300"></iframe>
-      </div>
-    </div>
-  </client-only>
+    </client-only>
 </template>
 
 <script>
-
-  import SongAuthorLabel from "~/pages/song/components/SongAuthorLabel";
-  export default {
-    components: {SongAuthorLabel},
+import SongAuthorLabel from '~/pages/song/components/SongAuthorLabel';
+export default {
+    components: { SongAuthorLabel },
     props: {
-      url: String,
-      downloadUrl: String,
-      type: Number,
-      thumbnailUrl: String,
-      mediaId: String,
-      authors: Array,
-      height: Number
+        url: String,
+        downloadUrl: String,
+        type: Number,
+        thumbnailUrl: String,
+        mediaId: String,
+        authors: Array,
+        height: Number
     },
 
     data() {
-      return {
-        types: {
-          0: "link",
-          1: "spotify",
-          2: "soundcloud",
-          3: "youtube",
-          4: "score",
-          5: "webpage",
-          6: "youtube_channel",
-          7: "audio",
-          8: "pdf/text_chords",
-          9: "pdf/text",
-        },
+        return {
+            types: {
+                0: 'link',
+                1: 'spotify',
+                2: 'soundcloud',
+                3: 'youtube',
+                4: 'score',
+                5: 'webpage',
+                6: 'youtube_channel',
+                7: 'audio',
+                8: 'pdf/text_chords',
+                9: 'pdf/text'
+            },
 
-        opened: false,
-      }
+            opened: false
+        };
     },
 
     computed: {
-      iframeSrc() {
-        if (this.type === 1) {
-          return "https://open.spotify.com/embed/track/" + this.mediaId;
-        }
-        else if (this.type === 2) {
-          return "https://w.soundcloud.com/player/?url=" + this.mediaId +
-            "&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true";
-        }
-        else if (this.type === 3) {
-          return "https://www.youtube.com/embed/" + this.mediaId
-        }
-        else if ([4, 8, 9].includes(this.type)) {
-          // pdf file
-          // decide if the browser can display that directly in iframe
-          if (this.$ua.isFromPc()) {
-            return this.url;
-          }
-          else {
-            return "https://docs.google.com/viewer?url=" + this.url;
-          }
+        iframeSrc() {
+            if (this.type === 1) {
+                return 'https://open.spotify.com/embed/track/' + this.mediaId;
+            } else if (this.type === 2) {
+                return (
+                    'https://w.soundcloud.com/player/?url=' +
+                    this.mediaId +
+                    '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true'
+                );
+            } else if (this.type === 3) {
+                return 'https://www.youtube.com/embed/' + this.mediaId;
+            } else if ([4, 8, 9].includes(this.type)) {
+                // pdf file
+                // decide if the browser can display that directly in iframe
+                if (this.$ua.isFromPc()) {
+                    return this.url;
+                } else {
+                    return 'https://docs.google.com/viewer?url=' + this.url;
+                }
+            } else {
+                return this.url;
+            }
+        },
 
+        mediaLink() {
+            if (this.type === 1) {
+                return 'https://open.spotify.com/track/' + this.mediaId;
+            } else {
+                return this.url;
+            }
+        },
+
+        typeString() {
+            return this.types[this.type];
+        },
+
+        typeClass() {
+            switch (this.type) {
+                case 1:
+                    return 'fab fa-spotify';
+
+                case 2:
+                    return 'fab fa-soundcloud';
+
+                case 3:
+                    return 'fab fa-youtube';
+
+                case 4:
+                    return 'fas fa-file-pdf';
+
+                default:
+                    return 'fas fa-music';
+            }
         }
-        else {
-          return this.url;
-        }
-      },
-
-      mediaLink() {
-        if (this.type === 1) {
-          return "https://open.spotify.com/track/" + this.mediaId;
-        }
-        else {
-          return this.url;
-        }
-      },
-
-      typeString() {
-        return this.types[this.type];
-      },
-
-      typeClass() {
-        switch (this.type) {
-          case 1:
-            return "fab fa-spotify";
-
-          case 2:
-            return "fab fa-soundcloud";
-
-          case 3:
-            return "fab fa-youtube";
-
-          case 4:
-            return "fas fa-file-pdf";
-
-          default:
-            return "fas fa-music";
-        }
-      }
     }
-  }
+};
 </script>
 
-<style scoped
-       lang="scss">
-  .toggler {
-    cursor:         pointer;
+<style scoped lang="scss">
+.toggler {
+    cursor: pointer;
 
-    display:        block;
+    display: block;
 
-    border-bottom:  1px #d0d0d0 solid;
+    border-bottom: 1px #d0d0d0 solid;
     padding-bottom: 8px;
-    margin-bottom:  10px;
-  }
+    margin-bottom: 10px;
+}
 
-
-  .content {
-    font-size:    80%;
-    color:        grey;
+.content {
+    font-size: 80%;
+    color: grey;
     padding-left: 25px;
-  }
+}
 </style>
