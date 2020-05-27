@@ -13,18 +13,21 @@
 
               <div class="row">
                 <div class="col-8">
-                  <search-current-status />
+                  <search-current-status/>
                 </div>
 
-                <div class="col-4 text-right">
+                <div class="col-4 text-right" v-if="results_ready">
                   <h2>Výsledky vyhledávání</h2>
 
-                  <p>Nalezeno {{search_records_count}} záznamů</p>
+                  <p>Nalezeno {{song_lyrics_paginated.paginatorInfo.total}} záznamů</p>
                 </div>
               </div>
 
               <div class="row">
-                <search-results :songs="[]"></search-results>
+                <search-results :songs="song_lyrics_paginated.data"
+                                v-if="results_ready"></search-results>
+
+                <div class="text-center" v-else>načítám</div>
               </div>
             </div>
           </div>
@@ -40,15 +43,46 @@
   import SongsList from "./components/SongsList";
   import Filters from "./components/Filters";
   import AppLinks from "./components/AppLinks";
-  import Logo from "./components/Logo";
-
-  import {isEmpty} from "lodash";
   import SearchBox from "~/pages/search/components/SearchBox";
   import SearchResults from "~/pages/search/components/SearchResults";
   import SearchCurrentStatus from "~/pages/search/components/SearchCurrentStatus";
   import SearchInput from "~/pages/search/components/SearchInput";
 
-  import search_state from "~/pages/search/search_state";
+  import SearchState from "~/pages/search/search_state"
+
+  import gql from 'graphql-tag';
+
+  // Query
+  const fetch_items = gql`
+        query ($search_params: String, $page: Int, $per_page: Int) {
+            song_lyrics_paginated: search_song_lyrics(search_params: $search_params, page: $page, per_page: $per_page) {
+                data {
+                  id,
+                  name,
+                  public_url,
+                  lang,
+                  lang_string,
+                  scoreExternals: externals(type: 4){id},
+                  scoreFiles: files(type: 3){id},
+                  youtubeVideos: externals(type: 3){id},
+                  spotifyTracks: externals(type: 1){id},
+                  soundcloudTracks: externals(type: 2){id},
+                  audioFiles: files(type: 4){id},
+                  authors{id, name, public_url}
+                  tags{id},
+                  has_chords,
+                  has_lyrics,
+                  songbook_records{number, songbook{id, name, shortcut}}
+              },
+              paginatorInfo {
+                currentPage,
+                lastPage,
+                total,
+                hasMorePages
+              }
+            }
+        }`;
+
 
   /**
    * Root search component.
@@ -56,161 +90,123 @@
    * Toggles 2 views (SearchHome and SearchResults).
    */
   export default {
-    props: {
-      "str-prefill": String
-    },
-
-    data() {
-      return {
-        // Search component state storage
-        state: search_state,
-
-        // Search data
-        search_string: "",
-        selected_songbooks: {},
-        selected_languages: {},
-        selected_tags: {},
-
-        // dcnf - disjunctive canonical normal form :)
-        selected_tags_dcnf: {},
-
-        // View state
-        displayFilter: false,
-
-        search_records_count: 0
-      }
-    },
-
-
-    beforeCreate: function () {
-      if (process.client) {
-        document.body.className = 'home';
-      }
-    },
-
-    beforeDestroy() {
-      if (process.client) {
-        document.body.className = '';
-      }
-    },
-
-    methods: {
-      updateSelectedTagsDcnf(event) {
-        this.selected_tags_dcnf = event;
-      },
-
-      updateHistoryState() {
-        if (this.init) {
-          return;
-        }
-
-        this.$router.replace({
-          path: '/search',
-          query: {
-            q: this.search_string || null,
-            tags: Object.keys(this.selected_tags).join(','),
-            langs: Object.keys(this.selected_languages).join(','),
-            songbooks: Object.keys(this.selected_songbooks).join(',')
-          }
-        });
-
-        console.log('replaced url');
-      },
-
-      applyStateChange(event) {
-        let query = this.$route.query;
-
-        if (isEmpty(query)) {
-          this.resetState(false);
-          return;
-        }
-
-        this.search_string = query.q || this.search_string;
-
-        // a helper function
-        const getObjFormat = function (str) {
-          if (isEmpty(str)) {
-            return {};
-          }
-
-          console.log(str);
-
-          return str.split(',').filter(str => str.length)
-            .reduce((obj, key, _) => {
-              obj[key] = true;
-              return obj;
-            }, {});
-        }
-
-        this.selected_tags = getObjFormat(query.tags);
-        this.selected_languages = getObjFormat(query.langs);
-        this.selected_songbooks = getObjFormat(query.songbooks);
-      },
-
-
-      resetState(update_url) {
-        this.search_string = "";
-        this.selected_tags = {};
-        this.selected_languages = {};
-        this.selected_songbooks = {};
-
-        if (update_url) {
-          this.updateHistoryState();
-        }
-      },
-
-      autoInit() {
-        if (this.init && this.search_string !== "") {
-          this.init = false;
-        }
-      },
-
-      currentUrl() {
-        // return encodeURIComponent(window.location.href);
-        return this.$route.fullPath;
-      }
-    },
-
-    mounted() {
-      this.search_string = this.strPrefill ? this.strPrefill : "";
-      if (process.client) {
-        window.onpopstate = this.applyStateChange;
-      }
-
-      if (this.$route.path == "/search") {
-        // this.applyStateChange();
-        this.init = false;
-      }
-    },
 
     components: {
       SearchInput,
       SearchCurrentStatus,
       SearchResults,
       SearchBox,
-      Logo,
       AppLinks,
       AuthorsList,
       SongsList,
       Filters
     },
 
-    computed: {
-      /**
-       * Note that there has to be sth together at the line with return,
-       * otherwise js will see only return; and don't give a f*ck about the things below.
-       *
-       * @returns {boolean}
-       */
-      filters_active() {
-
-        return (
-          Object.keys(this.selected_songbooks).length +
-          Object.keys(this.selected_tags).length +
-          Object.keys(this.selected_languages).length)
-          > 0;
+    data() {
+      return {
+        state: SearchState,
+        results_ready: false
       }
-    }
+    },
+
+    computed: {
+      search_records_count() {
+
+        return 0;
+
+      },
+
+      searchParams() {
+        // encode the elasticsearch attributes into an object and send as JSON text
+        // for docs see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
+        // all the searchable fields are defined in App\SongLyrics: toSearchableArray() and $mapping attr
+        // also, the Kibana tool can be used for debugging the elasticsearch requests
+        // see docker-compose.yml
+        let query = {
+          'bool': {
+            'must': [],
+            'filter': []
+          }
+        };
+        // beware that not all attribute types can be used for sorting, this is why 'name_keyword' has been added to index
+        let sort = [];
+
+        if (this.state.query) {
+          query.bool.must.push({
+            'multi_match': {
+              'query': this.state.query,
+              'fields': ['name^2', 'lyrics', 'authors', '_id^50', 'songbook_records.sonbgook_number']
+            }
+          });
+        }
+        else {
+          // no search keyword provided, so use the alphabetical sorting
+          sort.push('name_keyword');
+        }
+
+        /*
+        for (let category_tags of Object.values(this.selected_tags_dcnf)) {
+          let tag_ids = Object.values(category_tags).map(v => parseInt(v));
+          if (tag_ids.length) {
+            query.bool.filter.push({'terms': {'tag_ids': tag_ids}})
+          }
+        }
+
+
+        if (Object.keys(this.selectedLanguages).length) {
+          query.bool.filter.push({'terms': {'lang' : Object.keys(this.selectedLanguages)}})
+        }
+
+        if (Object.keys(this.selectedSongbooks).length) {
+          query.bool.filter.push({'terms': {'songbook_records.songbook_id': Object.keys(this.selectedSongbooks)}})
+        }
+        */
+
+        // encode to a JSON string to pass as an argument
+        // // const query_base64 = Buffer.from(query_str).toString("base64");
+        return JSON.stringify({
+          "sort": sort,
+          "query": query
+        });
+      },
+
+    },
+
+    mounted() {
+
+    },
+
+    watch: {
+      searchParams() {
+        this.results_ready = false;
+      },
+    },
+
+    // GraphQL client
+    apollo: {
+      song_lyrics_paginated: {
+        query: fetch_items,
+
+        variables() {
+          return {
+            search_params: this.searchParams,
+            page: 1,
+            per_page: 50
+          }
+        },
+
+        // debounce waits 200ms for query refetching
+        debounce: 200,
+
+        result(result) {
+          this.$emit("query-loaded", null);
+          //this.enable_more = result.data.song_lyrics_paginated.paginatorInfo.hasMorePages;
+          this.results_ready = true;
+        },
+      }
+    },
+
+
   }
 </script>
 
