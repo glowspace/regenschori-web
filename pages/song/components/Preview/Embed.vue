@@ -1,13 +1,9 @@
-<template>
-
-</template>
+<template> </template>
 
 <script>
-    export default {
-        name: "Embed"
-    }
+export default {
+    name: 'Embed'
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

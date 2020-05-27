@@ -8,39 +8,33 @@
 </template>
 
 <script>
-    export default {
-        name: "UserCard",
+export default {
+    name: 'UserCard',
 
-        props: [
-            'name',
-            'info'
-        ]
-    }
+    props: ['name', 'info']
+};
 </script>
 
-<style scoped
-       lang="scss">
+<style scoped lang="scss">
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 
-    @import "~bootstrap/scss/functions";
-    @import "~bootstrap/scss/variables";
-    @import "~bootstrap/scss/mixins";
+.card {
+    flex: 0 0 calc(100% / 3 - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
 
-    .card {
-        flex: 0 0 calc(100% / 3 - 20px);
-        margin-left: 10px;
-        margin-right: 10px;
-
-        @include media-breakpoint-between(sm, md) {
-            flex: 0 0 calc(100% / 2 - 20px);
-        }
-
-        @include media-breakpoint-down(xs) {
-            margin-bottom: 15px;
-
-            .card-body {
-                padding: 1rem;
-            }
-        }
-
+    @include media-breakpoint-between(sm, md) {
+        flex: 0 0 calc(100% / 2 - 20px);
     }
+
+    @include media-breakpoint-down(xs) {
+        margin-bottom: 15px;
+
+        .card-body {
+            padding: 1rem;
+        }
+    }
+}
 </style>

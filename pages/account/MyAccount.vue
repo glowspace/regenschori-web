@@ -8,14 +8,20 @@
         <h2>Zpěvníky:</h2>
 
         <ul class="list-group">
-            <li v-for="songbook in user.songbooks"
+            <li
+                v-for="songbook in user.songbooks"
                 v-bind:key="songbook.id"
-                class="list-group-item d-flex justify-content-between align-items-center">
+                class="list-group-item d-flex justify-content-between align-items-center"
+            >
                 {{ songbook.name }}
-                <span class="badge badge-primary badge-pill">{{ songbook.song_lyrics.length }}</span>
+                <span class="badge badge-primary badge-pill">{{
+                    songbook.song_lyrics.length
+                }}</span>
                 <ul>
-                    <li v-for="song_lyric in songbook.song_lyrics"
-                        v-bind:key="song_lyric.id">
+                    <li
+                        v-for="song_lyric in songbook.song_lyrics"
+                        v-bind:key="song_lyric.id"
+                    >
                         {{ song_lyric.name }}
                     </li>
                 </ul>
@@ -28,11 +34,9 @@
 </template>
 
 <script>
-    export default {
-        name: "MyAccount"
-    }
+export default {
+    name: 'MyAccount'
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
