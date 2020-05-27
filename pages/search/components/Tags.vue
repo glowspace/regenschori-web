@@ -104,14 +104,14 @@ export default {
     computed: {
         tags_official() {
             if (this.tags) {
-                return this.tags.filter(tag => tag.type == 1);
+                return this.tags.filter(tag => tag.type === 1);
             }
         },
 
         tags_unofficial() {
             if (this.tags) {
                 return this.tags.filter(
-                    tag => tag.parent_tag == null && tag.type == 0
+                    tag => tag.parent_tag == null && tag.type === 0
                 );
             }
         },
