@@ -117,6 +117,7 @@
       },
 
       searchParams() {
+
         // encode the elasticsearch attributes into an object and send as JSON text
         // for docs see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
         // all the searchable fields are defined in App\SongLyrics: toSearchableArray() and $mapping attr
@@ -144,23 +145,21 @@
           sort.push('name_keyword');
         }
 
-        /*
-        for (let category_tags of Object.values(this.selected_tags_dcnf)) {
-          let tag_ids = Object.values(category_tags).map(v => parseInt(v));
+        for (let category_tags of Object.values(this.state.selected_tags)) {
+          let tag_ids = Object.values(category_tags).map(tag => parseInt(tag.id));
           if (tag_ids.length) {
             query.bool.filter.push({'terms': {'tag_ids': tag_ids}})
           }
         }
 
+        // if (Object.keys(this.selectedLanguages).length) {
+        //   query.bool.filter.push({'terms': {'lang' : Object.keys(this.selectedLanguages)}})
+        // }
 
-        if (Object.keys(this.selectedLanguages).length) {
-          query.bool.filter.push({'terms': {'lang' : Object.keys(this.selectedLanguages)}})
-        }
-
-        if (Object.keys(this.selectedSongbooks).length) {
-          query.bool.filter.push({'terms': {'songbook_records.songbook_id': Object.keys(this.selectedSongbooks)}})
-        }
-        */
+        // if (Object.keys(this.selectedSongbooks).length) {
+        //   query.bool.filter.push({'terms': {'songbook_records.songbook_id': Object.keys(this.selectedSongbooks)}})
+        // }
+        
 
         // encode to a JSON string to pass as an argument
         // // const query_base64 = Buffer.from(query_str).toString("base64");
