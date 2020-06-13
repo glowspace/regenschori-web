@@ -46,7 +46,7 @@ export default {
     props: ['score'],
 
     mounted() {
-        console.log(this.score);
+        // console.log(this.score);
     },
 
     data: () => {

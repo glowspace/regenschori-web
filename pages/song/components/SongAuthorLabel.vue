@@ -21,7 +21,7 @@ export default {
     props: ['authors'],
 
     mounted() {
-        console.log(this.authors);
+        // console.log(this.authors);
     }
 };
 </script>
