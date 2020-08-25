@@ -1,15 +1,4 @@
-// better preload song
-
-.row~#preloadPlaceholder {
-    display: none;
-}
-
-.song-line {
-    display: none;
-}
-
 .card-lyrics {
-
     .card-header,
     .card-footer {
         background-color: #f1f4f9;
@@ -17,10 +6,6 @@
 
     .card-body {
         border-bottom: #7f97ab;
-    }
-
-    .song-line {
-        display: block;
     }
 }
 
@@ -150,12 +135,6 @@ span.song-part-tag {
             border-color: #211d19;
         }
     }
-}
-
-.select-themed {
-    background-color: white;
-    padding: 0.5em;
-    width: 100%;
 }
 
 .song-part-hidden {
@@ -290,10 +269,6 @@ span.song-part-tag {
     opacity: 0;
     transition: opacity 600ms, visibility 600ms;
     pointer-events: none;
-}
-
-body[data-dark] .nosleep-caption {
-    background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .nosleep:hover+.nosleep-caption {

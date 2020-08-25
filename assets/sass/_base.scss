@@ -1,0 +1,76 @@
+// _transitions.scss
+// page transitions (please do not edit those purgecss comments)
+/* purgecss start ignore */
+.page-enter-active, .page-leave-active {
+    transition: opacity .2s;
+}
+
+.page-enter, .page-leave-to {
+    opacity: 0;
+}
+/* purgecss end ignore */
+
+// _author.scss
+.author-secondary-links a {
+    color: #6c757d !important;
+}
+
+// _error.scss
+.error {
+    color: white;
+    text-align: center;
+
+    h1 {
+        font-size: calc(4vw + 50px);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    p {
+        font-size: calc(2vw + 10px);
+    }
+
+    .display-all-songs {
+        font-size: calc(1vw + 10px);
+    }
+}
+
+// other elements and classes
+html,
+body {
+    height: 100%;
+    overflow-x: visible;
+}
+
+input::placeholder {
+    line-height: inherit;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0.7em 0;
+}
+
+.btn {
+    will-change: initial;
+}
+
+a:focus {
+    text-decoration: underline;
+
+    &.btn {
+        text-decoration: none;
+    }
+}
+
+.table tr:first-child {
+    td, th {
+        border-top: none;
+    }
+}

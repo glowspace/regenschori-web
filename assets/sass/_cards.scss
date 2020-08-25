@@ -1,0 +1,50 @@
+.card {
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding: 0.90rem 1.25rem;
+}
+
+.card-blue, .card-green, .card-red {
+    border-radius: 3px;
+
+    .card-header {
+        color: white;
+        border-radius: 3px 3px 0 0;
+
+        a, a:hover {
+            color: white;
+        }
+    }
+}
+
+.card-blue {
+    .card-header {
+        background-color: $main-blue !important;
+    }
+
+    a {
+        color: $main-blue;
+    }
+}
+
+.card-green {
+    .card-header {
+        background-color: $main-green !important;
+    }
+
+    a {
+        color: $main-green;
+    }
+}
+
+.card-red {
+    .card-header {
+        background-color: $main-red !important;
+    }
+
+    a {
+        color: $main-red;
+    }
+}

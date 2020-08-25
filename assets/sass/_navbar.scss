@@ -28,6 +28,10 @@
 
 .navbar {
     padding: 0.5rem 0;
+    z-index: 200;
+    background-color: #292929;
+    min-height: 66px;
+    font-family: "Nunito", sans-serif;
 
     &>div {
         width: 100%;
@@ -63,5 +67,9 @@
                 color: #fff;
             }
         }
+    }
+
+    .navbar-brand {
+        padding: 0 0.5rem;
     }
 }
