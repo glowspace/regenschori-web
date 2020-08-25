@@ -1,60 +1,68 @@
 require('dotenv').config();
+import PurgecssPlugin from 'purgecss-webpack-plugin'
+import glob from 'glob-all'
+import path from 'path'
 
 export default {
-    mode: 'universal',
+    mode: process.env.NUXT_MODE || 'universal',
+    env: {
+        baseUrl: 'https://www.regenschori.cz',
+        titleWebsite: 'Regenschori',
+        titleSeparator: ' – ',
+        adminUrl: process.env.ADMIN_URL || ''
+    },
     /*
      ** Headers of the page
      */
     head: {
-        title: process.env.npm_package_name || '',
+        title: 'Regenschori',
         meta: [
             { charset: 'utf-8' },
-            {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1'
-            },
-            {
-                hid: 'description',
-                name: 'description',
-                content: process.env.npm_package_description || ''
-            }
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+
+            { name: 'msapplication-TileColor', content: '#da532c' },
+            { name: 'theme-color', content: '#292929' },
+
+            { property: 'og:type', content: 'website' },
+            // { property: 'og:image', content: 'https://zpevnik.proscholy.cz/banner.png' },
+            // { property: 'twitter:card', content: 'summary_large_image' },
+            // { property: 'twitter:image', content: 'https://zpevnik.proscholy.cz/banner.png' }
         ],
         link: [
-            {
-                rel: 'icon',
-                type: 'image/png',
-                sizes: '32x32',
-                href: '~/static/img/favicon/favicon-32x32.png'
-            },
-            {
-                rel: 'icon',
-                type: 'image/png',
-                sizes: '16x16',
-                href: '~/static/img/favicon/favicon-16x16.png'
-            },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
+            { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png' },
+            { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png' },
+            { rel: 'manifest', href: '/favicon/site.webmanifest' },
+            { rel: 'mask-icon', href: '/favicon/safari-pinned-tab.svg', color: '#5bbad5' },
+
             {
                 rel: 'stylesheet',
                 type: 'text/css',
-                href: 'https://fonts.googleapis.com/css?family=Nunito:200,600'
-            },
-            {
-                rel: 'stylesheet',
-                href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
-            },
-            {
-                rel: 'stylesheet',
-                type: 'text/css',
-                href: 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
-                integrity:
-                    'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
+                href: 'https://use.fontawesome.com/releases/v5.9.0/css/all.css',
                 crossorigin: 'anonymous'
             }
+        ],
+        script: [
+            { src: '/dark.js' }
         ]
+    },
+    messages: {
+        loading: 'Načítání…',
+        error_404: 'Error 404 – stránka nebyla nalezena',
+        server_error: 'Chyba serveru',
+        nuxtjs: '',
+        back_to_home: 'Zpět na úvodní stránku',
+        server_error_details:
+          'Ajajaj, na našem serveru se někde stala chyba. <br>Zkuste <u><a href="/">použít vyhledávání</a></u>. <br>Chybu také můžete <u><a href="https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=–&entry.456507920=500" target="_blank">nahlásit</a></u>.',
+        client_error: 'Chyba',
+        client_error_details:
+          'Během renderování stránky došlo k chybě. Více informací najdeš v konzoli nástrojů pro vývojáře.'
     },
     /*
      ** Customize the progress-bar color
      */
-    loading: { color: '#ffffff' },
+    loading: { color: '#aaa' },
     /*
      ** Global CSS
      */
@@ -70,19 +78,20 @@ export default {
      ** Nuxt.js dev-modules
      */
     buildModules: [
-        ['@nuxtjs/google-analytics', { id: 'UA-94042414-8' }],
+        ['@nuxtjs/google-analytics', { id: 'G-CTBZFXNL2E' }],
         '@nuxtjs/router',
-        '@nuxtjs/dotenv'
+        '@nuxtjs/dotenv',
+        ['@nuxtjs/vuetify', { treeShake: true, theme: { disable: true } }]
     ],
     /*
-     ** Nuxt.js modules
-     */
-    modules: [
-        // '@nuxtjs/pwa',
-        '@nuxtjs/apollo',
-        '@nuxtjs/axios',
-        '@nuxtjs/proxy',
-        'nuxt-user-agent'
+    ** Nuxt.js modules
+    */
+   modules: [
+       // '@nuxtjs/pwa',
+       '@nuxtjs/apollo',
+       '@nuxtjs/axios',
+       '@nuxtjs/proxy',
+       '@nuxtjs/sentry'
     ],
     apollo: {
         clientConfigs: {
@@ -91,7 +100,7 @@ export default {
                 // when running in docker, the server-side endpoint differs from the client-side one
                 // --> httpEndpoint is accessed from the inside of the Docker image, so the url is http://(docker-img-name):(inside-port)
                 // --> browserHttpEndpoint is accessed from the browser, so the url is http://localhost:(outside-port)
-                browserHttpEndpoint: process.env.APP_URL_BROWSER || process.env.APP_URL
+                browserHttpEndpoint: process.env.APP_URL_BROWSER || process.env.APP_URL,
             }
         }
     },
@@ -103,6 +112,9 @@ export default {
             }
         }
     },
+    sentry: {
+        dsn: process.env.SENTRY_DSN
+    },
     /*
      ** Build configuration
      */
@@ -110,7 +122,24 @@ export default {
         /*
          ** You can extend webpack config here
          */
-        extend(config, ctx) {},
+        extend(config, { isDev, isClient }) {
+            config.plugins.push(
+                new PurgecssPlugin({
+                    paths: glob.sync([
+                        path.join(__dirname, './pages/**/*.vue'),
+                        path.join(__dirname, './layouts/**/*.vue'),
+                        path.join(__dirname, './components/**/*.vue')
+                    ]),
+                    whitelist: ['html', 'body', 'nuxt-progress'],
+                    whitelistPatterns: [/^v-((?!application).)*$/, /^nuxt/],
+                    whitelistPatternsChildren: [/^theme--*/, /^v-((?!application).)*$/, /^nuxt/]
+                })
+            );
+
+            if (isClient) {
+                config.optimization.splitChunks.maxSize = 500000;
+            }
+        },
         extractCSS: true
     }
 };

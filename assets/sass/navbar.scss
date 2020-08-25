@@ -1,52 +1,67 @@
-
 .navbar.absolute-top {
-  z-index: 201;
+    z-index: 201;
 
-  @media screen and (max-width: 350px) {
-    display: none;
-  }
+    @media screen and (max-width: 375px) {
+        display: none;
+    }
 }
 
 .mobile-padding-button {
-  display: none;
+    display: none;
 
-  @media screen and (max-width: 350px) {
-    display: block;
-  }
+    @media screen and (max-width: 375px) {
+        display: block;
+    }
+}
+
+.navbar.absolute-top a i,
+.card-header i {
+    padding-right: 5px;
+
+    @include media-breakpoint-down(xs) {
+        .card-lyrics & {
+            padding-right: 0;
+        }
+    }
 }
 
 
 .navbar {
-  padding: 0.5rem 0;
-}
+    padding: 0.5rem 0;
 
-.navbar > div {
-  width: 100%;
-  /* max-width: 994px; */
-  margin: 0 auto;
-  padding: 0;
-}
+    &>div {
+        width: 100%;
+        /* max-width: 994px; */
+        margin: 0 auto;
+        padding: 0;
+    }
 
-.navbar .container {
-  // override bootstrap flex behaviour
-  display: block;
-}
+    .container {
+        // override bootstrap flex behaviour
+        display: block;
+    }
 
-.navbar.absolute-top a i, .card-header i {
-  padding-right: 5px;
-}
+    &.fixed-top {
+        padding-top: 0;
+        padding-bottom: 0;
+        line-height: initial;
+        min-height: auto;
+    }
 
-.navbar.fixed-top {
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: initial;
-  min-height: auto;
-}
+    a {
+        margin-bottom: 0;
+    }
 
-.navbar a {
-  margin-bottom: 0;
-}
+    .btn.btn-secondary {
+        color: #aaa;
 
-.navbar .btn.btn-secondary {
-  color: #aaa;
+        &.active, &:active {
+            background-color: rgba(153, 153, 153, 0.2);
+
+            &:hover, &:focus {
+                background-color: rgba(153, 153, 153, 0.4);
+                color: #fff;
+            }
+        }
+    }
 }

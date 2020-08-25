@@ -1,5 +1,23 @@
 <template>
-    <div class="d-flex flex-column mr-n3 position-relative">
+    <div class="align-self-end align-self-sm-start d-sm-flex flex-column pb-sm-0 mr-n3 position-relative">
+        <a
+            class="btn m-0"
+            title="Upravit píseň"
+            target="_blank"
+            :href="[song_lyric ? adminUrl + '/song/' + song_lyric.id + '/edit' : '']"
+        >
+            <i class="fas fa-pen p-0"></i>
+        </a>
+        <!-- <a
+            class="btn btn-secondary m-0"
+            :title="[
+                !starred
+                    ? 'Označit píseň hvězdičkou'
+                    : 'Zrušit hvězdičku'
+            ]"
+            @click="toggleStar"
+            ><i class="fa-star" :class="[starred ? 'fas' : 'far']"></i
+        ></a> -->
         <a
             class="btn btn-secondary m-0"
             :title="[
@@ -7,13 +25,31 @@
                     ? 'Zobrazit na celou obrazovku'
                     : 'Zrušit zobrazení na celou obrazovku'
             ]"
-            v-on:click="toggleFullscreen"
+            @click="toggleFullscreen"
             ><i
                 class="fas"
                 :class="[fullscreen ? 'fa-compress' : 'fa-expand']"
             ></i
         ></a>
-        <!-- <a class="btn btn-secondary m-0"><i class="fas fa-columns"></i></a> -->
+        <!-- <nuxt-link
+            class="btn btn-secondary m-0"
+            title="Aktivovat režim promítání"
+            :to="'/promitat' + song_lyric.public_route"
+            ><i class="fas fa-desktop"></i
+        ></nuxt-link>
+        <a
+            class="btn btn-secondary m-0"
+            :title="[
+                !columns
+                    ? 'Zobrazit text ve sloupcích'
+                    : 'Zrušit zobrazení ve sloupcích'
+            ]"
+            @click="toggleColumns"
+            ><i
+                class="fas"
+                :class="[columns ? 'fa-align-justify' : 'fa-columns']"
+            ></i
+        ></a> -->
         <a
             class="btn btn-secondary m-0 nosleep"
             :title="[
@@ -21,7 +57,7 @@
                     ? 'Blokovat zhasínání displeje'
                     : 'Přestat blokovat zhasínání displeje'
             ]"
-            v-on:click="toggleNosleep"
+            @click="toggleNosleep"
             ><i class="fa-sun" :class="[nosleep ? 'far' : 'fas']"></i
         ></a>
         <a class="btn btn-secondary nosleep-caption">{{
@@ -32,43 +68,18 @@
     </div>
 </template>
 
-<style>
-.nosleep-caption {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: calc(2.875rem);
-    margin-bottom: -0.46875rem;
-    padding: 0.46875rem 10px;
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    border-radius: 10px;
-    z-index: 4;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 600ms, visibility 600ms;
-    pointer-events: none;
-}
-
-body.dark .nosleep-caption {
-    background-color: rgba(0, 0, 0, 0.8) !important;
-}
-
-.nosleep:hover + .nosleep-caption {
-    visibility: visible;
-    opacity: 1;
-}
-</style>
-
 <script>
 import NoSleep from 'nosleep.js';
 
 export default {
+    props: ['song_lyric'],
+
     data() {
         return {
             fullscreen: false,
             nosleep: false,
-
-            noSleeper: process.client ? new NoSleep() : null
+            noSleeper: process.client ? new NoSleep() : null,
+            adminUrl: process.env.adminUrl
         };
     },
 

@@ -1,12 +1,14 @@
-# Regenschori web UI
+# Regenschori SPA
 
->  User frontend of regenschori.cz written in Nuxt.js
+[![Gitpod ready](https://img.shields.io/badge/Gitpod-ready-blue?logo=gitpod)](https://gitpod.io/#https://github.com/proscholy/regenschori.cz)
+
+>  User frontend of www.regenschori.cz written in Nuxt.js
 
 ## Build Setup
 
 ```bash
 # install dependencies
-$ yarn
+$ yarn install
 
 # serve with hot reload at localhost:3000
 $ yarn dev

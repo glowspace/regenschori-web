@@ -17,23 +17,22 @@ export default {
 
     methods: {
         darkModeToggle: function() {
-            if (process.client) {
-                document
-                    .getElementsByTagName('body')[0]
-                    .classList.toggle('dark');
-                if (window.localStorage) {
-                    if (localStorage.getItem('dark') === 'true') {
-                        localStorage.setItem('dark', false);
-                    } else {
-                        localStorage.setItem('dark', true);
-                    }
+            if (process.client && window.localStorage) {
+                if (localStorage.getItem('dark') === 'true') {
+                    localStorage.setItem('dark', false);
+                    document.getElementsByTagName('body')[0].removeAttribute('data-dark');
+                } else {
+                    localStorage.setItem('dark', true);
+                    document.getElementsByTagName('body')[0].setAttribute('data-dark', 'dark');
                 }
             }
         },
         darkModeInit: function() {
             if (process.client && window.localStorage) {
                 if (localStorage.getItem('dark') === 'true') {
-                    //   document.getElementsByTagName("body")[0].className = "dark";
+                    document.getElementsByTagName('body')[0].setAttribute('data-dark', 'dark');
+                } else {
+                    document.getElementsByTagName('body')[0].removeAttribute('data-dark');
                 }
             }
         }

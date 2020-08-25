@@ -6,7 +6,7 @@
             <a
                 class="btn btn-secondary bg-light transpose-window"
                 v-on:click="reset()"
-                >{{ transposition }}</a
+                >{{ value }}</a
             >
             <a class="btn btn-secondary" v-on:click="transpose(1)">+</a>
         </div>
@@ -17,21 +17,15 @@
 export default {
     props: ['value'],
 
-    data() {
-        return {
-            transposition: 0
-        };
-    },
-
     methods: {
         transpose: function(val) {
-            this.transposition = (this.transposition + val) % 12;
-            this.$emit('input', this.transposition);
+            this.value = (this.value + val) % 12;
+            this.$emit('input', this.value);
         },
 
         reset() {
-            this.transposition = 0;
-            this.$emit('input', this.transposition);
+            this.value = 0;
+            this.$emit('input', this.value);
         }
     }
 };

@@ -1,48 +1,29 @@
 <template>
     <div class="song-tags p-0 mt-3">
-        <!--<div class="d-inline-flex flex-row flex-wrap align-items-start mr-3"
-             v-if="tags.officials.length && tags.unofficials.length">
-            @foreach ($tags_officials as $tag)
-            <a class="tag tag-blue" v-for="tag in tags_officials"
-               href="{{route("
-               client.search_results")}}?searchString=&tags={{ $tag->id }}&langs=&songbooks=">{{ $tag->name
-            }}</a>
-            @endforeach
-            @foreach ($tags_unofficials as $tag)
-            @if ($tag->parent_tag == null)
-            {{-- do not display the parent tag as for now --}}
-            {{-- <a class="tag tag-green">{{ $tag->name }}</a> --}}
-            @else
-            <a class="tag tag-green"
-               href="{{route("
-               client.search_results")}}?searchString=&tags={{ $tag->id }}&langs=&songbooks=">{{ $tag->name
-            }}</a>
-            @endif
-            @endforeach
+        <div class="d-inline-flex flex-row flex-wrap align-items-start mr-3"
+            v-if="song.tags_liturgy_part.length || song.liturgy_approval_status">
+            <nuxt-link to="/napoveda#schvaleno-cbk" class="tag tag-blue" v-if="song.liturgy_approval_status">{{
+                JSON.parse(song.liturgy_approval_status_string_values)[song.liturgy_approval_status]
+            }} <i class="fas fa-check"></i></nuxt-link>
+            <nuxt-link class="tag tag-blue" v-for="tag in song.tags_liturgy_part" :key="tag.id"
+               :to="'/?stitky=' + tag.id">{{ tag.name }}</nuxt-link>
         </div>
 
-
         <div class="d-inline-flex flex-row flex-wrap align-items-start mr-3"
-             v-if="song.liturgy_approval_status">
-            <a class="tag tag-blue">{{song.liturgy_approval_status_string_values[song.liturgy_approval_status]}}
-                <i class="fas fa-check"></i></a>
+            v-if="song.tags_liturgy_period.concat(song.tags_saints).concat(song.tags_generic).length">
+            <nuxt-link class="tag tag-red" v-for="tag in song.tags_liturgy_period" :key="tag.id"
+               :to="'/?stitky=' + tag.id">{{ tag.name }}</nuxt-link>
+            <nuxt-link class="tag tag-green" v-for="tag in song.tags_saints.concat(song.tags_generic)" :key="tag.id"
+               :to="'/?stitky=' + tag.id">{{ tag.name }}</nuxt-link>
         </div>
 
         <div class="d-inline-flex flex-row flex-wrap align-items-start"
-             v-if="songbook_records">
-            @foreach ($songbook_records as $record)
-            {{-- <a class="tag tag-yellow"
-                    title="{{ $record->name }}"
-                    href="{{route("
-                    client.search_results")}}?searchString=&tags=&langs=&songbooks={{ $record->id }}">{{
-            $record->name . ' ' . $record->pivot->number }}</a> --}}
-            <a class="tag tag-yellow songbook-tag"
-               title="{{ $record->name }}"
-               href="{{route("
-               client.search_results")}}?searchString=&tags=&langs=&songbooks={{ record.id
-            }}"><span class="songbook-name">{{ $record->name }}</span><span class="songbook-number">{{ $record->pivot->number }}</span></a>
-            @endforeach
-        </div>-->
+            v-if="song.songbook_records.length">
+            <nuxt-link class="tag tag-yellow songbook-tag" v-for="(sb, key) in song.songbook_records" :key="'sb' + key"
+                :to="'/?zpevniky=' + sb.songbook.id">
+                <span class="songbook-name">{{ sb.songbook.name }}</span><span class="songbook-number">{{ sb.number }}</span>
+            </nuxt-link>
+        </div>
     </div>
 </template>
 
@@ -53,6 +34,7 @@
  * It renders:
  * 1) related tags
  * 2) related songbooks
+ * 3) liturgy approval
  */
 export default {
     name: 'Tags',
@@ -60,5 +42,3 @@ export default {
     props: ['song']
 };
 </script>
-
-<style scoped></style>

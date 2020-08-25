@@ -6,16 +6,14 @@
                 'text-right text-uppercase small align-middle pr-0'
             ]"
             :title="translation.lang_string"
-        >
-            {{ translation.lang }}
-        </td>
+        >{{ translation.lang }}</td>
         <td class="align-middle">
-            <a
-                :href="translation.public_url"
+            <nuxt-link
+                :to="translation.public_route"
                 :class="{
                     'font-weight-bolder': translation.name == original_name
                 }"
-                >{{ translation.name }}</a
+                >{{ translation.name }}</nuxt-link
             >
         </td>
         <td class="align-middle">
@@ -24,12 +22,14 @@
         </td>
         <td class="align-middle">
             <span
-                v-for="(author, authorIndex) in translation.authors"
+                v-for="(ap, authorIndex) in translation.authors_pivot"
                 :key="authorIndex"
                 ><span v-if="authorIndex">,</span>
-                <a :href="author.public_url" class="text-secondary">{{
-                    author.name
-                }}</a>
+                <nuxt-link :to="ap.author.public_route" class="text-secondary"
+                :title="translation.type ? {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}['LYRICS'] : {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}[ap.authorship_type]"
+                >{{
+                    ap.author.name
+                }}</nuxt-link>
             </span>
         </td>
     </tr>

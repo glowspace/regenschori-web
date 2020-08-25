@@ -10,5 +10,6 @@ services:
     environment:
       - HOST=0.0.0.0
     ports:
-      - "100:3000"
+      - "${HTTP_PORT}:3000"
     tty: true
+    entrypoint: "sh -c 'yarn start || (yarn build && yarn start)'"

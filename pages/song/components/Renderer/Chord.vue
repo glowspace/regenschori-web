@@ -1,24 +1,18 @@
 <template>
     <span
         class="chord"
-        v-bind:style="{ fontSize: chordSharedStore.fontSizePercent + '%' }"
     >
         <!-- the if condition syntax is weird but necessary here -->
-        <div class="chord-sign" v-if="displayChordSign">
+        <span class="chord-sign" v-if="displayChordSign">
             <span v-if="isOptional">(</span>
             <span class="chord-base">{{ baseNote }}</span>
             <span class="chord-variant">{{ variant }}</span>
             <span class="chord-extension">{{ extension }}</span>
-            <span class="chord-bass" v-if="bass.length !== 0"
-                >/{{ bassNote }}</span
-            >
+            <span class="chord-bass" v-if="bass.length !== 0">/{{ bassNote }}</span>
             <span class="chord-right-bracket" v-if="isOptional">)</span>
-        </div>
-        <span
-            :class="['chord-text', isDivided == 0 ? 'chord-text-spaced' : '']"
-        >
-            <slot></slot> </span
-        ><span class="chord-line" v-if="isDivided == 1"></span>
+        </span>
+        <span :class="['chord-text', !isDivided ? 'chord-text-spaced' : '']"><slot></slot></span>
+        <span class="chord-line" v-if="isDivided"></span>
     </span>
 </template>
 
@@ -33,7 +27,8 @@ export default {
         'bass',
         'isDivided',
         'isSubstitute',
-        'isOptional'
+        'isOptional',
+        'hasNextSibling'
     ],
 
     data() {
@@ -93,15 +88,10 @@ export default {
         },
 
         displayChordSign() {
-            if (this.chordSharedStore.chordMode === 0) {
-                return false;
-            }
-            if (this.chordSharedStore.chordMode === 1) {
+            if (this.chordSharedStore.chordMode === 0) return false;
+            if (this.chordSharedStore.chordMode === 1)
                 return !this.isSubstitute;
-            }
-            if (this.chordSharedStore.chordMode === 2) {
-                return true;
-            }
+            if (this.chordSharedStore.chordMode === 2) return true;
         }
     },
 
@@ -152,72 +142,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss">
-.chord {
-    position: relative;
-    display: inline-block;
-
-    &-sign {
-        display: flex;
-        justify-content: flex-start;
-        transition: 100ms;
-        margin-bottom: -0.4em;
-        color: #1d6dab;
-    }
-
-    &-base {
-        font-weight: bold;
-        margin-right: 0.4em;
-    }
-
-    &-variant {
-        position: relative;
-        left: -0.4em;
-    }
-
-    &-extension {
-        font-size: 0.8em;
-        position: relative;
-        left: -0.4em;
-    }
-
-    &-bass {
-        // font-weight: bold;
-        color: #6b78af;
-        margin-right: 0.4em;
-        margin-left: -0.35em;
-    }
-
-    &-right-bracket {
-        margin-left: -0.4em;
-        margin-right: 0.4em;
-    }
-
-    &-text {
-        display: inline-block;
-        // this is so that the chord line is not displayed on the text
-        position: relative;
-        background: white;
-        z-index: 2;
-    }
-
-    &-text-spaced {
-        margin-right: 0.1em;
-    }
-
-    &-line {
-        display: block;
-        position: relative;
-        width: calc(100% - 0.6em);
-        height: 1.1px;
-        background: #b9b9b9;
-        top: -0.5em;
-        right: -0.5em;
-    }
-}
-
-.song-part-inline .chord-text {
-    display: none;
-}
-</style>

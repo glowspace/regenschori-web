@@ -1,113 +1,67 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
-      <div class="container d-flex justify-content-between">
-        <div class="navbar-brand">
-          <nuxt-link class="text-uppercase mb-0 h1" to="/">Regenschori</nuxt-link>
-          <p class="small">Otevřená databáze křesťanské hudby</p>
-        </div>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
+            <div class="container">
+                <nuxt-link to="/" class="navbar-brand" id="navbar-brand">
+                    <img
+                        src="/img/logo_v2.png"
+                        style="padding-right:10px"
+                        width="60"
+                        alt="logo"
+                    /><h1 v-if="$nuxt.$route.path == '/'" class="home-h1">Regenschori</h1>
+                    <span v-else>Regenschori</span>
+                </nuxt-link>
+                <div class="d-inline-flex">
+                    <nuxt-link
+                        to="/"
+                        :class="[{ active: isHome }, 'btn btn-secondary']"
+                    ><i class="fas fa-search"></i> Vyhledávání</nuxt-link>
+                    <nuxt-link
+                        to="/o-zpevniku"
+                        class="btn btn-secondary"
+                        active-class="active"
+                    ><i class="fas fa-info"></i> O&nbsp;projektu</nuxt-link>
+                    <dark-mode-button v-cloak> Tmavý&nbsp;mód</dark-mode-button>
+                </div>
+            </div>
+        </nav>
 
-        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
-      </div>
-    </nav>
+        <a class="invisible btn btn-secondary mobile-padding-button mb-0">
+            <i class="fas fa-search"></i>
+        </a>
 
-    <a class="invisible btn btn-secondary mobile-padding-button mb-0">
-      <i class="fas fa-search"></i>
-    </a>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <nuxt-link to="/" class="btn" id="navbar-brand-small">
+                    <img src="/img/logo_v2.png" height="24" alt="logo"
+                /></nuxt-link>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-scrolled">
-      <div class="container d-flex">
-        <div class="div">
-          <nuxt-link to="/"
-                     class="btn btn-logo">
-            Regenschori</nuxt-link>
-        </div>
+                <nuxt-link to="/" class="btn btn-secondary" :class="[{ active: isHome }, 'btn btn-secondary']"
+                    ><i class="fas fa-search"></i
+                ></nuxt-link>
 
-        <div class="navbar-caption">"Kdo zpívá, dvakrát se modlí." - sv. Augustin</div>
-      </div>
-    </nav>
-  </div>
+                <nuxt-link to="/o-zpevniku" class="btn btn-secondary" active-class="active"
+                    ><i class="fas fa-info"></i
+                ></nuxt-link>
+
+                <dark-mode-button></dark-mode-button>
+            </div>
+        </nav>
+    </div>
 </template>
 
 <script>
-  import DarkModeButton from "~/components/DarkModeButton";
+import DarkModeButton from '~/components/DarkModeButton';
 
-  export default {
-    name: "Navbar",
+export default {
+    name: 'Navbar',
 
-    components: {DarkModeButton}
-  }
-</script>
+    components: { DarkModeButton },
 
-<style scoped
-       lang="scss">
-  .navbar {
-    height:           130px;
-
-    background-color: #151e26;
-    color:            white;
-
-    box-shadow:       none;
-
-    .navbar-brand {
-      .h1 {
-        line-height:   32px;
-        font-family:   Helvetica, sans-serif;
-
-        margin-bottom: 3px;
-
-        margin-top: 25px;
-        display: inline-block;
-
-        &:hover {
-          color: white;
-          text-decoration: none;
+    computed: {
+        isHome() {
+            return this.$nuxt.$route.name == 'index';
         }
-      }
-
-      p {
-        font-family: PingFang, sans-serif;
-        font-size:   12px;
-        color:       #bababa
-      }
     }
-
-    .navbar {
-      z-index:          200;
-      background-color: #292929;
-      min-height:       66px;
-    }
-
-    .navbar-brand {
-      padding: 0 0.5rem;
-    }
-
-    .navbar-label {
-      padding:          3px 10px;
-
-      background-color: #292929;
-      color:            white;
-    }
-
-
-    .navbar-caption {
-      font-family: PingFang, sans-serif;
-      color:       #bababa;
-
-      font-size:   12px;
-    }
-  }
-
-  .navbar-scrolled {
-    height: 35px;
-
-    z-index: 150;
-
-    .btn-logo {
-      font-family:    Helvetica,sans-serif;
-      text-transform: uppercase;
-
-      color: white;
-    }
-  }
-</style>
+};
+</script>

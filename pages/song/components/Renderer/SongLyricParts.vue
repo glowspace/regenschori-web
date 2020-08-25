@@ -1,30 +1,32 @@
 <template>
-    <div>
+    <sl-parts-loading v-if="$apollo.loading" />
+    <div v-else-if="song_lyric_parts">
         <div
             :class="getSongPartClass(part)"
             v-for="(part, key) in song_lyric_parts"
-            v-bind:key="key"
+            :key="key"
+            :style="{ fontSize: fontSizePercent + '%' }"
         >
             <div
-                class="song-line"
                 v-for="(line, key2) in part.songLines"
-                v-bind:key="key2"
+                :key="key2"
+                :class="[{'song-line--newline': line.chords.length == 1 && line.chords[0].base + line.chords[0].text == ''}, 'song-line']"
             >
-                <!-- todo: song part tag -->
-
-                <chord
-                    v-for="(chord, key3) in line.chords"
-                    v-bind:key="key3"
-                    :base="chord.base"
-                    :variant="chord.variant"
-                    :extension="chord.extension"
-                    :bass="chord.bass"
-                    :isDivided="chord.isDivided"
-                    :isOptional="chord.isOptional"
-                    :isSubstitute="chord.isSubstitute"
-                >
-                    {{ chord.text }}
-                </chord>
+                <span v-if="!key2" class="song-part-tag">{{ part.type + (part.type ? (part.isVerse ? '.' : ':') : '') }}&nbsp;</span
+                ><template v-for="(chord, key3) in line.chords">
+                    <chord
+                        v-bind:key="key3"
+                        :base="chord.base"
+                        :variant="chord.variant"
+                        :extension="chord.extension"
+                        :bass="chord.bass"
+                        :isDivided="chord.isDivided"
+                        :isOptional="chord.isOptional"
+                        :isSubstitute="chord.isSubstitute"
+                        :hasNextSibling="hasNextSibling(chord)"
+                    >{{ chord.text.replace(/^ /, '&nbsp;') }}</chord
+                    ><template v-if="!chord.isDivided && line.chords[key3 + 1]"><span class="chord">&nbsp;</span></template>
+                </template>
             </div>
         </div>
     </div>
@@ -33,47 +35,41 @@
 <script>
 import gql from 'graphql-tag';
 import Chord from './Chord';
+import SlPartsLoading from '../SlPartsLoading';
 
 const FETCH_SONG_LYRIC_PARTS = gql`
     query($id: ID!) {
-        song_lyric_parts(id: $id) {
-            type
-            isHidden
-            isHiddenText
-            isEmpty
-            isVerse
-            isRefrain
-            isInline
-            songLines {
-                chords {
-                    base
-                    variant
-                    extension
-                    bass
-                    isSubstitute
-                    isOptional
-                    isDivided
-                    text
-                }
-            }
+        song_lyric_parts_json(id: $id) {
+            json
         }
     }
 `;
 
 export default {
-    props: ['songId'],
+    props: ['songId', 'fontSizePercent'],
+
+    data() {
+        return {
+            song_lyric_parts: []
+        };
+    },
 
     components: {
-        Chord
+        Chord,
+        SlPartsLoading
     },
 
     apollo: {
-        song_lyric_parts: {
+        song_lyric_parts_json: {
             query: FETCH_SONG_LYRIC_PARTS,
             variables() {
                 return {
                     id: this.songId
                 };
+            },
+            result() {
+                this.song_lyric_parts = JSON.parse(this.song_lyric_parts_json.json);
+                this.$nextTick(() => { this.$emit('loaded', null); });
             }
         }
     },
@@ -88,6 +84,9 @@ export default {
             if (part.isInline) cl += ' song-part-inline';
 
             return cl;
+        },
+        hasNextSibling(chord) {
+
         }
     }
 };

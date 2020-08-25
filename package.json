@@ -1,7 +1,7 @@
 {
     "name": "regenschori",
     "version": "0.1.0",
-    "description": " User frontend of regenschori.cz written in Nuxt.js",
+    "description": " User frontend of www.regenschori.cz written in Nuxt.js",
     "author": "Team ProScholy.cz",
     "private": true,
     "scripts": {
@@ -16,18 +16,22 @@
         "@nuxtjs/axios": "^5.9.5",
         "@nuxtjs/pwa": "^3.0.0-0",
         "@nuxtjs/router": "^1.5.0",
+        "@nuxtjs/sentry": "^4.1.2",
+        "@nuxtjs/vuetify": "^1.11.2",
         "axios": "^0.19.2",
-        "bootstrap": "4.2.1",
-        "bootstrap-material-design": "4.1.1",
+        "bigpicture": "^2.5.3",
+        "bootstrap": "4.3.1",
+        "bootstrap-material-design": "^4.1.3",
         "bowser": "^2.4.0",
         "core-js": "^2.6.5",
         "firebase": "^7.1.0",
+        "glob-all": "^3.2.1",
         "graphql": "^14.6.0",
         "graphql-tag": "^2.10.3",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "nosleep.js": "^0.9.0",
         "nuxt": "^2.12.0",
-        "nuxt-user-agent": "^1.2.2"
+        "purgecss-webpack-plugin": "^2.2.0"
     },
     "devDependencies": {
         "@nuxtjs/dotenv": "^1.4.1",
@@ -38,5 +42,16 @@
         "node-sass": "^4.13.1",
         "prettier": "^1.19.1",
         "sass-loader": "^8.0.2"
+    },
+    "bit": {
+        "env": {
+            "compiler": "bit.envs/bundlers/vue@2.6.21"
+        },
+        "componentsDefaultDirectory": "components/{name}",
+        "packageManager": "yarn"
+    },
+    "peerDependencies": {
+        "nuxt": "^2.12.0",
+        "@nuxtjs/router": "^1.5.0"
     }
 }

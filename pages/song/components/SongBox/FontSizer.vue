@@ -4,17 +4,17 @@
         <div class="btn-group m-0" role="group">
             <a
                 class="btn btn-secondary"
-                @click="setFontSizePercent(fontSizePercent - 10)"
+                @click="setFontSizePercent(value - 10)"
                 >-</a
             >
             <a
                 class="btn btn-secondary bg-light transpose-window"
                 @click="setFontSizePercent(100)"
-                >{{ (fontSizePercent - 100) / 10 }}</a
+                >{{ (value - 100) / 10 }}</a
             >
             <a
                 class="btn btn-secondary"
-                @click="setFontSizePercent(fontSizePercent + 10)"
+                @click="setFontSizePercent(value + 10)"
                 >+</a
             >
         </div>
@@ -27,19 +27,13 @@ export default {
 
     data() {
         return {
-            fontSizePercent: 100,
-            sl_doc: process.client
-                ? document.getElementById('song-lyrics')
-                : null,
             sl_refresh_handler: null
         };
     },
 
     methods: {
         setFontSizePercent: function(val) {
-            let sl = process.client
-                ? document.getElementById('song-lyrics')
-                : null;
+            let sl = process.client ? document.getElementById('song-lyrics') : null;
 
             if (!sl.style.height) {
                 sl.style.height = sl.clientHeight + 'px';
@@ -54,7 +48,6 @@ export default {
             }, 1000);
 
             if (val > 70) {
-                this.fontSizePercent = val;
                 this.$emit('input', val);
             }
         }

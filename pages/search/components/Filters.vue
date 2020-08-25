@@ -1,152 +1,147 @@
 <template>
-    <div class="song-tags card pt-1">
+    <div class="song-tags card py-1" v-if="$apollo.loading || !tags_generic">
+        <template v-for="(x, key2) in [1.3, 1.2, 1.4, 1.1, 1.2, 1.3]">
+            <v-skeleton-loader type="heading" class="my-3" />
+            <div
+                class="tag d-inline-block"
+                v-for="(w, key) in [400, 200, 300, 350, 250, 350, 400, 250, 200, 450]"
+                :key="key + '.' + key2"
+                :style="'width:' + (w/3)*x + 'px'"
+            >&nbsp;</div>
+        </template>
+    </div>
+    <div class="song-tags filters card py-1" v-else>
+        <div class="btn-group m-0 my-2 bg-light" role="group">
+            <a
+                class="btn btn-secondary"
+                :class="{ chosen: !localShowAuthors }"
+                @click="localShowAuthors = false"
+                ><i class="fas fa-music"></i>písně</a
+            >
+            <a
+                class="btn btn-secondary"
+                :class="{ chosen: localShowAuthors }"
+                @click="localShowAuthors = true"
+                ><i class="fas fa-user"></i>autoři</a
+            >
+        </div><br>
+        <div
+            v-if="!localShowAuthors"
+            class="btn-group m-0 my-2 bg-light btn-group--icons"
+            role="group"
+            :title="[searchString ? 'Písně jsou řazeny podle vyhledávání.' : '']"
+        >
+            <a
+                :class="[{ chosen: !localSort }, { disabled: searchString }, 'btn btn-secondary']"
+                title="řadit náhodně"
+                @click="refreshSeed(); localSort = 0; localDescending = false;"
+                ><i class="fas fa-random"></i>náhodně</a
+            >
+            <a
+                :class="[{ chosen: localSort == 1 }, { disabled: searchString }, 'btn btn-secondary']"
+                :title="'řadit podle abecedy ' + (localSort == 1 ? (localDescending ? 'vzestupně' : 'sestupně') : 'vzestupně')"
+                @click="if (localSort == 1) {localDescending = !localDescending;} else {localSort = 1; localDescending = false;}"
+                ><i :class="[ (localSort == 1) ? (!localDescending ? 'fa-sort-alpha-up' : 'fa-sort-alpha-down-alt') : 'fa-sort-alpha-up', 'fas' ]"></i
+                >{{ (localSort == 1) ? (!localDescending ? 'A–Z' : 'Z–A') : 'A–Z' }}</a
+            >
+            <a
+                :class="[{ chosen: localSort == 2 }, { disabled: searchString }, 'btn btn-secondary']"
+                :title="'řadit podle čísla ' + (localSort == 2 ? (localDescending ? 'vzestupně' : 'sestupně') : 'vzestupně')"
+                @click="if (localSort == 2) {localDescending = !localDescending;} else {localSort = 2; localDescending = false;}"
+                ><i :class="[ (localSort == 2) ? (!localDescending ? 'fa-sort-numeric-up' : 'fa-sort-numeric-down-alt') : 'fa-sort-numeric-up', 'fas' ]"></i
+                >{{ (localSort == 2) ? (!localDescending ? '1–9' : '9–1') : '1–9' }}</a
+            >
+        </div>
         <!-- todo: make component -->
-        <h4>Liturgie – mše svatá</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-blue',
-                isSelectedTag(tag) ? 'tag-selected' : ''
-            ]"
-            v-for="tag in tags_liturgy_part"
-            v-bind:key="'tag-' + tag.id"
-            v-on:click="selectTag(tag)"
-            >{{ tag.name }}</a
-        >
+        <div v-if="!localShowAuthors">
+            <h4>Liturgie – mše svatá</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-blue',
+                    isSelectedTag(tag) ? 'tag-selected' : ''
+                ]"
+                v-for="tag in tags_liturgy_part"
+                v-bind:key="'tag-' + tag.id"
+                v-on:click="selectTag(tag)"
+                >{{ tag.name }}</a
+            >
 
-        <h4>Liturgický rok</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-blue',
-                isSelectedTag(tag) ? 'tag-selected' : ''
-            ]"
-            v-for="tag in tags_liturgy_period"
-            v-bind:key="'tag-' + tag.id"
-            v-on:click="selectTag(tag)"
-            >{{ tag.name }}</a
-        >
+            <h4>Liturgický rok</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-blue',
+                    isSelectedTag(tag) ? 'tag-selected' : ''
+                ]"
+                v-for="tag in tags_liturgy_period"
+                v-bind:key="'tag-' + tag.id"
+                v-on:click="selectTag(tag)"
+                >{{ tag.name }}</a
+            >
 
-        <h4>Příležitosti</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-green',
-                isSelectedTag(tag) ? 'tag-selected' : ''
-            ]"
-            v-for="tag in tags_generic"
-            v-bind:key="'tag-' + tag.id"
-            v-on:click="selectTag(tag)"
-            >{{ tag.name }}</a
-        >
+            <h4>Příležitosti</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-green',
+                    isSelectedTag(tag) ? 'tag-selected' : ''
+                ]"
+                v-for="tag in tags_generic"
+                v-bind:key="'tag-' + tag.id"
+                v-on:click="selectTag(tag)"
+                >{{ tag.name }}</a
+            >
 
-        <h4>Ke svatým</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-green',
-                isSelectedTag(tag) ? 'tag-selected' : ''
-            ]"
-            v-for="tag in tags_saints"
-            v-bind:key="'tag-' + tag.id"
-            v-on:click="selectTag(tag)"
-            >{{ tag.name }}</a
-        >
+            <h4>Ke svatým</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-green',
+                    isSelectedTag(tag) ? 'tag-selected' : ''
+                ]"
+                v-for="tag in tags_saints"
+                v-bind:key="'tag-' + tag.id"
+                v-on:click="selectTag(tag)"
+                >{{ tag.name }}</a
+            >
 
-        <h4>Zpěvníky</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-yellow',
-                isSelectedSongbook(songbook) ? 'tag-selected' : ''
-            ]"
-            v-for="songbook in songbooks"
-            v-bind:key="'songbook-' + songbook.id"
-            v-on:click="selectSongbook(songbook)"
-            >{{ songbook.name }}</a
-        >
+            <h4>Zpěvníky</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-yellow',
+                    isSelectedSongbook(songbook) ? 'tag-selected' : ''
+                ]"
+                v-for="songbook in songbooks"
+                v-bind:key="'songbook-' + songbook.id"
+                v-on:click="selectSongbook(songbook)"
+                >{{ songbook.name }}</a
+            >
 
-        <h4>Jazyky</h4>
-        <a
-            v-bind:class="[
-                'tag',
-                'tag-red',
-                isSelectedLanguage(lang_code) ? 'tag-selected' : ''
-            ]"
-            v-for="(lang_name, lang_code) in all_languages"
-            v-bind:key="'lang-' + lang_code"
-            v-on:click="selectLanguage(lang_code)"
-            >{{ lang_name }}</a
-        >
+            <h4>Jazyky</h4>
+            <a
+                v-bind:class="[
+                    'tag',
+                    'tag-red',
+                    isSelectedLanguage(lang_code) ? 'tag-selected' : ''
+                ]"
+                v-for="(lang_name, lang_code) in all_languages"
+                v-bind:key="'lang-' + lang_code"
+                v-on:click="selectLanguage(lang_code)"
+                >{{ lang_name }}</a
+            >
+        </div>
     </div>
 </template>
 
 <script>
 import gql from 'graphql-tag';
-
-const fetch_items = gql`
-    query {
-        tags {
-            id
-            name
-            type
-            child_tags {
-                id
-                name
-            }
-            parent_tag {
-                id
-            }
-            description
-        }
-    }
-`;
-
-const FETCH_TAGS_GENERIC = gql`
-    query {
-        tags_generic: tags_enum(type: GENERIC) {
-            id
-            name
-        }
-    }
-`;
-const FETCH_TAGS_LITURGY_PART = gql`
-    query {
-        tags_liturgy_part: tags_enum(type: LITURGY_PART) {
-            id
-            name
-        }
-    }
-`;
-const FETCH_TAGS_LITURGY_PERIOD = gql`
-    query {
-        tags_liturgy_period: tags_enum(type: LITURGY_PERIOD) {
-            id
-            name
-        }
-    }
-`;
-const FETCH_TAGS_SAINTS = gql`
-    query {
-        tags_saints: tags_enum(type: SAINTS) {
-            id
-            name
-        }
-    }
-`;
-
-const fetch_songbooks = gql`
-    query {
-        songbooks(is_private: false) {
-            id
-            name
-            shortcut
-        }
-    }
-`;
+import Vue from 'vue'
+import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 
 export default {
-    props: ['selected-tags', 'selected-songbooks', 'selected-languages'],
+    props: ['selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string'],
 
     data() {
         return {
@@ -173,19 +168,56 @@ export default {
 
     apollo: {
         tags_generic: {
-            query: FETCH_TAGS_GENERIC
+            query: fetchFiltersQuery,
+            prefetch: false
         },
         tags_liturgy_part: {
-            query: FETCH_TAGS_LITURGY_PART
+            query: fetchFiltersQuery,
+            prefetch: false
         },
         tags_liturgy_period: {
-            query: FETCH_TAGS_LITURGY_PERIOD
+            query: fetchFiltersQuery,
+            prefetch: false
         },
         tags_saints: {
-            query: FETCH_TAGS_SAINTS
+            query: fetchFiltersQuery,
+            prefetch: false
         },
         songbooks: {
-            query: fetch_songbooks
+            query: fetchFiltersQuery,
+            prefetch: false
+        }
+    },
+
+    computed: {
+        localShowAuthors: {
+            get() {
+                return this.showAuthors;
+            },
+            set(val) {
+                this.$emit('update:show-authors', val);
+                this.$emit('input', null);
+            }
+        },
+
+        localSort: {
+            get() {
+                return this.sort;
+            },
+            set(val) {
+                this.$emit('update:sort', val);
+                this.$emit('input', null);
+            }
+        },
+
+        localDescending: {
+            get() {
+                return this.descending;
+            },
+            set(val) {
+                this.$emit('update:descending', val);
+                this.$emit('input', null);
+            }
         }
     },
 
@@ -238,35 +270,51 @@ export default {
             return this.selected_languages[language];
         },
 
-        getSelectedTagsDcnf() {
-            const filterMapTags = tags =>
-                tags.filter(tag => this.isSelectedTag(tag)).map(tag => tag.id);
+        refreshSeed() {
+            this.$emit('refresh-seed', null);
+        },
 
-            return {
-                liturgy_part: filterMapTags(this.tags_liturgy_part),
-                liturgy_period: filterMapTags(this.tags_liturgy_period),
-                generic: filterMapTags(this.tags_generic),
-                saints: filterMapTags(this.tags_saints)
-            };
+        // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+        fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+            } catch (err) {}
+
+            document.body.removeChild(textArea);
+        },
+        copyUrl() {
+            let text = window.location.href;
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {}, function(err) {});
         }
     },
 
     watch: {
-        $apollo: {
-            loading(val, prev) {
-                if (val && !prev) {
-                    this.$emit('tags-loaded', null);
-                }
+        tags_generic(val, prev) {
+            if (val && !prev) {
+                this.$emit('tags-loaded', null);
             }
         },
 
         // watch props for changes
         selectedTags(val, prev) {
             this.selected_tags = val;
-
-            // ok this needs to be here because otherwise the applyStateChange method on Search.vue
-            // doesn't work properly when updating only the selectedTags property
-            this.$emit('update:selected-tags-dcnf', this.getSelectedTagsDcnf());
         },
 
         selectedSongbooks(val, prev) {

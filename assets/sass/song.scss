@@ -1,200 +1,373 @@
 // better preload song
 
-.row ~ #preloadPlaceholder {
-  display: none;
+.row~#preloadPlaceholder {
+    display: none;
 }
 
 .song-line {
-  display: none;
+    display: none;
 }
 
 .card-lyrics {
-  .card-header,
-  .card-footer {
-    background-color: #f1f4f9;
-  }
 
-  .card-body {
-    border-bottom: #7f97ab;
-  }
+    .card-header,
+    .card-footer {
+        background-color: #f1f4f9;
+    }
 
-  .song-line {
-    display: block;
-  }
+    .card-body {
+        border-bottom: #7f97ab;
+    }
+
+    .song-line {
+        display: block;
+    }
 }
 
 .song-title {
-  margin: 0;
-  padding-bottom: 0;
+    margin: 0;
+    padding-bottom: 0;
 }
 
 .song-number {
-  color: #9a9a9a;
+    color: #9a9a9a;
 }
 
 .song-links {
-  a {
-    margin-bottom: 0;
-  }
+    a {
+        margin-bottom: 0;
+    }
 }
 
 $indent-space: 1.5em;
 
 .song-part {
-  margin-left: $indent-space;
+    margin-left: $indent-space;
 }
 
 .song-line {
-  position: relative;
+    position: relative;
 }
 
 span.song-part-tag {
-  min-width: $indent-space;
-  margin-left: -$indent-space;
+    min-width: $indent-space;
+    margin-left: -$indent-space;
+    display: inline-block;
 }
 
 .zindex-lower {
-  z-index: 199;
+    z-index: 199;
 }
 
 .chosen .btn,
 .btn.chosen {
-  background-color: rgba(0, 0, 0, 0.133);
+    background-color: rgba(0, 0, 0, 0.133);
 }
 
 .media-card {
-  max-height: 50vh;
+    max-height: 50vh;
 }
 
 .media-opener {
-  border-top: 1px #eee solid;
-  .dark & {
-    border-top: 1px #222 solid;
-  }
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  &:first-of-type, &:nth-of-type(2) {
-    border-top: none;
-  }
-  i {
-    padding-right: 5px;
-    width: 20px;
-    text-align: center;
-  }
+    border-top: 1px #eee solid;
+
+    body[data-dark] & {
+        border-top: 1px #222 solid;
+    }
+
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    &:first-of-type,
+    &:nth-of-type(2) {
+        border-top: none;
+    }
+
+    i {
+        padding-right: 5px;
+        width: 20px;
+        text-align: center;
+    }
 }
 
 .controls {
-  z-index: 199;
+    z-index: 199;
 
-  .btn {
+    .btn {
+        margin-bottom: 0;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .btn.btn-secondary.transpose-window {
+        width: 4em;
+    }
+
+    a span {
+        padding-left: 5px;
+    }
+}
+
+.cross {
+    z-index: 5;
+}
+
+.toolbox {
+    padding: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+
+    background: white;
+
+    body[data-dark] & {
+        background: black;
+    }
+
+    &.toolbox-u {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    .toolbox-item {
+        text-align: center;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-bottom: 0.25rem;
+        padding-top: 0.25rem;
+        margin: 0.25rem;
+        display: inline-block;
+        border-radius: 0.125rem;
+        border: 1px solid #dee2e6;
+
+        &.hidden-toolbox-item {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        body[data-dark] & {
+            border-color: #211d19;
+        }
+    }
+}
+
+.select-themed {
+    background-color: white;
+    padding: 0.5em;
+    width: 100%;
+}
+
+.song-part-hidden {
+    display: none;
+}
+
+.song-lyrics-extended .song-part-hidden {
+    display: block;
+}
+
+.song-part-hidden-text {
+    margin-bottom: 1em;
+
+    .chord {
+        display: none;
+    }
+}
+
+.song-lyrics-extended .song-part-hidden-text {
     margin-bottom: 0;
-  }
 
-  .card {
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-  }
-
-  .btn.btn-secondary.transpose-window {
-    width: 4em;
-  }
-
-  a span {
-    padding-left: 5px;
-  }
+    .chord {
+        display: inline-block;
+    }
 }
 
 .song-tags {
-  padding: 1em;
-  display: block;
+    padding: 1em;
+    display: block;
 
-  a.tag {
-    cursor: pointer;
-  }
-
-  .tag {
-    padding: 0.1em 0.7em;
-    margin-bottom: 0.3em;
-    margin-right: 7px;
-    border-radius: 1em;
-    color: black;
-    text-align: center;
-    display: inline-block;
-    transition: 0.2s;
-
-    &:hover {
-      text-decoration: none;
+    a.tag {
+        cursor: pointer;
     }
 
-    &.tag-selected {
-      opacity: 1 !important;
+    .tag {
+        padding: 0.1em 0.7em;
+        margin-bottom: 0.5em;
+        margin-right: 7px;
+        border-radius: 1em;
+        color: black;
+        text-align: center;
+        display: inline-block;
+        transition: 0.2s;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.tag-selected {
+            opacity: 1 !important;
+        }
+
+        border: #bfbfbf 1px solid;
+        background-color: #ffffff;
     }
 
-    border: #bfbfbf 1px solid;
-    background-color: #ffffff;
-  }
+    .tag-blue {
+        &:hover {
+            background-color: lighten($main-blue, 40%);
+        }
 
-  .tag-blue {
-    &:hover {
-      background-color: lighten($main-blue, 40%);
+        &.tag-selected {
+            background-color: $main-blue !important;
+            color: white !important;
+        }
     }
 
-    &.tag-selected {
-      background-color: $main-blue !important;
-      color: white !important;
-    }
-  }
+    .tag-green {
+        &:hover {
+            background-color: lighten($main-green, 60%);
+        }
 
-  .tag-green {
-    &:hover {
-      background-color: lighten($main-green, 60%);
-    }
-
-    &.tag-selected {
-      background-color: $main-green !important;
-      color: white !important;
-    }
-  }
-
-  .tag-yellow {
-    &:hover {
-      background-color: lighten($main-yellow, 20%);
+        &.tag-selected {
+            background-color: $main-green !important;
+            color: white !important;
+        }
     }
 
-    &.tag-selected {
-      background-color: $main-yellow !important;
-      color: black !important;
-    }
-  }
+    .tag-yellow {
+        &:hover {
+            background-color: lighten($main-yellow, 20%);
+        }
 
-  .tag-red {
-    &:hover {
-      background-color: lighten($main-red, 20%);
-    }
-
-    &.tag-selected {
-      background-color: $main-red !important;
-      color: white !important;
-    }
-  }
-
-  .songbook-tag {
-    padding: 0;
-    display: flex;
-    
-    .songbook-name {
-      padding: 0.1em 0.7em;
-      padding-right: 0.6em;
+        &.tag-selected {
+            background-color: $main-yellow !important;
+            color: black !important;
+        }
     }
 
-    .songbook-number {
-      padding: 0.1em 0.7em;
-      padding-left: 0.6em;
-      background-color: rgba(0, 0, 0, 0.05);
-      border-radius: 0 1em 1em 0;
-      display: flex;
-      align-items: center;
+    .tag-red {
+        &:hover {
+            background-color: lighten($main-red, 20%);
+        }
+
+        &.tag-selected {
+            background-color: $main-red !important;
+            color: white !important;
+        }
     }
-  }
+
+    .songbook-tag {
+        padding: 0;
+        display: flex;
+
+        .songbook-name {
+            padding: 0.1em 0.7em;
+            padding-right: 0.6em;
+        }
+
+        .songbook-number {
+            padding: 0.1em 0.7em;
+            padding-left: 0.6em;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 0 1em 1em 0;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
+.nosleep-caption {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: calc(2.875rem);
+    margin-bottom: -0.46875rem;
+    padding: 0.46875rem 10px;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 10px;
+    z-index: 4;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 600ms, visibility 600ms;
+    pointer-events: none;
+}
+
+body[data-dark] .nosleep-caption {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.nosleep:hover+.nosleep-caption {
+    visibility: visible;
+    opacity: 1;
+}
+
+.chord {
+    position: relative;
+    display: inline-block;
+
+    &-sign {
+        display: flex;
+        justify-content: flex-start;
+        transition: 100ms;
+        margin-bottom: -0.4em;
+        color: #1d6dab;
+    }
+
+    &-base {
+        font-weight: bold;
+        margin-right: 0.4em;
+    }
+
+    &-variant {
+        position: relative;
+        left: -0.4em;
+    }
+
+    &-extension {
+        font-size: 0.8em;
+        position: relative;
+        left: -0.4em;
+    }
+
+    &-bass {
+        // font-weight: bold;
+        color: #6b78af;
+        margin-right: 0.4em;
+        margin-left: -0.35em;
+    }
+
+    &-right-bracket {
+        margin-left: -0.4em;
+        margin-right: 0.4em;
+    }
+
+    &-text {
+        display: inline-block;
+        // this is so that the chord line is not displayed on the text
+        position: relative;
+        background: white;
+        z-index: 2;
+    }
+
+    &-text-spaced {
+        // margin-right: 0.5em;
+    }
+
+    &-line {
+        display: block;
+        position: relative;
+        width: calc(100% - 0.6em);
+        height: 1.1px;
+        background: #b9b9b9;
+        top: -0.5em;
+        right: -0.5em;
+    }
+}
+
+.song-part-inline .chord-text {
+    display: none;
+}
+
+.v-skeleton-loader__chip {
+    max-width: 100%;
+}

@@ -1,0 +1,23 @@
+query {
+    tags_generic: tags_enum(type: GENERIC) {
+        id
+        name
+    }
+    tags_liturgy_part: tags_enum(type: LITURGY_PART) {
+        id
+        name
+    }
+    tags_liturgy_period: tags_enum(type: LITURGY_PERIOD) {
+        id
+        name
+    }
+    tags_saints: tags_enum(type: SAINTS) {
+        id
+        name
+    }
+    songbooks(is_private: false) {
+        id
+        name
+        shortcut
+    }
+}
