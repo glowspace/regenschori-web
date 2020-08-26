@@ -12,7 +12,6 @@
         "pretty": "prettier --write \"./**/*.{js,jsx,json,vue}\""
     },
     "dependencies": {
-        "@bit/proscholy.utilities.universal-link": "^0.0.3",
         "@nuxtjs/apollo": "^4.0.0-rc19",
         "@nuxtjs/axios": "^5.9.5",
         "@nuxtjs/pwa": "^3.0.0-0",
@@ -32,7 +31,8 @@
         "lodash": "^4.17.19",
         "nosleep.js": "^0.9.0",
         "nuxt": "^2.12.0",
-        "purgecss-webpack-plugin": "^2.2.0"
+        "purgecss-webpack-plugin": "^2.2.0",
+        "@bit/proscholy.utilities.universal-link": "0.0.4"
     },
     "devDependencies": {
         "@nuxtjs/dotenv": "^1.4.1",

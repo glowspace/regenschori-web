@@ -950,10 +950,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bit/proscholy.utilities.universal-link@^0.0.3":
-  version "0.0.3"
-  resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-0.0.3.tgz#cc931163a395012956c4f15edaa43af913324203"
-  integrity sha1-zJMRY6OVASlWxPFe2qQ6+RMyQgM=
+"@bit/proscholy.utilities.universal-link@0.0.4":
+  version "0.0.4"
+  resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-0.0.4.tgz#212573b4cf219b951f456c231471cf91ce3a3cad"
+  integrity sha1-ISVztM8hm5UfRWwjFHHPkc46PK0=
   dependencies:
     bigpicture "^2.5.3"
     bowser "^2.4.0"
