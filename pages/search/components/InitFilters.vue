@@ -1,5 +1,5 @@
 <template>
-    <div :class="[{'song-tags--init-filters--visible': !$apollo.loading}, 'song-tags song-tags--init-filters']">
+    <div :class="[{'opacity-1': !$apollo.loading}, 'song-tags song-tags--init-filters']">
         <a
             v-show="randomTags.length"
             class="tag tag--filter-icon px-1"

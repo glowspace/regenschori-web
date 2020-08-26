@@ -6,7 +6,7 @@
             indeterminate
             color="bg-main-blue"
             :height="4"
-            :class="[results_loaded ? '' : 'custom-progress-bar--visible', 'custom-progress-bar']"
+            :class="[results_loaded ? '' : 'opacity-1', 'custom-progress-bar']"
         ></v-progress-linear>
         <table class="table m-0">
             <tbody>

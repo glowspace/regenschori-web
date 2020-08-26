@@ -148,7 +148,6 @@
                                 :search-string="search_string"
                                 v-on:refresh-seed="refreshSeed"
                                 v-on:input="updateHistoryState"
-                                v-on:tags-loaded="applyStateChange"
                             ></Filters>
                         </div>
                     </div>
@@ -343,8 +342,8 @@ export default {
             if (document.getElementById('search-home')) {
                 document.getElementById('search-home').focus();
             }
+            this.applyStateChange();
         }
-        // this.applyStateChange();
     },
 
     components: {

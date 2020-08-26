@@ -43,7 +43,7 @@ function applyFulltext(query, search_string, options = {
     query.bool.must.push({
         // see multi_match elastic documentation https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
         multi_match: {
-            query: cleanSearchString,
+            query: search_string,
             fields: options.exact_match_fields
         }
     });

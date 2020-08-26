@@ -6,7 +6,7 @@
             indeterminate
             color="bg-main-blue"
             :height="4"
-            :class="[results_loaded ? '' : 'custom-progress-bar--visible', 'custom-progress-bar']"
+            :class="[results_loaded ? '' : 'opacity-1', 'custom-progress-bar']"
         ></v-progress-linear>
         <table class="table m-0">
             <tbody>
@@ -290,13 +290,13 @@ export default {
                         liturgy_part: this.tags_liturgy_part,
                         liturgy_period: this.tags_liturgy_period,
                         saints: this.tags_saints
-                    }, 
+                    },
                     this.selectedTags),
                 filterLanguages: this.selectedLanguages,
                 filterSongbooks: this.selectedSongbooks,
                 sortType: [
-                    "RANDOM", 
-                    "NAME", 
+                    "RANDOM",
+                    "NAME",
                     this.preferred_songbook_id === null ? "NUMBER" : "SONGBOOK_NUMBER"
                 ][this.sort],
                 sortConfig: {
