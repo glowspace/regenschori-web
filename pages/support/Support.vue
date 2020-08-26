@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import UniversalLink from '~/components/UniversalLink';
+import UniversalLink from '@bit/proscholy.utilities.universal-link/UniversalLink.vue';
 
 export default {
     name: 'Support',

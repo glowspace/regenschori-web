@@ -9,8 +9,7 @@
 </template>
 
 <script>
-
-import UniversalLink from '~/components/UniversalLink';
+import UniversalLink from '@bit/proscholy.utilities.universal-link/UniversalLink.vue';
 import gql from 'graphql-tag';
 
 const FETCH_NEWS = gql`
