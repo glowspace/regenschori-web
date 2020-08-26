@@ -173,7 +173,7 @@
 
 <script>
 import SongsList from './components/SongsList';
-import AuthorsList from './components/AuthorsList';
+import AuthorsList from '@bit/proscholy.search.authors-list/AuthorsList.vue';
 import Filters from './components/Filters';
 import InitFilters from './components/InitFilters';
 import AppLinks from './components/AppLinks';

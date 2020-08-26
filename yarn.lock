@@ -950,6 +950,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bit/proscholy.search.authors-list@^0.0.1":
+  version "0.0.1"
+  resolved "https://node.bit.dev/proscholy.search.authors-list/-/proscholy.search.authors-list-0.0.1.tgz#c0c7bcf8717d7d4dd925146fe6197a24d65d2d42"
+  integrity sha1-wMe8+HF9fU3ZJRRv5hl6JNZdLUI=
+  dependencies:
+    graphql-tag "^2.10.3"
+
 "@bit/proscholy.search.build-elastic-search-params@^0.0.2":
   version "0.0.2"
   resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-0.0.2.tgz#f8a6ab54348eac2a6182949af009692eed7581bd"
