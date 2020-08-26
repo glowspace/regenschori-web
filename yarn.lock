@@ -989,10 +989,10 @@
   dependencies:
     bowser "^2.4.0"
 
-"@bit/proscholy.utilities.external-view@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.utilities.external-view/-/proscholy.utilities.external-view-0.0.1.tgz#9a67ff3be7116f48cc788c0371a4b8e90fb76423"
-  integrity sha1-mmf/O+cRb0jMeIwDcaS46Q+3ZCM=
+"@bit/proscholy.utilities.external-view@^0.0.2":
+  version "0.0.2"
+  resolved "https://node.bit.dev/proscholy.utilities.external-view/-/proscholy.utilities.external-view-0.0.2.tgz#3c3db5eafa3b148b331ad84daa767b4c58eff725"
+  integrity sha1-PD216vo7FIszGthNqnZ7TFjv9yU=
   dependencies:
     bowser "^2.4.0"
 
