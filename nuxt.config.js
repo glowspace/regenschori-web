@@ -54,7 +54,14 @@ export default {
         nuxtjs: '',
         back_to_home: 'Zpět na úvodní stránku',
         server_error_details:
-          'Ajajaj, na našem serveru se někde stala chyba. <br>Zkuste <u><a href="/">použít vyhledávání</a></u>. <br>Chybu také můžete <u><a href="https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=–&entry.456507920=500" target="_blank">nahlásit</a></u>.',
+          `Ajajaj, na našem serveru se někde stala chyba.
+          <br>Zkuste <u><a href="/">použít vyhledávání</a></u>.
+          <br>Chybu také můžete <u><a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=–&entry.456507920=e500"
+          target="_blank" id="report-link">nahlásit</a></u>.
+          <script>if (document.getElementById('report-link'))
+          {document.getElementById('report-link').setAttribute('href',
+          document.getElementById('report-link').getAttribute('href').replace('=–&', '=' + encodeURIComponent(window.location.href) + '&'));}</script>`,
         client_error: 'Chyba',
         client_error_details:
           'Během renderování stránky došlo k chybě. Více informací najdeš v konzoli nástrojů pro vývojáře.'
