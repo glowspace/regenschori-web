@@ -150,6 +150,7 @@
                     </tr>
                     <tr v-if="results_loaded"><td class="p-0 border-top-0"><scroll-trigger
                         @triggerIntersected="loadMore"
+                        @noObserver="caniuseObserver = false"
                         :enabled="enable_more"
                     /></td></tr>
                 </template>
@@ -174,12 +175,14 @@
             <div
                 class="btn btn-primary d-inline-flex align-items-center"
                 v-if="enable_more && results_loaded"
+                @click="loadMore"
             >
                 <span
                     class="spinner-border spinner-border-sm mr-3"
                     role="status"
                     aria-hidden="true"
-                ></span>Načítám další výsledky (celkem {{ song_lyrics_paginated.paginatorInfo.total }})</div
+                    v-if="caniuseObserver"
+                ></span>{{ caniuseObserver ? 'Načítám' : 'Načíst' }} další výsledky (celkem {{ song_lyrics_paginated.paginatorInfo.total }})</div
             >
         </div>
     </div>
@@ -189,8 +192,8 @@
 <script>
 import gql from 'graphql-tag';
 import ScrollTrigger from './ScrollTrigger';
-import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@bit/proscholy.search.build-elastic-search-params/buildElasticSearchParams';
-import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
+import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/components/Search/buildElasticSearchParams';
+import mergeFetchMoreResult from '~/components/Search/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 
 // Query
@@ -277,7 +280,9 @@ export default {
             per_page: 20,
             enable_more: true,
             results_loaded: false,
-            preferred_songbook_id: null
+            preferred_songbook_id: null,
+            caniuseObserver: true,
+            loadedMore: false
         };
     },
 
@@ -316,6 +321,7 @@ export default {
 
     methods: {
         async loadMore() {
+            this.loadedMore = true;
             this.page++;
 
             try {
@@ -395,7 +401,10 @@ export default {
 
                 // when the graphql result is cached, then currentPage is higher than 1 at component mounting
                 // this needs to get mirrored in the local page property
-                this.page = result.data.song_lyrics_paginated.paginatorInfo.currentPage;
+                // we also have to check if the user has fired loadMore event as otherwise he could accidentally fetch one page multiple times
+                if (!this.loadedMore) {
+                    this.page = result.data.song_lyrics_paginated.paginatorInfo.currentPage;
+                }
             },
             prefetch: false
         },
