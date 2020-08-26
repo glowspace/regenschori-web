@@ -950,6 +950,21 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bit/proscholy.search.build-elastic-search-params@^0.0.2":
+  version "0.0.2"
+  resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-0.0.2.tgz#f8a6ab54348eac2a6182949af009692eed7581bd"
+  integrity sha1-+KarVDSOrCphgpSa8AlpLu11gb0=
+
+"@bit/proscholy.search.merge-fetch-more-result@0.0.2":
+  version "0.0.2"
+  resolved "https://node.bit.dev/proscholy.search.merge-fetch-more-result/-/proscholy.search.merge-fetch-more-result-0.0.2.tgz#cb22968045d0c4ed3883f4977d12de3ffb08cd0c"
+  integrity sha1-yyKWgEXQxO04g/SXfRLeP/sIzQw=
+
+"@bit/proscholy.search.search-history-manager@^0.0.2":
+  version "0.0.2"
+  resolved "https://node.bit.dev/proscholy.search.search-history-manager/-/proscholy.search.search-history-manager-0.0.2.tgz#ef41d4ffc952edf5d038566af96be2a5d576c805"
+  integrity sha1-70HU/8lS7fXQOFZq+WvipdV2yAU=
+
 "@bit/proscholy.utilities.universal-link@0.0.4":
   version "0.0.4"
   resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-0.0.4.tgz#212573b4cf219b951f456c231471cf91ce3a3cad"

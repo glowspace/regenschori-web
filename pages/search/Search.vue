@@ -179,7 +179,7 @@ import InitFilters from './components/InitFilters';
 import AppLinks from './components/AppLinks';
 import Logo from './components/Logo';
 import News from './components/News';
-import SearchHistoryManager from './components/SearchHistoryManager';
+import SearchHistoryManager from '@bit/proscholy.search.search-history-manager/SearchHistoryManager.vue';
 
 import gql from 'graphql-tag';
 

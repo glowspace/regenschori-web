@@ -189,8 +189,8 @@
 <script>
 import gql from 'graphql-tag';
 import ScrollTrigger from './ScrollTrigger';
-import buildElasticSearchParams, { getSelectedTagsDcnf } from './buildElasticSearchParams';
-import mergeFetchMoreResult from './mergeFetchMoreResult';
+import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@bit/proscholy.search.build-elastic-search-params/buildElasticSearchParams';
+import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 
 // Query
