@@ -2,8 +2,6 @@
     <div class="background-home">
         <div class="container">
             <div :class="[init ? 'home-init' : 'home-afterinit']">
-                <logo />
-
                 <div
                     :class="[
                             { 'fixed-top position-sticky': !init },
@@ -62,11 +60,6 @@
                                 ></span>
                             </button>
                         </div>
-                        <InitFilters
-                            v-if="init"
-                            :selected-tags.sync="selected_tags"
-                            @input="updateHistoryState; init = false;"
-                        ></InitFilters>
                         <div
                             v-if="init"
                             @click="init = false;"
@@ -153,8 +146,6 @@
                     </div>
                 </div>
 
-                <app-links v-if="init" />
-
                 <a
                     class="btn btn-secondary mb-0 search-report bg-transparent"
                     target="_blank"
@@ -175,9 +166,6 @@
 import SongsList from './components/SongsList';
 import AuthorsList from '@bit/proscholy.search.authors-list/AuthorsList.vue';
 import Filters from './components/Filters';
-import InitFilters from './components/InitFilters';
-import AppLinks from './components/AppLinks';
-import Logo from './components/Logo';
 import News from './components/News';
 import SearchHistoryManager from '@bit/proscholy.search.search-history-manager/SearchHistoryManager.vue';
 
@@ -347,12 +335,9 @@ export default {
     },
 
     components: {
-        Logo,
-        AppLinks,
         SongsList,
         AuthorsList,
         Filters,
-        InitFilters,
         News
     },
 
