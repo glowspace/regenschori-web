@@ -473,8 +473,8 @@ import RightControls from './RightControls';
 import Transposition from './Transposition';
 import TranslationLine from './TranslationLine.vue';
 import SongLyricParts from '../Renderer/SongLyricParts.vue';
-import ExternalView from '~/components/ExternalView.vue';
-import ExternalLine from './ExternalLine.vue';
+import ExternalView from '@bit/proscholy.utilities.external-view/ExternalView.vue';
+import ExternalLine from '@bit/proscholy.utilities.external-line/ExternalLine.vue';
 
 /**
  * This component renders white box on song detail page.

@@ -972,6 +972,25 @@
   resolved "https://node.bit.dev/proscholy.search.search-history-manager/-/proscholy.search.search-history-manager-0.0.2.tgz#ef41d4ffc952edf5d038566af96be2a5d576c805"
   integrity sha1-70HU/8lS7fXQOFZq+WvipdV2yAU=
 
+"@bit/proscholy.utilities.dark-mode-button@^0.0.1":
+  version "0.0.1"
+  resolved "https://node.bit.dev/proscholy.utilities.dark-mode-button/-/proscholy.utilities.dark-mode-button-0.0.1.tgz#d79ce29bb4012db67d9f3833e89f2d910f82a9d0"
+  integrity sha1-15zim7QBLbZ9nzgz6J8tkQ+CqdA=
+
+"@bit/proscholy.utilities.external-line@^0.0.1":
+  version "0.0.1"
+  resolved "https://node.bit.dev/proscholy.utilities.external-line/-/proscholy.utilities.external-line-0.0.1.tgz#2affc6877e982e053220077fb75ba95906337b30"
+  integrity sha1-Kv/Gh36YLgUyIAd/t1upWQYzezA=
+  dependencies:
+    bowser "^2.4.0"
+
+"@bit/proscholy.utilities.external-view@^0.0.1":
+  version "0.0.1"
+  resolved "https://node.bit.dev/proscholy.utilities.external-view/-/proscholy.utilities.external-view-0.0.1.tgz#9a67ff3be7116f48cc788c0371a4b8e90fb76423"
+  integrity sha1-mmf/O+cRb0jMeIwDcaS46Q+3ZCM=
+  dependencies:
+    bowser "^2.4.0"
+
 "@bit/proscholy.utilities.universal-link@0.0.4":
   version "0.0.4"
   resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-0.0.4.tgz#212573b4cf219b951f456c231471cf91ce3a3cad"
