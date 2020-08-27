@@ -139,7 +139,7 @@ export default {
                     ]),
                     whitelist: ['html', 'body', 'nuxt-progress'],
                     whitelistPatterns: [/^v-((?!application).)*$/, /^nuxt/],
-                    whitelistPatternsChildren: [/^theme--*/, /^v-((?!application).)*$/, /^nuxt/]
+                    whitelistPatternsChildren: [/^theme--*/, /^v-((?!application).)*$/, /^nuxt/, /data-dark/]
                 })
             );
 
