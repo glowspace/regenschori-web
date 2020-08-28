@@ -53,8 +53,7 @@
         <author-songs-list text="Interpretace písní" v-if="author.songs_interpreted.length" :songs="author.songs_interpreted" />
 
         <div class="p-1 mb-3 mt-n2">
-            <div class="px-3 py-2 d-inline-block">Regenschori <img
-                src="/img/logo_v2.png" width="20px" /> {{ new Date().getFullYear() }}</div>
+            <div class="px-3 py-2 d-inline-block">Regenschori {{ new Date().getFullYear() }}</div>
             <div class="float-right">
                 <a class="btn btn-secondary m-0" target="_blank"
                     :href="'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741='

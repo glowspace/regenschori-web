@@ -3,12 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
             <div class="container">
                 <nuxt-link to="/" class="navbar-brand" id="navbar-brand">
-                    <img
-                        src="/img/logo_v2.png"
-                        style="padding-right:10px"
-                        width="60"
-                        alt="logo"
-                    /><h1 v-if="$nuxt.$route.path == '/'" class="home-h1">Regenschori</h1>
+                    <h1 v-if="$nuxt.$route.path == '/'" class="home-h1">Regenschori</h1>
                     <span v-else>Regenschori</span>
                 </nuxt-link>
                 <div class="d-inline-flex">
@@ -32,9 +27,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <div class="container">
-                <nuxt-link to="/" class="btn" id="navbar-brand-small">
-                    <img src="/img/logo_v2.png" height="24" alt="logo"
-                /></nuxt-link>
+                <nuxt-link to="/" class="btn" id="navbar-brand-small">R</nuxt-link>
 
                 <nuxt-link to="/" class="btn btn-secondary" :class="[{ active: isHome }, 'btn btn-secondary']"
                     ><i class="fas fa-search"></i
