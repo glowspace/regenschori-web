@@ -2,13 +2,8 @@
     <div class="background-home">
         <div class="container">
             <div :class="[init ? 'home-init' : 'home-afterinit']">
-                <div
-                    :class="[
-                            { 'fixed-top position-sticky': !init },
-                            'row mt-n4 justify-content-center zindex-lower'
-                    ]"
-                >
-                    <div class="col-lg-8 px-1 pt-5 pb-3 search-column">
+                <div class="row mt-n4 justify-content-center zindex-lower fixed-top position-sticky">
+                    <div class="col-lg-8 offset-lg-4 px-1 pt-5 pb-3 search-column">
                         <div class="search-wrapper shadow">
                             <input
                                 type="search"
@@ -21,16 +16,7 @@
                             />
                             <button
                                 type="button"
-                                class="search-submit"
-                                v-if="init"
-                                @click="inputEnter()"
-                            >
-                                <i class="fa fa-search d-none d-sm-inline"></i>
-                            </button>
-                            <button
-                                type="button"
                                 class="search-submit d-none d-lg-inline"
-                                v-if="!init"
                                 @click="inputEnter()"
                             >
                                 <i class="fa fa-search" v-if="!songLoading"></i>
@@ -44,7 +30,6 @@
                             <button
                                 type="button"
                                 class="search-submit d-lg-none"
-                                v-if="!init"
                                 :class="{
                                     'filter-active': filters_active,
                                     'filter-open': displayFilter
@@ -61,18 +46,8 @@
                             </button>
                         </div>
                         <div
-                            v-if="init"
-                            @click="init = false;"
-                            class="text-center pt-2 text-white"
-                        >
-                            <a
-                                class="btn btn-outline-light display-all-songs font-weight-bold"
-                                ><i class="fas fa-chevron-down pr-1"></i> ZOBRAZIT VŠECHNY PÍSNĚ</a
-                            >
-                        </div>
-                        <div
                             class="mx-2 d-lg-none filter-panel position-absolute"
-                            v-show="!init && displayFilter"
+                            v-show="displayFilter"
                         >
                             <a
                                 class="btn btn-secondary float-right fixed-top position-sticky"
@@ -90,22 +65,15 @@
                                 :descending.sync="descending"
                                 :search-string="search_string"
                                 v-on:refresh-seed="refreshSeed"
-                                v-on:input="updateHistoryState"
+                                v-on:input="updateHistoryState(); init = false;"
                             ></Filters>
                         </div>
                     </div>
-                    <div class="col-lg-4 search-balance"></div>
                 </div>
-                <div class="row justify-content-center text-center pt-4" v-show="init">
-                    <div class="col-lg-8 search-column">
-                        <News><div class="news-opener" @click="init = false;"></div></News>
-                    </div>
-                    <div class="col-lg-4 search-balance"></div>
-                </div>
-                <div class="row" v-show="!init">
+                <div class="row flex-row-reverse">
                     <div class="col-lg-8">
                         <News v-show="!filters_active && !search_string" />
-                        <div class="card">
+                        <div class="card" v-if="!init">
                             <div class="card-body p-0">
                                 <SongsList
                                     v-if="!showAuthors"
@@ -125,6 +93,16 @@
                                 ></AuthorsList>
                             </div>
                         </div>
+                        <div
+                            v-else
+                            @click="init = false;"
+                            class="text-center pt-2 text-white"
+                        >
+                            <a
+                                class="btn btn-outline-light display-all-songs font-weight-bold"
+                                ><i class="fas fa-chevron-down pr-1"></i> ZOBRAZIT VŠECHNY PÍSNĚ</a
+                            >
+                        </div>
                     </div>
                     <div
                         class="col-lg-4 d-none d-lg-block desktop-filter-container"
@@ -140,7 +118,7 @@
                                 :descending.sync="descending"
                                 :search-string="search_string"
                                 v-on:refresh-seed="refreshSeed"
-                                v-on:input="updateHistoryState"
+                                v-on:input="updateHistoryState(); init = false;"
                             ></Filters>
                         </div>
                     </div>
@@ -198,7 +176,7 @@ export default {
                 {property: 'twitter:description', content: this.getDescription()}
             ],
             bodyAttrs: {
-                class: ['home', (this.init ? '' : 'home-scroll')]
+                class: ['home', 'home-scroll']
             }
         }
     },
