@@ -57,6 +57,7 @@
                             </a>
                             <!-- filters shown only for mobile -->
                             <Filters
+                                :init="init"
                                 :selected-songbooks.sync="selected_songbooks"
                                 :selected-tags.sync="selected_tags"
                                 :selected-languages.sync="selected_languages"
@@ -77,6 +78,7 @@
                         <div class="fixed-top position-sticky">
                             <!-- filters shown only for desktop -->
                             <Filters
+                                :init="init"
                                 :selected-songbooks.sync="selected_songbooks"
                                 :selected-tags.sync="selected_tags"
                                 :selected-languages.sync="selected_languages"

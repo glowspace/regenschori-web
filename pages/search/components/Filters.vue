@@ -14,7 +14,7 @@
         <div class="btn-group m-0 my-2 bg-light" role="group">
             <a
                 class="btn btn-secondary"
-                :class="{ chosen: !localShowAuthors }"
+                :class="{ chosen: !localShowAuthors && !init }"
                 @click="localShowAuthors = false"
                 ><i class="fas fa-music"></i>písně</a
             >
@@ -32,7 +32,7 @@
             :title="[searchString ? 'Písně jsou řazeny podle vyhledávání.' : '']"
         >
             <a
-                :class="[{ chosen: !localSort }, { disabled: searchString }, 'btn btn-secondary']"
+                :class="[{ chosen: !localSort && !init }, { disabled: searchString }, 'btn btn-secondary']"
                 title="řadit náhodně"
                 @click="refreshSeed(); localSort = 0; localDescending = false;"
                 ><i class="fas fa-random"></i>náhodně</a
@@ -106,7 +106,7 @@ import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import TagCategory from '@bit/proscholy.search.tag-category/TagCategory.vue';
 
 export default {
-    props: ['selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string'],
+    props: ['init', 'selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string'],
 
     components: {
         TagCategory
