@@ -24,22 +24,6 @@
     }
 }
 
-$indent-space: 1.5em;
-
-.song-part {
-    margin-left: $indent-space;
-}
-
-.song-line {
-    position: relative;
-}
-
-span.song-part-tag {
-    min-width: $indent-space;
-    margin-left: -$indent-space;
-    display: inline-block;
-}
-
 .zindex-lower {
     z-index: 199;
 }
@@ -137,30 +121,6 @@ span.song-part-tag {
     }
 }
 
-.song-part-hidden {
-    display: none;
-}
-
-.song-lyrics-extended .song-part-hidden {
-    display: block;
-}
-
-.song-part-hidden-text {
-    margin-bottom: 1em;
-
-    .chord {
-        display: none;
-    }
-}
-
-.song-lyrics-extended .song-part-hidden-text {
-    margin-bottom: 0;
-
-    .chord {
-        display: inline-block;
-    }
-}
-
 .song-tags {
     padding: 1em;
     display: block;
@@ -253,94 +213,6 @@ span.song-part-tag {
             align-items: center;
         }
     }
-}
-
-.nosleep-caption {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: calc(2.875rem);
-    margin-bottom: -0.46875rem;
-    padding: 0.46875rem 10px;
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    border-radius: 10px;
-    z-index: 4;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 600ms, visibility 600ms;
-    pointer-events: none;
-}
-
-.nosleep:hover+.nosleep-caption {
-    visibility: visible;
-    opacity: 1;
-}
-
-.chord {
-    position: relative;
-    display: inline-block;
-
-    &-sign {
-        display: flex;
-        justify-content: flex-start;
-        transition: 100ms;
-        margin-bottom: -0.4em;
-        color: #1d6dab;
-    }
-
-    &-base {
-        font-weight: bold;
-        margin-right: 0.4em;
-    }
-
-    &-variant {
-        position: relative;
-        left: -0.4em;
-    }
-
-    &-extension {
-        font-size: 0.8em;
-        position: relative;
-        left: -0.4em;
-    }
-
-    &-bass {
-        // font-weight: bold;
-        color: #6b78af;
-        margin-right: 0.4em;
-        margin-left: -0.35em;
-    }
-
-    &-right-bracket {
-        margin-left: -0.4em;
-        margin-right: 0.4em;
-    }
-
-    &-text {
-        display: inline-block;
-        // this is so that the chord line is not displayed on the text
-        position: relative;
-        background: white;
-        z-index: 2;
-    }
-
-    &-text-spaced {
-        // margin-right: 0.5em;
-    }
-
-    &-line {
-        display: block;
-        position: relative;
-        width: calc(100% - 0.6em);
-        height: 1.1px;
-        background: #b9b9b9;
-        top: -0.5em;
-        right: -0.5em;
-    }
-}
-
-.song-part-inline .chord-text {
-    display: none;
 }
 
 .v-skeleton-loader__chip {

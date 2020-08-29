@@ -1,22 +1,9 @@
 $search-wrapper-height: 47px;
 
 body.home {
-    background-color: #da3926;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-
-    min-height: 100%;
     padding: 0;
     margin: 0;
-
-    &[data-dark] {
-        background-color: black;
-    }
-
-    &.home-scroll {
-        overflow-y: scroll;
-    }
+    overflow-y: scroll;
 
     & > div, & > div > div:last-child, #app {
         min-height: inherit;
@@ -198,18 +185,6 @@ div.filters {
     }
 }
 
-/**
-View: Search results
- */
-.search-basic {
-    max-width: 500px;
-    display: inline-block;
-}
-
-.result-table {
-    width: auto;
-}
-
 div.card.news {
     display: block;
     padding: 0.5rem 0.75rem;
@@ -221,28 +196,6 @@ div.card.news {
 
         i {
             padding-right: 0.5rem;
-        }
-    }
-
-    .justify-content-center & {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: inline-block;
-        max-width: 100%;
-
-        .news-item {
-            display: inline;
-        }
-
-        .news-opener {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 5%;
-            max-width: 3rem;
-            cursor: pointer;
         }
     }
 }
