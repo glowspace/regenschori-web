@@ -24,8 +24,8 @@ body[data-dark] {
         color: #ccc;
     }
 
-    .tag {
-        border: #555 1px solid;
+    .tag, div.filters .btn-group, div.filters .btn-group a {
+        border-color: #555;
     }
 
     .song-tags .songbook-tag .songbook-number {
@@ -62,14 +62,6 @@ body[data-dark] {
         color: #222;
     }
 
-    .chord-sign {
-        color: $teal;
-    }
-
-    .chord-bass {
-        color: #45a99f;
-    }
-
     .chosen .btn,
     .btn.chosen {
         background-color: rgba(255, 255, 255, 0.133);
@@ -77,16 +69,14 @@ body[data-dark] {
 
 
     .dark-mode-button {
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.5);
     }
 
-    a,
-    .btn.btn-primary,
-    .btn-primary.custom-file-control::before {
-        color: $teal;
+    a {
+        color: #7991e7;
 
         &:hover {
-            color: #328e85;
+            color: #5d79e2;
         }
     }
 
@@ -103,19 +93,10 @@ body[data-dark] {
     }
 
     .bg-main-blue {
-        background-color: $teal !important;
+        background-color: #5d79e2 !important;
     }
 
-    .btn.display-all-songs {
-        background-color: rgba(255, 255, 255, 0.15);
-
-        &:hover {
-            background-color: white;
-            color: black;
-        }
-    }
-
-    .nosleep-caption {
-        background-color: rgba(0, 0, 0, 0.8) !important;
+    .table td {
+        border-top-color: #222222;
     }
 }
