@@ -16,7 +16,7 @@
     "@bit/proscholy.search.build-elastic-search-params": "^0.0.2",
     "@bit/proscholy.search.merge-fetch-more-result": "0.0.2",
     "@bit/proscholy.search.scroll-trigger": "^0.0.1",
-    "@bit/proscholy.search.search-history-manager": "^0.0.2",
+    "@bit/proscholy.search.search-history-manager": "^0.0.5",
     "@bit/proscholy.search.tag-category": "^0.0.1",
     "@bit/proscholy.utilities.dark-mode-button": "^0.0.1",
     "@bit/proscholy.utilities.external-line": "^0.0.1",

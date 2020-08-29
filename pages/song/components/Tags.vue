@@ -1,5 +1,5 @@
 <template>
-    <div :class="[{'mt-3': !inSongList}]">
+    <div :class="[{'mt-3': !inSongList}, 'd-block']">
         <div class="d-inline-flex flex-row flex-wrap align-items-start mr-3"
             v-if="song.tags_liturgy_part.length || song.liturgy_approval_status">
             <component :is="whichComponent" to="/napoveda#schvaleno-cbk" class="tag tag-blue" v-if="song.liturgy_approval_status">{{

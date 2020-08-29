@@ -360,7 +360,7 @@ export default {
                 this.selected_songbooks = obj.songbooks;
                 this.showAuthors = obj.show_authors;
                 this.descending = obj.is_descending;
-                this.seed = obj.seed;
+                if (obj.seed) {this.seed = obj.seed;}
                 this.sort = obj.sort;
 
                 if (this.seed) {

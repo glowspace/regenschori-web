@@ -58,7 +58,7 @@
                             >
                                 <nuxt-link
                                     class="p-2 w-100 d-inline-block"
-                                    :to="song_lyric.public_route"
+                                    :to="{path: song_lyric.public_route, query: $route.query }"
                                 >{{ song_lyric.name }}</nuxt-link>
                             </td>
                             <td

@@ -84,6 +84,10 @@ $search-wrapper-height: 47px;
     overflow: auto;
 }
 
+.song-tags {
+    display: block;
+}
+
 .desktop-filter-container {
     .position-sticky {
         top: calc(47px + 4rem);
