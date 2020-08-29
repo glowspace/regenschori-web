@@ -1,7 +1,7 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark absolute-top">
-            <div class="container">
+        <nav class="navbar navbar-dark absolute-top">
+            <div class="container justify-content-start">
                 <nuxt-link to="/" class="navbar-brand" id="navbar-brand">
                     <h1 v-if="$nuxt.$route.path == '/'" class="home-h1">Regenschori</h1>
                     <span v-else>Regenschori</span>
@@ -12,7 +12,7 @@
                         :class="[{ active: isHome }, 'btn btn-secondary']"
                     ><i class="fas fa-search"></i> Vyhledávání</nuxt-link>
                     <nuxt-link
-                        to="/o-zpevniku"
+                        to="/o-projektu"
                         class="btn btn-secondary"
                         active-class="active"
                     ><i class="fas fa-info"></i> O&nbsp;projektu</nuxt-link>
@@ -25,19 +25,19 @@
             <i class="fas fa-search"></i>
         </a>
 
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-dark fixed-top">
             <div class="container">
-                <nuxt-link to="/" class="btn" id="navbar-brand-small">R</nuxt-link>
+                <div>
+                    <nuxt-link to="/" class="btn btn-secondary" :class="[{ active: isHome }, 'btn btn-secondary']"
+                        ><i class="fas fa-search"></i
+                    ></nuxt-link>
 
-                <nuxt-link to="/" class="btn btn-secondary" :class="[{ active: isHome }, 'btn btn-secondary']"
-                    ><i class="fas fa-search"></i
-                ></nuxt-link>
+                    <nuxt-link to="/o-projektu" class="btn btn-secondary" active-class="active"
+                        ><i class="fas fa-info"></i
+                    ></nuxt-link>
 
-                <nuxt-link to="/o-zpevniku" class="btn btn-secondary" active-class="active"
-                    ><i class="fas fa-info"></i
-                ></nuxt-link>
-
-                <dark-mode-button></dark-mode-button>
+                    <dark-mode-button></dark-mode-button>
+                </div>
             </div>
         </nav>
     </div>

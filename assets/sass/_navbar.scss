@@ -29,21 +29,9 @@
 .navbar {
     padding: 0.5rem 0;
     z-index: 200;
-    background-color: #292929;
+    background-color: #112362;
     min-height: 66px;
     font-family: "Nunito", sans-serif;
-
-    &>div {
-        width: 100%;
-        /* max-width: 994px; */
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .container {
-        // override bootstrap flex behaviour
-        display: block;
-    }
 
     &.fixed-top {
         padding-top: 0;
@@ -57,19 +45,28 @@
     }
 
     .btn.btn-secondary {
-        color: #aaa;
+        &, &:not(:disabled):not(.disabled) {
+            color: #ccc;
 
-        &.active, &:active {
-            background-color: rgba(153, 153, 153, 0.2);
-
-            &:hover, &:focus {
-                background-color: rgba(153, 153, 153, 0.4);
+            &.active, &:active {
+                background-color: rgba(255, 255, 255, 0.2);
                 color: #fff;
+
+                &:hover, &:focus {
+                    background-color: rgba(255, 255, 255, 0.4);
+                }
             }
         }
     }
 
     .navbar-brand {
-        padding: 0 0.5rem;
+        padding: 0.5rem 0.75rem;
+        text-transform: uppercase;
+
+        .home-h1 {
+            font: inherit;
+            margin: 0;
+            display: inline;
+        }
     }
 }

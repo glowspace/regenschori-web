@@ -15,7 +15,7 @@ export function createRouter() {
         routes: [
             { name: 'index', path: '/', component: Search },
 
-            { path: '/o-zpevniku', component: AboutProject },
+            { path: '/o-projektu', component: AboutProject },
             { path: '/pisen/:id/*', component: Song },
             { path: '/autor/:id', component: Author },
 

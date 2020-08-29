@@ -22,7 +22,7 @@
 
 @import "variables";
 $main-red: #d83027;
-$main-blue: #3961ad;
+$main-blue: map-get($theme-colors, "primary");
 $main-green: #098845;
 $main-yellow: #faa61b;
 

@@ -1,42 +1,7 @@
 $search-wrapper-height: 47px;
 
-body.home {
-    padding: 0;
-    margin: 0;
+.home-scroll {
     overflow-y: scroll;
-
-    & > div, & > div > div:last-child, #app {
-        min-height: inherit;
-    }
-
-    & > div {
-        height: 1px;
-
-        & > div:last-child {
-            height: 100%;
-        }
-    }
-
-    #app {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
-
-    .card {
-        opacity: 0.9;
-    }
-}
-
-.search-balance {
-    max-width: 0;
-    padding: 0;
-}
-
-.home-afterinit {
-   .search-balance {
-        max-width: 100% / $grid-columns * 4; // .col-lg-4
-    }
 }
 
 .btn.search-report {
@@ -53,25 +18,13 @@ body.home {
     }
 }
 
-.home-h1 {
-    font: inherit;
-    margin: 0;
-    display: inline;
-}
-
 .search-home,
 .form-control {
     line-height: calc((2.3775rem + 2px) / 1.5);
 }
 
 .search-wrapper {
-    border-radius: 8px;
     display: flex;
-}
-
-.search-balance,
-.search-column {
-    transition: 0.4s;
 }
 
 .search-home {
@@ -82,7 +35,7 @@ body.home {
     height: $search-wrapper-height;
     border: none;
     background-color: white;
-    border-radius: 8px 0 0 8px;
+    border-radius: 0.5rem 0 0 0.5rem;
     border: 1px #ccc solid;
     border-right: 0;
     width: calc(100% - 70px);
@@ -104,7 +57,7 @@ body.home {
     height: $search-wrapper-height;
     border: none;
     background-color: white;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 0.5rem 0.5rem 0;
     border: 1px #ccc solid;
     border-left: 0;
     width: 70px;
@@ -117,15 +70,6 @@ body.home {
 
     &:hover {
         background-color: #eee;
-    }
-}
-
-.btn.btn-outline-light.display-all-songs {
-    border-radius: 8px;
-    background-color: rgba(218, 57, 38, 0.5);
-
-    &:hover {
-        background-color: rgba(218, 57, 38, 0.6);
     }
 }
 
@@ -164,7 +108,7 @@ body.home {
 
 div.filters {
     .btn-group {
-        border-radius: 0.125rem;
+        border-radius: 0.25rem;
         border: 1px solid #dee2e6;
         max-width: 100%;
 
@@ -172,6 +116,7 @@ div.filters {
             border-right: 1px solid #dee2e6;
             overflow: hidden;
             white-space: nowrap;
+            border-radius: 0;
 
             i {
                 margin-right: 0.5rem;

@@ -17,7 +17,6 @@
 
 // _error.scss
 .error {
-    color: white;
     text-align: center;
 
     h1 {
@@ -61,6 +60,21 @@ h4 {
 .btn {
     will-change: initial;
     cursor: pointer;
+    text-transform: uppercase;
+
+    &.btn-secondary {
+        background-color: transparent;
+        border: none;
+        color: inherit;
+
+        &, &:not(:disabled):not(.disabled) {
+            &.active, &.focus, &:active, &:focus, &:hover {
+                color: inherit;
+                background-color: hsla(0,0%,60%,.2);
+                border-color: hsla(0,0%,60%,.2);
+            }
+        }
+    }
 }
 
 a:focus {

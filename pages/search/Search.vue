@@ -3,8 +3,8 @@
         <div class="container">
             <div :class="[init ? 'home-init' : 'home-afterinit']">
                 <div class="row mt-n4 justify-content-center zindex-lower fixed-top position-sticky">
-                    <div class="col-lg-8 offset-lg-4 px-1 pt-5 pb-3 search-column">
-                        <div class="search-wrapper shadow">
+                    <div class="col-lg-8 offset-lg-4 px-1 pt-5 pb-3">
+                        <div class="search-wrapper">
                             <input
                                 type="search"
                                 class="search-home"
@@ -73,7 +73,7 @@
                 <div class="row flex-row-reverse">
                     <div class="col-lg-8">
                         <News v-show="!filters_active && !search_string" />
-                        <div class="card" v-if="!init">
+                        <div class="card" v-show="!init">
                             <div class="card-body p-0">
                                 <SongsList
                                     v-if="!showAuthors"
@@ -94,13 +94,13 @@
                             </div>
                         </div>
                         <div
-                            v-else
+                            v-show="init"
                             @click="init = false;"
                             class="text-center pt-2 text-white"
                         >
                             <a
-                                class="btn btn-outline-light display-all-songs font-weight-bold"
-                                ><i class="fas fa-chevron-down pr-1"></i> ZOBRAZIT VŠECHNY PÍSNĚ</a
+                                class="btn btn-primary display-all-songs font-weight-bold"
+                                ><i class="fas fa-chevron-down pr-2"></i>zobrazit všechny písně</a
                             >
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                     target="_blank"
                     title="Nahlásit"
                     :href="
-                        'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=' +
+                        'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
                             encodeURIComponent($route.fullPath)
                     "
                 >
@@ -176,7 +176,7 @@ export default {
                 {property: 'twitter:description', content: this.getDescription()}
             ],
             bodyAttrs: {
-                class: ['home', 'home-scroll']
+                class: ['home-scroll']
             }
         }
     },

@@ -133,7 +133,7 @@
         padding: 0.1em 0.7em;
         margin-bottom: 0.5em;
         margin-right: 7px;
-        border-radius: 1em;
+        border-radius: 0.5rem;
         color: black;
         text-align: center;
         display: inline-block;
@@ -208,7 +208,7 @@
             padding: 0.1em 0.7em;
             padding-left: 0.6em;
             background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 0 1em 1em 0;
+            border-radius: 0 0.5rem 0.5rem 0;
             display: flex;
             align-items: center;
         }

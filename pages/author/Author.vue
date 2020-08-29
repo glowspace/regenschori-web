@@ -56,7 +56,7 @@
             <div class="px-3 py-2 d-inline-block">Regenschori {{ new Date().getFullYear() }}</div>
             <div class="float-right">
                 <a class="btn btn-secondary m-0" target="_blank"
-                    :href="'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741='
+                    :href="'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS'
                     + encodeURIComponent(author.public_route)"
                 >Nahlásit</a>
                 <a class="btn btn-secondary m-0" target="_blank"

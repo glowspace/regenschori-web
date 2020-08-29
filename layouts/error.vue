@@ -5,15 +5,15 @@
                 <h1>Error {{ error.statusCode }}</h1>
                 <p v-if="error.statusCode === 404">Stránka nebyla nalezena. <br>Zkuste použít vyhledávání.</p>
                 <p v-else>Ajajaj, někde se stala chyba.<br> Zkuste použít vyhledávání.</p>
-                <div class="text-center text-white">
-                    <nuxt-link to="/" class="btn btn-outline-light display-all-songs font-weight-bold">
+                <div class="text-center">
+                    <nuxt-link to="/" class="btn btn-primary display-all-songs font-weight-bold">
                         <i class="fas fa-search pr-1"></i> VYHLEDÁVÁNÍ
                     </nuxt-link>
                 </div>
-                <div class="text-center text-white pt-5">
-                    <a :href="'https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=' + encodeURIComponent($route.fullPath) + '&entry.456507920=' + error.statusCode"
+                <div class="text-center pt-5">
+                    <a :href="'https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=RS' + encodeURIComponent($route.fullPath) + '&entry.456507920=' + error.statusCode"
                         target="_blank"
-                        class="btn btn-outline-light display-all-songs font-weight-bold">
+                        class="btn btn-primary display-all-songs font-weight-bold">
                         <i class="fas fa-exclamation-triangle pr-1"></i> NAHLÁSIT
                     </a>
                 </div>
