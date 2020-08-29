@@ -129,7 +129,7 @@
                             </td>
                         </tr>
                         <tr :key="song_lyric.id + '1'" v-if="openDrawer == song_lyric.id">
-                            <td colspan="6"><tags :song="song_lyric"></tags></td>
+                            <td colspan="6" class="pb-2"><tags :song="song_lyric" :in-song-list="true"></tags></td>
                         </tr>
                     </template>
                     <tr v-if="results_loaded"><td class="p-0 border-top-0"><scroll-trigger

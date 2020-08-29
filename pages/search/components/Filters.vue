@@ -1,5 +1,5 @@
 <template>
-    <div class="song-tags card py-1" v-if="$apollo.loading || !tags_generic">
+    <div class="song-tags card px-3 py-1" v-if="$apollo.loading || !tags_generic">
         <template v-for="(x, key2) in [1.3, 1.2, 1.4, 1.1, 1.2, 1.3]">
             <v-skeleton-loader type="heading" class="my-3" />
             <div
@@ -10,7 +10,7 @@
             >&nbsp;</div>
         </template>
     </div>
-    <div class="song-tags filters card py-1" v-else>
+    <div class="song-tags filters card px-3 py-1" v-else>
         <div class="btn-group m-0 my-2 bg-light" role="group">
             <a
                 class="btn btn-secondary"
