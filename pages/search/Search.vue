@@ -299,19 +299,17 @@ export default {
     },
 
     mounted() {
-        if (process.client) {
-            window.onpopstate = this.applyStateChange;
-            if (document.getElementById('navbar-brand')) {
-                document.getElementById('navbar-brand').onclick = () => {this.resetState(true);};
-            }
-            if (document.getElementById('navbar-brand-small')) {
-                document.getElementById('navbar-brand-small').onclick = () => {this.resetState(true);};
-            }
-            if (document.getElementById('search-home')) {
-                document.getElementById('search-home').focus();
-            }
-            this.applyStateChange();
+        window.onpopstate = this.applyStateChange;
+        if (document.getElementById('navbar-brand')) {
+            document.getElementById('navbar-brand').onclick = () => {this.resetState(true);};
         }
+        if (document.getElementById('navbar-brand-small')) {
+            document.getElementById('navbar-brand-small').onclick = () => {this.resetState(true);};
+        }
+        if (document.getElementById('search-home')) {
+            document.getElementById('search-home').focus();
+        }
+        this.applyStateChange();
     },
 
     components: {

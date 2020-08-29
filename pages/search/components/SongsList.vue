@@ -22,7 +22,7 @@
                         </div>
                     </td>
                     <td>Načítám...</td>
-                    <td class="p-1" colspan="5">
+                    <td class="p-1">
                         <a
                             class="btn btn-secondary float-right m-0"
                             target="_blank"
@@ -38,90 +38,100 @@
                 <template
                     v-else-if="song_lyrics && song_lyrics.length"
                 >
-                    <tr
+                    <template
                         v-for="(song_lyric, index) in song_lyrics"
-                        v-bind:key="song_lyric.id"
                     >
-                        <td
-                            class="p-1 pl-2 align-middle w-min"
-                        >
-                            <a class="btn btn-secondary text-secondary rounded-circle"><i class="fas fa-plus"></i></a>
-                        </td>
-                        <td
-                            class="p-1 align-middle"
-                        >
-                            <nuxt-link
-                                class="p-2 w-100 d-inline-block"
-                                :to="song_lyric.public_route"
-                            >{{ song_lyric.name }}</nuxt-link>
-                        </td>
-                        <td
-                            class="p-1 align-middle"
-                            :colspan="song_lyric.lang != 'cs' ? 1 : 2"
-                        >
-                            <span
-                                v-for="(ap,
-                                authorIndex) in song_lyric.authors_pivot"
-                                :key="authorIndex"
+                        <tr :key="song_lyric.id + '0'">
+                            <td
+                                class="py-0 pl-2 pr-0 align-middle w-min"
                             >
-                                <span v-if="authorIndex">,</span>
+                                <a
+                                    :class="[
+                                        'btn btn-secondary text-secondary rounded-circle drawer-button',
+                                        {'drawer-button--opened': (openDrawer == song_lyric.id)}
+                                    ]"
+                                    @click="openDrawer = (openDrawer == song_lyric.id) ? 0 : song_lyric.id"
+                                ><i class="fas fa-plus"></i></a>
+                            </td>
+                            <td
+                                class="p-1 align-middle"
+                            >
                                 <nuxt-link
-                                    :to="ap.author.public_route"
-                                    :title="song_lyric.type ? {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}['LYRICS'] : {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}[ap.authorship_type]"
-                                    class="text-secondary"
-                                    >{{ ap.author.name }}</nuxt-link
-                                >
-                            </span>
-                        </td>
-                        <td
-                            class="no-left-padding text-right text-uppercase small align-middle pr-3"
-                            v-if="song_lyric.lang != 'cs'"
-                        >
-                            <span
-                                :class="[
-                                    {
-                                        'text-very-muted': !song_lyric.has_lyrics
-                                    },
-                                    'pr-sm-0 pr-1'
-                                ]"
-                                :title="song_lyric.lang_string"
-                                >{{ song_lyric.lang.substring(0, 3) }}</span
+                                    class="p-2 w-100 d-inline-block"
+                                    :to="song_lyric.public_route"
+                                >{{ song_lyric.name }}</nuxt-link>
+                            </td>
+                            <td
+                                class="p-1 align-middle"
+                                :colspan="song_lyric.lang != 'cs' ? 1 : 2"
                             >
-                        </td>
-                        <td
-                            style="width:10px"
-                            class="no-left-padding align-middle d-none d-sm-table-cell"
-                        >
-                            <i
-                                v-if="song_lyric.scoreFiles.length > 0"
-                                class="fa fa-file-alt text-danger"
-                                title="K této písni jsou k dispozici noty."
-                            ></i>
-                            <i
-                                v-else
-                                class="fa fa-file-alt text-very-muted"
-                            ></i>
-                        </td>
-                        <td
-                            style="width:10px"
-                            class="no-left-padding pr-4 align-middle d-none d-sm-table-cell"
-                        >
-                            <i
-                                v-if="
-                                    song_lyric.spotifyTracks.length +
-                                        song_lyric.soundcloudTracks.length +
-                                        song_lyric.youtubeVideos.length +
-                                        song_lyric.audioFiles.length
-                                "
-                                class="fas fa-headphones text-success"
-                                title="U této písně je k dispozici nahrávka."
-                            ></i>
-                            <i
-                                v-else
-                                class="fas fa-headphones text-very-muted"
-                            ></i>
-                        </td>
-                    </tr>
+                                <span
+                                    v-for="(ap,
+                                    authorIndex) in song_lyric.authors_pivot"
+                                    :key="authorIndex"
+                                >
+                                    <span v-if="authorIndex">,</span>
+                                    <nuxt-link
+                                        :to="ap.author.public_route"
+                                        :title="song_lyric.type ? {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}['LYRICS'] : {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}[ap.authorship_type]"
+                                        class="text-secondary"
+                                        >{{ ap.author.name }}</nuxt-link
+                                    >
+                                </span>
+                            </td>
+                            <td
+                                class="no-left-padding text-right text-uppercase small align-middle pr-3"
+                                v-if="song_lyric.lang != 'cs'"
+                            >
+                                <span
+                                    :class="[
+                                        {
+                                            'text-very-muted': !song_lyric.has_lyrics
+                                        },
+                                        'pr-sm-0 pr-1'
+                                    ]"
+                                    :title="song_lyric.lang_string"
+                                    >{{ song_lyric.lang.substring(0, 3) }}</span
+                                >
+                            </td>
+                            <td
+                                style="width:10px"
+                                class="no-left-padding align-middle d-none d-sm-table-cell"
+                            >
+                                <i
+                                    v-if="song_lyric.scoreFiles.length > 0"
+                                    class="fa fa-file-alt text-danger"
+                                    title="K této písni jsou k dispozici noty."
+                                ></i>
+                                <i
+                                    v-else
+                                    class="fa fa-file-alt text-very-muted"
+                                ></i>
+                            </td>
+                            <td
+                                style="width:10px"
+                                class="no-left-padding pr-4 align-middle d-none d-sm-table-cell"
+                            >
+                                <i
+                                    v-if="
+                                        song_lyric.spotifyTracks.length +
+                                            song_lyric.soundcloudTracks.length +
+                                            song_lyric.youtubeVideos.length +
+                                            song_lyric.audioFiles.length
+                                    "
+                                    class="fas fa-headphones text-success"
+                                    title="U této písně je k dispozici nahrávka."
+                                ></i>
+                                <i
+                                    v-else
+                                    class="fas fa-headphones text-very-muted"
+                                ></i>
+                            </td>
+                        </tr>
+                        <tr :key="song_lyric.id + '1'" v-if="openDrawer == song_lyric.id">
+                            <td colspan="6"><tags :song="song_lyric"></tags></td>
+                        </tr>
+                    </template>
                     <tr v-if="results_loaded"><td class="p-0 border-top-0"><scroll-trigger
                         @triggerIntersected="loadMore"
                         @noObserver="caniuseObserver = false"
@@ -129,7 +139,7 @@
                     /></td></tr>
                 </template>
                 <tr v-else-if="results_loaded">
-                    <td class="p-1" colspan="7">
+                    <td class="p-1">
                         <span class="px-3 py-2 d-inline-block"
                             >Žádná píseň odpovídající zadaným kritériím nebyla
                             nalezena.</span
@@ -169,6 +179,7 @@ import ScrollTrigger from '@bit/proscholy.search.scroll-trigger/ScrollTrigger.vu
 import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@bit/proscholy.search.build-elastic-search-params/buildElasticSearchParams';
 import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
+import Tags from '~/pages/song/components/Tags';
 
 // Query
 const FETCH_ITEMS = gql`
@@ -213,6 +224,10 @@ const FETCH_ITEMS = gql`
                 tags {
                     id
                 }
+                tags_liturgy_part   {id name}
+                tags_generic        {id name}
+                tags_liturgy_period {id name}
+                tags_saints         {id name}
                 has_chords
                 has_lyrics
                 songbook_records {
@@ -245,7 +260,7 @@ export default {
         'seed'
     ],
 
-    components: { ScrollTrigger },
+    components: { ScrollTrigger, Tags },
 
     data() {
         return {
@@ -255,7 +270,8 @@ export default {
             results_loaded: false,
             preferred_songbook_id: null,
             caniuseObserver: true,
-            loadedMore: false
+            loadedMore: false,
+            openDrawer: 0
         };
     },
 
