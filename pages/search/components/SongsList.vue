@@ -45,7 +45,7 @@
                         <td
                             class="p-1 pl-2 align-middle w-min"
                         >
-                            <a class="btn btn-secondary"><i class="fas fa-plus"></i></a>
+                            <a class="btn btn-secondary text-secondary rounded-circle"><i class="fas fa-plus"></i></a>
                         </td>
                         <td
                             class="p-1 align-middle"

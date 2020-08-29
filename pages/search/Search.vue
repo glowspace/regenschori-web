@@ -70,7 +70,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="row flex-row-reverse">
+                <div class="row">
+                    <div
+                        class="col-lg-4 d-none d-lg-block desktop-filter-container"
+                    >
+                        <div class="fixed-top position-sticky">
+                            <!-- filters shown only for desktop -->
+                            <Filters
+                                :selected-songbooks.sync="selected_songbooks"
+                                :selected-tags.sync="selected_tags"
+                                :selected-languages.sync="selected_languages"
+                                :show-authors.sync="showAuthors"
+                                :sort.sync="sort"
+                                :descending.sync="descending"
+                                :search-string="search_string"
+                                v-on:refresh-seed="refreshSeed"
+                                v-on:input="updateHistoryState(); init = false;"
+                            ></Filters>
+                        </div>
+                    </div>
                     <div class="col-lg-8">
                         <News v-show="!filters_active && !search_string" />
                         <div class="card" v-show="!init">
@@ -102,24 +120,6 @@
                                 class="btn btn-primary display-all-songs font-weight-bold"
                                 ><i class="fas fa-chevron-down pr-2"></i>zobrazit všechny písně</a
                             >
-                        </div>
-                    </div>
-                    <div
-                        class="col-lg-4 d-none d-lg-block desktop-filter-container"
-                    >
-                        <div class="fixed-top position-sticky">
-                            <!-- filters shown only for desktop -->
-                            <Filters
-                                :selected-songbooks.sync="selected_songbooks"
-                                :selected-tags.sync="selected_tags"
-                                :selected-languages.sync="selected_languages"
-                                :show-authors.sync="showAuthors"
-                                :sort.sync="sort"
-                                :descending.sync="descending"
-                                :search-string="search_string"
-                                v-on:refresh-seed="refreshSeed"
-                                v-on:input="updateHistoryState(); init = false;"
-                            ></Filters>
                         </div>
                     </div>
                 </div>

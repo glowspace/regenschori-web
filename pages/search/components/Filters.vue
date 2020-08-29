@@ -52,85 +52,49 @@
                 >{{ (localSort == 2) ? (!localDescending ? '1–9' : '9–1') : '1–9' }}</a
             >
         </div>
-        <!-- todo: make component -->
         <div v-if="!localShowAuthors">
-            <h4>Liturgie – mše svatá</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-blue',
-                    isSelectedTag(tag) ? 'tag-selected' : ''
-                ]"
-                v-for="tag in tags_liturgy_part"
-                v-bind:key="'tag-' + tag.id"
-                v-on:click="selectTag(tag)"
-                >{{ tag.name }}</a
-            >
-
-            <h4>Liturgický rok</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-blue',
-                    isSelectedTag(tag) ? 'tag-selected' : ''
-                ]"
-                v-for="tag in tags_liturgy_period"
-                v-bind:key="'tag-' + tag.id"
-                v-on:click="selectTag(tag)"
-                >{{ tag.name }}</a
-            >
-
-            <h4>Příležitosti</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-green',
-                    isSelectedTag(tag) ? 'tag-selected' : ''
-                ]"
-                v-for="tag in tags_generic"
-                v-bind:key="'tag-' + tag.id"
-                v-on:click="selectTag(tag)"
-                >{{ tag.name }}</a
-            >
-
-            <h4>Ke svatým</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-green',
-                    isSelectedTag(tag) ? 'tag-selected' : ''
-                ]"
-                v-for="tag in tags_saints"
-                v-bind:key="'tag-' + tag.id"
-                v-on:click="selectTag(tag)"
-                >{{ tag.name }}</a
-            >
-
-            <h4>Zpěvníky</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-yellow',
-                    isSelectedSongbook(songbook) ? 'tag-selected' : ''
-                ]"
-                v-for="songbook in songbooks"
-                v-bind:key="'songbook-' + songbook.id"
-                v-on:click="selectSongbook(songbook)"
-                >{{ songbook.name }}</a
-            >
-
-            <h4>Jazyky</h4>
-            <a
-                v-bind:class="[
-                    'tag',
-                    'tag-red',
-                    isSelectedLanguage(lang_code) ? 'tag-selected' : ''
-                ]"
-                v-for="(lang_name, lang_code) in all_languages"
-                v-bind:key="'lang-' + lang_code"
-                v-on:click="selectLanguage(lang_code)"
-                >{{ lang_name }}</a
-            >
+            <tag-category
+                heading="Liturgie – mše svatá"
+                color="blue"
+                :tags-in-category="tags_liturgy_part"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Liturgický rok"
+                color="blue"
+                :tags-in-category="tags_liturgy_period"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Příležitosti"
+                color="green"
+                :tags-in-category="tags_generic"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Ke svatým"
+                color="green"
+                :tags-in-category="tags_saints"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Zpěvníky"
+                color="yellow"
+                :tags-in-category="songbooks"
+                :selected-tags="selected_songbooks"
+                @selectTag="selectSongbook"
+            ></tag-category>
+            <tag-category
+                heading="Jazyky"
+                color="red"
+                :tags-in-category="all_languages"
+                :selected-tags="selected_languages"
+                @selectTag="selectLanguage"
+            ></tag-category>
         </div>
     </div>
 </template>
@@ -139,30 +103,35 @@
 import gql from 'graphql-tag';
 import Vue from 'vue'
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
+import TagCategory from '@bit/proscholy.search.tag-category/TagCategory.vue';
 
 export default {
     props: ['selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string'],
+
+    components: {
+        TagCategory
+    },
 
     data() {
         return {
             selected_tags: {},
             selected_songbooks: {},
             selected_languages: {},
-            all_languages: {
-                cs: 'čeština',
-                sk: 'slovenština',
-                en: 'angličtina',
-                la: 'latina',
-                pl: 'polština',
-                de: 'němčina',
-                fr: 'francouzština',
-                es: 'španělština',
-                it: 'italština',
-                sv: 'svahilština',
-                he: 'hebrejština',
-                cu: 'staroslověnština',
-                mixed: 'vícejazyčná píseň'
-            }
+            all_languages: [
+                {id: 'cs', name: 'čeština'},
+                {id: 'sk', name: 'slovenština'},
+                {id: 'en', name: 'angličtina'},
+                {id: 'la', name: 'latina'},
+                {id: 'pl', name: 'polština'},
+                {id: 'de', name: 'němčina'},
+                {id: 'fr', name: 'francouzština'},
+                {id: 'es', name: 'španělština'},
+                {id: 'it', name: 'italština'},
+                {id: 'sv', name: 'svahilština'},
+                {id: 'he', name: 'hebrejština'},
+                {id: 'cu', name: 'staroslověnština'},
+                {id: 'mixed', name: 'vícejazyčná píseň'}
+            ]
         };
     },
 
@@ -248,9 +217,9 @@ export default {
 
         selectLanguage(language) {
             if (!this.isSelectedLanguage(language)) {
-                Vue.set(this.selected_languages, language, true);
+                Vue.set(this.selected_languages, language.id, true);
             } else {
-                Vue.delete(this.selected_languages, language);
+                Vue.delete(this.selected_languages, language.id);
             }
 
             // notify the parent that sth has changed
@@ -267,7 +236,7 @@ export default {
         },
 
         isSelectedLanguage(language) {
-            return this.selected_languages[language];
+            return this.selected_languages[language.id];
         },
 
         refreshSeed() {
