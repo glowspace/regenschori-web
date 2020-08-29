@@ -2,20 +2,18 @@
     <div class="container">
         <div class="row">
             <div
-                class="col-lg-4 d-none d-lg-block desktop-filter-container"
-                style="margin-top: calc(2.5rem + 47px);"
+                class="col-lg-4 d-none d-lg-block"
             >
-                <div class="fixed-top position-sticky">
                     <!-- filters shown only for desktop -->
                     <Filters
                         :selected-songbooks.sync="selected_songbooks"
                         :selected-tags.sync="selected_tags"
                         :selected-languages.sync="selected_languages"
+                        :show-authors.sync="showAuthors"
                         :sort.sync="sort"
                         :descending.sync="descending"
                         v-on:input="updateHistoryState(null, true)"
                     ></Filters>
-                </div>
             </div>
             <div class="col-lg-8">
                 <div class="mt-4 mb-3">
@@ -65,8 +63,8 @@ export default {
             selected_tags: {},
 
             // View state
-            init: true,
             displayFilter: false,
+            showAuthors: false,
 
             // Random order seed
             seed: 0,
@@ -93,6 +91,7 @@ export default {
                     tags: this.selected_tags,
                     languages: this.selected_languages,
                     songbooks: this.selected_songbooks,
+                    show_authors: this.showAuthors,
                     seed: this.seedLocked ? this.seed : null,
                     is_descending: this.search_string ? null : this.descending,
                     sort: this.search_string ? null : this.sort
@@ -103,6 +102,7 @@ export default {
                 this.selected_tags = obj.tags;
                 this.selected_languages = obj.languages;
                 this.selected_songbooks = obj.songbooks;
+                this.showAuthors = obj.show_authors;
                 this.descending = obj.is_descending;
                 if (obj.seed) {this.seed = obj.seed;}
                 this.sort = obj.sort;
