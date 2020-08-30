@@ -190,53 +190,9 @@ const FETCH_ITEMS = gql`
             per_page: $per_page
         ) {
             data {
-                id
-                name
-                public_route
-                lang
-                lang_string
-                scoreExternals: externals(type: 4) {
-                    id
-                }
-                scoreFiles: files(type: 3) {
-                    id
-                }
-                youtubeVideos: externals(type: 3) {
-                    id
-                }
-                spotifyTracks: externals(type: 1) {
-                    id
-                }
-                soundcloudTracks: externals(type: 2) {
-                    id
-                }
-                audioFiles: files(type: 4) {
-                    id
-                }
-                authors_pivot {
-                    author {
-                        id
-                        name
-                        public_route
-                    }
-                    authorship_type
-                }
-                tags {
-                    id
-                }
-                tags_liturgy_part   {id name}
-                tags_generic        {id name}
-                tags_liturgy_period {id name}
-                tags_saints         {id name}
-                has_chords
-                has_lyrics
-                songbook_records {
-                    number
-                    songbook {
-                        id
-                        name
-                        shortcut
-                    }
+                ...SongLyricFragment
+                arrangements {
+                    ...SongLyricFragment
                 }
             }
             paginatorInfo {
@@ -244,6 +200,57 @@ const FETCH_ITEMS = gql`
                 lastPage
                 total
                 hasMorePages
+            }
+        }
+    }
+
+    fragment SongLyricFragment on SongLyric {
+        id
+        name
+        public_route
+        lang
+        lang_string
+        scoreExternals: externals(type: 4) {
+            id
+        }
+        scoreFiles: files(type: 3) {
+            id
+        }
+        youtubeVideos: externals(type: 3) {
+            id
+        }
+        spotifyTracks: externals(type: 1) {
+            id
+        }
+        soundcloudTracks: externals(type: 2) {
+            id
+        }
+        audioFiles: files(type: 4) {
+            id
+        }
+        authors_pivot {
+            author {
+                id
+                name
+                public_route
+            }
+            authorship_type
+        }
+        tags {
+            id
+        }
+        tags_liturgy_part   {id name}
+        tags_generic        {id name}
+        tags_liturgy_period {id name}
+        tags_saints         {id name}
+        has_chords
+        has_lyrics
+        songbook_records {
+            number
+            songbook {
+                id
+                name
+                shortcut
             }
         }
     }
@@ -297,6 +304,10 @@ export default {
                     seed: this.seed,
                     songbook_id: this.preferred_songbook_id,
                     is_descending: this.descending
+                },
+                filterConfig: {
+                    show_regenschori: true,
+                    show_arrangements: false
                 }
             });
         },
