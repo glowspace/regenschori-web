@@ -941,61 +941,61 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bit/proscholy.search.authors-list@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.search.authors-list/-/proscholy.search.authors-list-0.0.1.tgz#c0c7bcf8717d7d4dd925146fe6197a24d65d2d42"
-  integrity sha1-wMe8+HF9fU3ZJRRv5hl6JNZdLUI=
+"@bit/proscholy.search.authors-list@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.authors-list/-/proscholy.search.authors-list-1.0.0.tgz#82cd4a149e08c1f397fa3febb34d74e410ee39b2"
+  integrity sha1-gs1KFJ4IwfOX+j/rs0105BDuObI=
   dependencies:
     graphql-tag "^2.10.3"
 
-"@bit/proscholy.search.build-elastic-search-params@^0.0.2":
-  version "0.0.2"
-  resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-0.0.2.tgz#f8a6ab54348eac2a6182949af009692eed7581bd"
-  integrity sha1-+KarVDSOrCphgpSa8AlpLu11gb0=
+"@bit/proscholy.search.build-elastic-search-params@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-1.0.0.tgz#2867a0560381695cd8abe283b02ac202ad601fe4"
+  integrity sha1-KGegVgOBaVzYq+KDsCrCAq1gH+Q=
 
-"@bit/proscholy.search.merge-fetch-more-result@0.0.2":
-  version "0.0.2"
-  resolved "https://node.bit.dev/proscholy.search.merge-fetch-more-result/-/proscholy.search.merge-fetch-more-result-0.0.2.tgz#cb22968045d0c4ed3883f4977d12de3ffb08cd0c"
-  integrity sha1-yyKWgEXQxO04g/SXfRLeP/sIzQw=
+"@bit/proscholy.search.merge-fetch-more-result@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.merge-fetch-more-result/-/proscholy.search.merge-fetch-more-result-1.0.0.tgz#8636f0ada30a24acd231cb4378e88420ab089725"
+  integrity sha1-hjbwraMKJKzSMctDeOiEIKsIlyU=
 
-"@bit/proscholy.search.scroll-trigger@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.search.scroll-trigger/-/proscholy.search.scroll-trigger-0.0.1.tgz#321733026b877c772c10efc9077c60e7154b21b9"
-  integrity sha1-MhczAmuHfHcsEO/JB3xg5xVLIbk=
+"@bit/proscholy.search.scroll-trigger@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.scroll-trigger/-/proscholy.search.scroll-trigger-1.0.0.tgz#e1fb202833f260ebbed80b963e4d3d2d39cdbfeb"
+  integrity sha1-4fsgKDPyYOu+2AuWPk09LTnNv+s=
 
-"@bit/proscholy.search.search-history-manager@^0.0.5":
-  version "0.0.5"
-  resolved "https://node.bit.dev/proscholy.search.search-history-manager/-/proscholy.search.search-history-manager-0.0.5.tgz#d59c12d69dfa978eaabb34b463ffe79459787149"
-  integrity sha1-1ZwS1p36l46quzS0Y//nlFl4cUk=
+"@bit/proscholy.search.search-history-manager@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.search-history-manager/-/proscholy.search.search-history-manager-1.0.0.tgz#325825b348214033eb6add909a1da13cbad7dafa"
+  integrity sha1-Mlgls0ghQDPrat2Qmh2hPLrX2vo=
 
-"@bit/proscholy.search.tag-category@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.search.tag-category/-/proscholy.search.tag-category-0.0.1.tgz#cc2a110a88883c4911324df578d6f0775932099e"
-  integrity sha1-zCoRCoiIPEkRMk31eNbwd1kyCZ4=
+"@bit/proscholy.search.tag-category@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.search.tag-category/-/proscholy.search.tag-category-1.0.0.tgz#a76a544897408f73c34337730ddf7ff6041dae46"
+  integrity sha1-p2pUSJdAj3PDQzdzDd9/9gQdrkY=
 
-"@bit/proscholy.utilities.dark-mode-button@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.utilities.dark-mode-button/-/proscholy.utilities.dark-mode-button-0.0.1.tgz#d79ce29bb4012db67d9f3833e89f2d910f82a9d0"
-  integrity sha1-15zim7QBLbZ9nzgz6J8tkQ+CqdA=
+"@bit/proscholy.utilities.dark-mode-button@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.dark-mode-button/-/proscholy.utilities.dark-mode-button-1.0.0.tgz#9c9c9f81f0a46fd6e3986c85a82d9b3e495bf872"
+  integrity sha1-nJyfgfCkb9bjmGyFqC2bPklb+HI=
 
-"@bit/proscholy.utilities.external-line@^0.0.1":
-  version "0.0.1"
-  resolved "https://node.bit.dev/proscholy.utilities.external-line/-/proscholy.utilities.external-line-0.0.1.tgz#2affc6877e982e053220077fb75ba95906337b30"
-  integrity sha1-Kv/Gh36YLgUyIAd/t1upWQYzezA=
+"@bit/proscholy.utilities.external-line@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.external-line/-/proscholy.utilities.external-line-1.0.0.tgz#f7680484d710f9e482f7bf5a4fff9c0fb33498c3"
+  integrity sha1-92gEhNcQ+eSC979aT/+cD7M0mMM=
   dependencies:
     bowser "^2.4.0"
 
-"@bit/proscholy.utilities.external-view@^0.0.2":
-  version "0.0.2"
-  resolved "https://node.bit.dev/proscholy.utilities.external-view/-/proscholy.utilities.external-view-0.0.2.tgz#3c3db5eafa3b148b331ad84daa767b4c58eff725"
-  integrity sha1-PD216vo7FIszGthNqnZ7TFjv9yU=
+"@bit/proscholy.utilities.external-view@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.external-view/-/proscholy.utilities.external-view-1.0.0.tgz#f921a10a5e36e5c2739fad74b7105299c0fbcef9"
+  integrity sha1-+SGhCl425cJzn610txBSmcD7zvk=
   dependencies:
     bowser "^2.4.0"
 
-"@bit/proscholy.utilities.universal-link@0.0.4":
-  version "0.0.4"
-  resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-0.0.4.tgz#212573b4cf219b951f456c231471cf91ce3a3cad"
-  integrity sha1-ISVztM8hm5UfRWwjFHHPkc46PK0=
+"@bit/proscholy.utilities.universal-link@^1.0.0":
+  version "1.0.1"
+  resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-1.0.1.tgz#9b973456d712179caf3d8ceb71e8b7a48f09b5dd"
+  integrity sha1-m5c0VtcSF5yvPYzrcei3pI8Jtd0=
   dependencies:
     bigpicture "^2.5.3"
     bowser "^2.4.0"
@@ -3832,9 +3832,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001111, caniuse-lite@^1.0.30001118:
-  version "1.0.30001119"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001119.tgz#99185d04bc00e76a86c9ff731dc5ec8e53aefca1"
-  integrity sha512-Hpwa4obv7EGP+TjkCh/wVvbtNJewxmtg4yVJBLFnxo35vbPapBr138bUWENkb5j5L9JZJ9RXLn4OrXRG/cecPQ==
+  version "1.0.30001120"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001120.tgz#cd21d35e537214e19f7b9f4f161f7b0f2710d46c"
+  integrity sha512-JBP68okZs1X8D7MQTY602jxMYBmXEKOFkzTBaNSkubooMPFOAv2TXWaKle7qgHpjLDhUzA/TMT0qsNleVyXGUQ==
 
 capital-case@^1.0.3:
   version "1.0.3"
@@ -7801,9 +7801,9 @@ media-typer@0.3.0:
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
 mem@^6.0.1:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/mem/-/mem-6.1.0.tgz#846eca0bd4708a8f04b9c3f3cd769e194ae63c5c"
-  integrity sha512-RlbnLQgRHk5lwqTtpEkBTQ2ll/CG/iB+J4Hy2Wh97PjgZgXgWJWrFF+XXujh3UUVLvR4OOTgZzcWMMwnehlEUg==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/mem/-/mem-6.1.1.tgz#ea110c2ebc079eca3022e6b08c85a795e77f6318"
+  integrity sha512-Ci6bIfq/UgcxPTYa8dQQ5FY3BzKkT894bwXWXxC/zqs0XgMO2cT20CGkOqda7gZNkmK5VP4x89IGZ6K7hfbn3Q==
   dependencies:
     map-age-cleaner "^0.1.3"
     mimic-fn "^3.0.0"
@@ -8508,10 +8508,15 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-opener@1.5.1, opener@^1.5.1:
+opener@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
   integrity sha512-goYSy5c2UXE4Ra1xixabeVh1guIX/ZV/YokJksb6q2lubWu6UbvPQ20p542/sFIll1nl8JnCyK9oBaOcCWXwvA==
+
+opener@^1.5.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
+  integrity sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==
 
 optimism@^0.10.0:
   version "0.10.3"
@@ -11396,9 +11401,9 @@ upper-case@^2.0.1:
     tslib "^1.10.0"
 
 uri-js@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/uri-js/-/uri-js-4.2.2.tgz#94c540e1ff772956e2299507c010aea6c8838eb0"
-  integrity sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/uri-js/-/uri-js-4.3.0.tgz#e16cb9ef7b4036d74be59dc7342258e6f1aca20e"
+  integrity sha512-Q9Q9RlMM08eWfdPPmDDrXd8Ny3R1sY/DaRDR2zTPPneJ6GYiLx3++fPiZobv49ovkYAnHl/P72Ie3HWXIRVVYA==
   dependencies:
     punycode "^2.1.0"
 
