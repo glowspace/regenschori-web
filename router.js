@@ -16,7 +16,7 @@ export function createRouter() {
             { name: 'index', path: '/', component: Search },
 
             { path: '/o-projektu', component: AboutProject },
-            { path: '/pisen/:id/*', component: Song },
+            { path: '/pisen/:id/*', component: Search },
             { path: '/autor/:id', component: Author },
 
             { path: '/napoveda', component: Support },

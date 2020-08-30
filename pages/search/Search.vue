@@ -94,7 +94,7 @@
                     <div class="col-lg-8">
                         <News v-show="!filters_active && !search_string" />
                         <div class="card" v-show="!init">
-                            <div class="card-body p-0">
+                            <div class="card-body p-0" v-show="!$route.params.id">
                                 <SongsList
                                     v-if="!showAuthors"
                                     :search-string="search_string"
@@ -112,6 +112,7 @@
                                     v-on:query-loaded="queryLoaded"
                                 ></AuthorsList>
                             </div>
+                            <song v-if="$route.params.id"></song>
                         </div>
                         <div
                             v-show="init"
@@ -143,6 +144,7 @@
 </template>
 
 <script>
+import Song from '../song/Song';
 import SongsList from './components/SongsList';
 import AuthorsList from '@bit/proscholy.search.authors-list/AuthorsList.vue';
 import Filters from './components/Filters';
@@ -176,10 +178,7 @@ export default {
                 {name: 'description', content: this.getDescription()},
                 {property: 'og:description', content: this.getDescription()},
                 {property: 'twitter:description', content: this.getDescription()}
-            ],
-            bodyAttrs: {
-                class: ['home-scroll']
-            }
+            ]
         }
     },
 
@@ -192,7 +191,7 @@ export default {
             selected_tags: {},
 
             // View state
-            init: true,
+            init: !this.$route.params.id,
             displayFilter: false,
             showAuthors: false,
 
@@ -244,6 +243,7 @@ export default {
 
             if (manual) {
                 this.init = true;
+                this.showAuthors = false;
                 if (document.getElementById('search-home')) {
                     document.getElementById('search-home').focus();
                 }
@@ -263,6 +263,7 @@ export default {
         },
 
         inputEnter() {
+            if (this.$route.params.id) {this.updateHistoryState(true, true);}
             this.init = false;
             if (this.search_string) {
                 if (this.search_string == 'admin') {
@@ -312,11 +313,21 @@ export default {
         this.applyStateChange();
     },
 
+    destroyed() {
+        if (document.getElementById('navbar-brand')) {
+            document.getElementById('navbar-brand').onclick = () => {};
+        }
+        if (document.getElementById('navbar-brand-small')) {
+            document.getElementById('navbar-brand-small').onclick = () => {};
+        }
+    },
+
     components: {
         SongsList,
         AuthorsList,
         Filters,
-        News
+        News,
+        Song
     },
 
     computed: {
@@ -363,8 +374,9 @@ export default {
                 if (obj.seed) {this.seed = obj.seed;}
                 this.sort = obj.sort;
 
-                if (this.seed) {
+                if (this.seed && !this.seedLocked) {
                     this.seedLocked = true;
+                    this.updateHistoryState(false);
                 }
             }
         }
@@ -378,9 +390,9 @@ export default {
                 }
                 this.seedLocked = false;
             } else {
-                if (!this.search_string) {
+                if (!this.search_string && !this.seedLocked) {
                     this.seedLocked = true;
-                    this.updateHistoryState();
+                    this.updateHistoryState(false);
                 }
             }
         },
