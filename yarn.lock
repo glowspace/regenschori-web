@@ -949,9 +949,9 @@
     graphql-tag "^2.10.3"
 
 "@bit/proscholy.search.build-elastic-search-params@^1.0.0":
-  version "1.0.0"
-  resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-1.0.0.tgz#2867a0560381695cd8abe283b02ac202ad601fe4"
-  integrity sha1-KGegVgOBaVzYq+KDsCrCAq1gH+Q=
+  version "1.0.2"
+  resolved "https://node.bit.dev/proscholy.search.build-elastic-search-params/-/proscholy.search.build-elastic-search-params-1.0.2.tgz#41fec7c2138a3ec4d18027bc8a9dd67168ab514b"
+  integrity sha1-Qf7HwhOKPsTRgCe8ip3WcWirUUs=
 
 "@bit/proscholy.search.merge-fetch-more-result@^1.0.0":
   version "1.0.0"
