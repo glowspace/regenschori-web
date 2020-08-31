@@ -67,6 +67,7 @@
                                 :search-string="search_string"
                                 v-on:refresh-seed="refreshSeed"
                                 v-on:input="updateHistoryState(); init = false;"
+                                v-on:enter="inputEnter"
                             ></Filters>
                         </div>
                     </div>
@@ -88,6 +89,7 @@
                                 :search-string="search_string"
                                 v-on:refresh-seed="refreshSeed"
                                 v-on:input="updateHistoryState(); init = false;"
+                                v-on:enter="inputEnter"
                             ></Filters>
                         </div>
                     </div>
@@ -350,7 +352,7 @@ export default {
         // getter / setter for the SearchHistoryManager extending component
         historyStateObject: {
             get() {
-                this.seedLocked = !(this.search_string || this.sort || this.showAuthors || this.init);
+                this.seedLocked = !(this.search_string || this.sort || this.showAuthors || this.init || (!this.seedLocked && this.$route.params.id));
 
                 return {
                     search_string: this.search_string,

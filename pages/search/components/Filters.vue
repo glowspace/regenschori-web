@@ -11,6 +11,9 @@
         </template>
     </div>
     <div class="song-tags filters card px-3 py-1" v-else>
+        <button type="button" class="btn btn-primary mr-3" @click="$emit('enter', null)">
+            <i class="fas fa-search"></i>
+        </button>
         <div class="btn-group m-0 my-2 bg-light" role="group">
             <a
                 class="btn btn-secondary"
