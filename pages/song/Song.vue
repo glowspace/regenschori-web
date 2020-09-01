@@ -1,6 +1,6 @@
 <template>
     <song-loading v-if="$apollo.loading"></song-loading>
-    <song-detail v-else-if="song_lyric" :song="song_lyric"></song-detail>
+    <song-detail v-else-if="song_lyric" :song_lyric="song_lyric"></song-detail>
 </template>
 
 <script>

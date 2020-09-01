@@ -1,6 +1,6 @@
 // _transitions.scss
 // page transitions (please do not edit those purgecss comments)
-/* purgecss start ignore */
+/*! purgecss start ignore */
 .page-enter-active, .page-leave-active {
     // transition: opacity .2s;
 }
@@ -8,7 +8,7 @@
 .page-enter, .page-leave-to {
     // opacity: 0;
 }
-/* purgecss end ignore */
+/*! purgecss end ignore */
 
 // _author.scss
 .author-secondary-links a {
