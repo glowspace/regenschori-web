@@ -8,10 +8,25 @@
             >
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
+            <a
+                v-if="true"
+                class="btn btn-secondary"
+                href="#noty"
+            >
+                <i class="fas fa-file-alt"></i><span class="d-none d-sm-inline pl-2">Noty</span>
+            </a>
+            <a
+                v-if="true"
+                class="btn btn-secondary"
+                href="#nahravky"
+            >
+                <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
+            </a>
             <div class="float-right">
                 <a
                     class="btn btn-secondary"
                     target="_blank"
+                    title="Nahlásit"
                     :href="[
                         song_lyric
                             ? 'https://docs.google.com/forms/d/e/1FAIpQLSdTaOCzzlfZmyoCB0I_S2kSPiSZVGwDhDovyxkWB7w2LfH0IA/viewform?entry.2038741493=' +
@@ -24,9 +39,18 @@
                 <a
                     class="btn btn-secondary"
                     target="_blank"
+                    title="Upravit"
                     :href="[song_lyric ? adminUrl + '/song/' + song_lyric.id + '/edit' : '']"
                 >
                     <i class="fas fa-pen"></i>
+                </a>
+                <a
+                    class="btn btn-secondary"
+                    target="_blank"
+                    title="Otevřít ve Zpěvníku ProScholy.cz"
+                    :href="[song_lyric ? song_lyric.public_url : '']"
+                >
+                    <i class="fas fa-guitar"></i>
                 </a>
             </div>
         </div>
@@ -73,13 +97,13 @@
         <!-- arrangements -->
         <div
             id="noty"
-            v-if="renderScores"
+            v-if="true"
         >
             <h2 class="h4">Noty</h2>
         </div>
         <div
             id="nahravky"
-            v-if="renderMedia"
+            v-if="true"
         >
             <h2 class="h4">Nahrávky</h2>
         </div>
@@ -87,7 +111,7 @@
 </template>
 
 <script>
-import TranslationLine from './TranslationLine';
+import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 
 export default {
     name: 'SongBox',
@@ -105,85 +129,10 @@ export default {
     },
 
     computed: {
-        hasExternalsOrFiles: {
-            get() {
-                return (
-                    this.song_lyric &&
-                    (this.song_lyric.externals || this.song_lyric.files) &&
-                    (this.song_lyric.externals.length ||
-                        this.song_lyric.files.length)
-                );
-            }
-        },
-
-        mediaExternals: {
-            get() {
-                if (!this.hasExternalsOrFiles) return [];
-
-                return this.song_lyric.externals.filter(ext =>
-                    [1, 2, 3, 7].includes(ext.type)
-                );
-            }
-        },
-
-        mediaFiles: {
-            get() {
-                if (!this.hasExternalsOrFiles) return [];
-
-                return this.song_lyric.files.filter(file =>
-                    [1, 2, 3, 7].includes(this.fileTypeConvert(file.type))
-                );
-            }
-        },
-
-        scores: {
-            get() {
-                // File => File with unified type
-                const mapFile = file => {
-                    const copy = clone(file);
-                    copy.type = this.fileTypeConvert(copy.type);
-                    return copy;
-                };
-
-                const filteredExternals = this.song_lyric.externals.filter(
-                    ext => [4, 8, 9].includes(ext.type)
-                );
-                const filteredFiles = this.song_lyric.files
-                    .map(mapFile)
-                    .filter(file => [4, 8, 9].includes(file.type));
-
-                return [...filteredExternals, ...filteredFiles];
-            }
-        },
-
         renderTranslations: {
             get() {
                 // if SongLyric is an arrangement, then .song property is undefined
                 return (this.song_lyric.song && this.song_lyric.song.song_lyrics.length > 1);
-            }
-        },
-
-        renderMedia: {
-            get() {
-                return this.mediaExternals.length + this.mediaFiles.length > 0;
-            }
-        },
-
-        renderScores: {
-            get() {
-                return this.scores.length > 0;
-            }
-        },
-
-        mediaTypes: {
-            get() {
-                var arrayOfTypes = [1, 2, 3, 7];
-                var returnArray = [];
-                for (let i = 0; i < arrayOfTypes.length; i++) {
-                    returnArray[i] = this.mediaExternals.filter(ext => ext.type == arrayOfTypes[i]).length
-                    + this.mediaFiles.filter(file => this.fileTypeConvert(file.type) == arrayOfTypes[i]).length;
-                }
-                return returnArray;
             }
         }
     }

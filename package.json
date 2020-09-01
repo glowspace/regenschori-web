@@ -21,6 +21,7 @@
     "@bit/proscholy.utilities.dark-mode-button": "^1.0.0",
     "@bit/proscholy.utilities.external-line": "^1.0.0",
     "@bit/proscholy.utilities.external-view": "^1.0.0",
+    "@bit/proscholy.utilities.translation-line": "^1.0.0",
     "@bit/proscholy.utilities.universal-link": "^1.0.0",
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.9.5",

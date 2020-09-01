@@ -25,6 +25,7 @@ const FETCH_SONG_LYRIC = gql`
             song_number
             name
             public_route
+            public_url
             type
             lyrics_no_chords
             authors_pivot {
