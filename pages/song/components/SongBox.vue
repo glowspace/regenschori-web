@@ -96,8 +96,8 @@
         <div v-if="renderScores">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
-            <div class="row ml-0">
-                <table class="table m-0">
+            <div class="row mx-0">
+                <table class="table border">
                     <tbody>
                         <external-line
                             v-for="(score, index) in scores"
@@ -117,9 +117,7 @@
         <div v-if="renderMedia">
             <div id="nahravky" class="anchor"></div>
             <h2 class="h4">Nahrávky</h2>
-            <div
-                class="row ml-0 pt-2"
-            >
+            <div class="row">
                 <div
                     class="col-md-6"
                     v-for="external in mediaExternals"
