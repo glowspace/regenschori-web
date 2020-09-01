@@ -12,6 +12,12 @@
     border-width: 1px 0;
 }
 
+.anchor {
+    position: relative;
+    top: calc(-1 * (4rem + 47px));
+    visibility: hidden;
+}
+
 .zindex-lower {
     z-index: 199;
 }

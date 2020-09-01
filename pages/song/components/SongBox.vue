@@ -54,10 +54,8 @@
                 </a>
             </div>
         </div>
-        <div
-            id="preklady"
-            v-if="renderTranslations"
-        >
+        <div v-if="renderTranslations">
+            <div id="preklady" class="anchor"></div>
             <h2 class="h4">Překlady</h2>
             <table class="table border">
                 <tbody>
@@ -95,10 +93,8 @@
             </table>
         </div>
         <!-- arrangements -->
-        <div
-            id="noty"
-            v-if="renderScores"
-        >
+        <div v-if="renderScores">
+            <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
             <div class="row ml-0">
                 <table class="table m-0">
@@ -118,10 +114,8 @@
                 </table>
             </div>
         </div>
-        <div
-            id="nahravky"
-            v-if="renderMedia"
-        >
+        <div v-if="renderMedia">
+            <div id="nahravky" class="anchor"></div>
             <h2 class="h4">Nahrávky</h2>
             <div
                 class="row ml-0 pt-2"
