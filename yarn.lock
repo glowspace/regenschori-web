@@ -1001,12 +1001,22 @@
   dependencies:
     bowser "^2.4.0"
 
+"@bit/proscholy.utilities.news@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.news/-/proscholy.utilities.news-1.0.0.tgz#099c99f89474ff31702aafc7075d4e60676c57ce"
+  integrity sha1-CZyZ+JR0/zFwKq/HB11OYGdsV84=
+  dependencies:
+    "@bit/proscholy.utilities.universal-link" "1.0.1"
+    bigpicture "^2.5.3"
+    bowser "^2.4.0"
+    graphql-tag "^2.10.3"
+
 "@bit/proscholy.utilities.translation-line@^1.0.0":
   version "1.0.0"
   resolved "https://node.bit.dev/proscholy.utilities.translation-line/-/proscholy.utilities.translation-line-1.0.0.tgz#94d4c5ae38e3e3d95d93c2cf1959595f5086de97"
   integrity sha1-lNTFrjjj49ldk8LPGVlZX1CG3pc=
 
-"@bit/proscholy.utilities.universal-link@^1.0.0":
+"@bit/proscholy.utilities.universal-link@1.0.1", "@bit/proscholy.utilities.universal-link@^1.0.0":
   version "1.0.1"
   resolved "https://node.bit.dev/proscholy.utilities.universal-link/-/proscholy.utilities.universal-link-1.0.1.tgz#9b973456d712179caf3d8ceb71e8b7a48f09b5dd"
   integrity sha1-m5c0VtcSF5yvPYzrcei3pI8Jtd0=

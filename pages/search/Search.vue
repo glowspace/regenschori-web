@@ -148,7 +148,7 @@ import Song from '../song/Song';
 import SongsList from './components/SongsList';
 import AuthorsList from '@bit/proscholy.search.authors-list/AuthorsList.vue';
 import Filters from './components/Filters';
-import News from './components/News';
+import News from '@bit/proscholy.utilities.news/News.vue';
 import SearchHistoryManager from '@bit/proscholy.search.search-history-manager/SearchHistoryManager.vue';
 
 import gql from 'graphql-tag';
