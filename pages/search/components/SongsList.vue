@@ -243,6 +243,8 @@ const FETCH_ITEMS = gql`
         tags_liturgy_period {id name}
         tags_generic        {id name}
         tags_saints         {id name}
+        tags_history_period {id name}
+        tags_musical_form   {id name}
         liturgy_approval_status
         liturgy_approval_status_string_values
         has_chords
@@ -292,7 +294,9 @@ export default {
                         generic: this.tags_generic,
                         liturgy_part: this.tags_liturgy_part,
                         liturgy_period: this.tags_liturgy_period,
-                        saints: this.tags_saints
+                        saints: this.tags_saints,
+                        history_period: this.tags_history_period,
+                        musical_form: this.tags_musical_form
                     },
                     this.selectedTags),
                 filterLanguages: this.selectedLanguages,
@@ -361,6 +365,14 @@ export default {
             prefetch: false
         },
         tags_saints: {
+            query: fetchFiltersQuery,
+            prefetch: false
+        },
+        tags_history_period: {
+            query: fetchFiltersQuery,
+            prefetch: false
+        },
+        tags_musical_form: {
             query: fetchFiltersQuery,
             prefetch: false
         },

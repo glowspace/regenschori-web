@@ -15,6 +15,14 @@ query {
         id
         name
     }
+    tags_history_period: tags_enum(type: HISTORY_PERIOD) {
+        id
+        name
+    }
+    tags_musical_form: tags_enum(type: MUSICAL_FORM) {
+        id
+        name
+    }
     songbooks(is_private: false) {
         id
         name

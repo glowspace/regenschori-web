@@ -33,6 +33,18 @@
             icon-classes="fas fa-pray"
             color="green"
         ></tag-category>
+        <tag-category
+            :taglist="song.tags_history_period"
+            title="historické období"
+            icon-classes="fas fa-landmark"
+            color="red"
+        ></tag-category>
+        <tag-category
+            :taglist="song.tags_musical_form"
+            title="hudební forma"
+            icon-classes="fas fa-border-style"
+            color="green"
+        ></tag-category>
         <div
             class="d-flex"
             v-if="song.songbook_records.length"

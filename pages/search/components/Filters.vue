@@ -84,6 +84,20 @@
                 @selectTag="selectTag"
             ></tag-category>
             <tag-category
+                heading="Historické období"
+                color="red"
+                :tags-in-category="tags_history_period"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Hudební forma"
+                color="green"
+                :tags-in-category="tags_musical_form"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
                 heading="Zpěvníky"
                 color="yellow"
                 :tags-in-category="songbooks"
@@ -151,6 +165,14 @@ export default {
             prefetch: false
         },
         tags_saints: {
+            query: fetchFiltersQuery,
+            prefetch: false
+        },
+        tags_history_period: {
+            query: fetchFiltersQuery,
+            prefetch: false
+        },
+        tags_musical_form: {
             query: fetchFiltersQuery,
             prefetch: false
         },
