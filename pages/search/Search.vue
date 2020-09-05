@@ -18,7 +18,7 @@
                             class="search-submit d-none d-lg-inline"
                             @click="inputEnter()"
                         >
-                            <i class="fa fa-search" v-if="!songLoading"></i>
+                            <i class="fas fa-search" v-if="!songLoading"></i>
                             <span
                                 v-else
                                 class="spinner-border spinner-border-sm align-middle"
@@ -35,7 +35,7 @@
                             }"
                             @click="displayFilter = !displayFilter"
                         >
-                            <i class="fa fa-filter" v-if="!songLoading"></i>
+                            <i class="fas fa-filter" v-if="!songLoading"></i>
                             <span
                                 v-else
                                 class="spinner-border spinner-border-sm align-middle"

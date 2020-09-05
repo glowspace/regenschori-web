@@ -100,12 +100,12 @@
                             >
                                 <i
                                     v-if="song_lyric.scoreFiles.length > 0"
-                                    class="fa fa-file-alt text-danger"
+                                    class="fas fa-file-alt text-danger"
                                     title="K této písni jsou k dispozici noty."
                                 ></i>
                                 <i
                                     v-else
-                                    class="fa fa-file-alt text-very-muted"
+                                    class="fas fa-file-alt text-very-muted"
                                 ></i>
                             </td>
                             <td
