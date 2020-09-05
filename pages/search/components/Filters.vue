@@ -53,6 +53,11 @@
                 ><i :class="[ (localSort == 2) ? (!localDescending ? 'fa-sort-numeric-up' : 'fa-sort-numeric-down-alt') : 'fa-sort-numeric-up', 'fas' ]"></i
                 >{{ (localSort == 2) ? (!localDescending ? '1–9' : '9–1') : '1–9' }}</a
             >
+            <a
+                v-if="searchString"
+                :class="[{ chosen: searchString }, 'btn btn-secondary']"
+                ><i class="fas fa-search mr-0"></i></a
+            >
         </div>
         <div v-if="!localShowAuthors">
             <tag-category

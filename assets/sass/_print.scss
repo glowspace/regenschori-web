@@ -1,6 +1,11 @@
 @media print {
     @page {
-        margin: 2cm;
+        margin: 1cm 2cm;
+    }
+
+    html,
+    body {
+        height: initial;
     }
 
     .container,
