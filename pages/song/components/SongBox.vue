@@ -22,6 +22,13 @@
             >
                 <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
             </a>
+            <a
+                v-if="song_lyric.lyrics_no_chords"
+                class="btn btn-secondary"
+                href="#text"
+            >
+                <i class="fas fa-align-left"></i><span class="d-none d-sm-inline pl-2">Text</span>
+            </a>
             <div class="float-right">
                 <a
                     class="btn btn-secondary"
@@ -144,6 +151,11 @@
                     ></external-view>
                 </div>
             </div>
+        </div>
+        <div v-if="song_lyric.lyrics_no_chords">
+            <div id="text" class="anchor"></div>
+            <h2 class="h4">Text</h2>
+            <div class="d-inline-block border py-3 px-4" style="white-space:pre">{{ song_lyric.lyrics_no_chords }}</div>
         </div>
     </div>
 </template>
