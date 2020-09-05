@@ -140,9 +140,9 @@ a.tag {
     }
 
     &.tag-category {
-        border-color: transparent;
+        border-color: transparent !important;
         padding-left: 0;
-        padding-right: 0.2em;
+        padding-right: 0;
         width: 2rem;
     }
 }
