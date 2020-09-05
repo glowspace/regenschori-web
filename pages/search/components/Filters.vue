@@ -64,7 +64,7 @@
             ></tag-category>
             <tag-category
                 heading="Liturgický rok"
-                color="blue"
+                color="red"
                 :tags-in-category="tags_liturgy_period"
                 :selected-tags="selected_tags"
                 @selectTag="selectTag"
