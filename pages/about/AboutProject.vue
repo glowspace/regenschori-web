@@ -1,6 +1,48 @@
 <template>
-    <div class="container">
+    <div class="container px-4">
         <h1>O projektu Regenschori</h1>
+
+        <p>
+            Komplexní webová platforma pro chrámové hudebníky, zejména pro vedoucí sborů a schol, varhaníky a chrámové zpěváky.
+            Hlavní část tvoří rozsáhlý notový archiv s&nbsp;přehledně řazeným obsahem převážně liturgicky užívaného hudebního materiálu.
+        </p>
+
+        <p>
+            Po vzoru <a href="https://imslp.org/" target="_blank">Petrucciho hudební knihovny</a> či
+            <a href="https://cpdl.org/" target="_blank">ChoralWiki</a> vystavěných na MediaWiki umožňuje tento web
+            organizaci materiálu dle štítků (např. dle autora, nástroje či liturgického zařazení: vánoční, eucharistie, mariánská apod.),
+            a generuje tak notový materiál přívětivěji než dosavadní hudební webové archivy, jež převážně nabízejí pouze tabulkové zobrazení.
+        </p>
+
+        <p>
+            Dále umožňuje zobrazovat u každé skladby kromě základní partitury i verze upravené do vícehlasů,
+            party pro nástroje, popis skladby s&nbsp;interpretačními poznámkami, liturgické zařazení, referenci na příbuzné materiály ad.
+            Při kliknutí na jméno autora se uživateli objeví stručný životopis skladatele a přehled jeho díla dostupného na webu.
+        </p>
+
+        <p>
+            Regenschori chce být dobrým rádcem pro chrámové hudebníky, kteří se často se dotazují na to, co kdy hrát,
+            a zároveň prostorem pro uveřejňování nové hudební liturgické tvorby, k&nbsp;níž vybízela i nedávná instrukce ČBK o hudbě v&nbsp;liturgii.
+            Kromě toho může být depozitářem již užívaných kompozic. Obohacován je postupnou digitalizací některých hudebních archivů.
+        </p>
+
+        <p>
+            K&nbsp;přehlednému výběru skladeb napomůže i liturgický kalendář, jenž bude propojen s&nbsp;materiálem uloženým na webu.
+            Návštěvník tak snadno dohledá, jaké skladby jsou vhodné pro blížící se liturgickou slavnost.
+        </p>
+
+        <p>
+            <span class="mr-2">
+                Regenschori vzniká jako součást <a href="https://zpevnik.proscholy.cz/" target="_blank">iniciativy ProScholy.cz</a>,
+                na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku" target="_blank">členové týmu ProScholy</a>:
+            </span>
+            <a
+                class="btn btn-outline-primary"
+                href="https://zpevnik.proscholy.cz/o-zpevniku"
+                target="_blank"
+                >O zpěvníku ProScholy.cz</a
+            >
+        </p>
     </div>
 </template>
 
