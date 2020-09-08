@@ -38,8 +38,8 @@
 html,
 body {
     height: 100%;
-    overflow-x: visible;
-    overflow-y: initial;
+    overflow-x: visible !important;
+    overflow-y: initial !important;
 }
 
 input::placeholder {
@@ -89,4 +89,8 @@ a:focus {
     td, th {
         border-top: none;
     }
+}
+
+.btn-primary {
+    color: white !important;
 }

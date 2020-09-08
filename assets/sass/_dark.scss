@@ -18,9 +18,13 @@ body[data-dark] {
 
     .card-header,
     .card-footer,
-    .bg-light,
-    .tag {
+    .bg-light {
         background-color: #222 !important;
+        color: #ccc;
+    }
+
+    .tag {
+        background-color: #222;
         color: #ccc;
     }
 
