@@ -12,4 +12,4 @@ services:
     ports:
       - "${HTTP_PORT}:3000"
     tty: true
-    entrypoint: "sh -c 'yarn start || (yarn build && yarn start)'"
+    entrypoint: "sh -c 'yarn start || (yarn && yarn build && yarn start)'"
