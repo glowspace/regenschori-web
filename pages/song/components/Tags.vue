@@ -8,10 +8,10 @@
             color="blue"
         >
             <component
-                    :is="whichComponent"
-                    to="/napoveda#schvaleno-cbk"
-                    class="tag tag-blue"
-                    v-if="song.liturgy_approval_status"
+                :is="whichComponent"
+                to="/napoveda#schvaleno-cbk"
+                class="tag tag-blue"
+                v-if="song.liturgy_approval_status"
             >{{ JSON.parse(song.liturgy_approval_status_string_values)[song.liturgy_approval_status]
             }} <i class="fas fa-check"></i></component>
         </tag-category>
