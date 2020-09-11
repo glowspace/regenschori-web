@@ -11,10 +11,6 @@ export default {
         titleSeparator: ' – ',
         adminUrl: process.env.ADMIN_URL || ''
     },
-    serverMiddleware: [{
-        path: '/',
-        handler: '~/middleware'
-    }],
     /*
      ** Headers of the page
      */
