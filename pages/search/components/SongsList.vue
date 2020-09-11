@@ -47,8 +47,10 @@
                             >
                                 <a
                                     :class="[
-                                        'btn btn-secondary text-secondary rounded-circle drawer-button',
-                                        {'drawer-button--opened': (openDrawer == song_lyric.id)}
+                                        'btn btn-secondary rounded-circle drawer-button',
+                                        {'drawer-button--opened': (openDrawer == song_lyric.id)},
+                                        (song_lyric.tags_liturgy_part.length + song_lyric.liturgy_approval_status + song_lyric.tags_liturgy_period.length + song_lyric.tags_generic.length + song_lyric.tags_saints.length + song_lyric.tags_history_period.length + song_lyric.tags_musical_form.length + song_lyric.songbook_records.length)
+                                            ? 'text-secondary' : 'text-very-muted'
                                     ]"
                                     @click="openDrawer = (openDrawer == song_lyric.id) ? 0 : song_lyric.id"
                                 ><i class="fas fa-plus"></i></a>
