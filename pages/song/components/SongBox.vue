@@ -5,6 +5,7 @@
                 v-if="renderTranslations"
                 class="btn btn-secondary"
                 href="#preklady"
+                @click.prevent="scrollTo('#preklady')"
             >
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
@@ -12,6 +13,7 @@
                 v-if="renderScores"
                 class="btn btn-secondary"
                 href="#noty"
+                @click.prevent="scrollTo('#noty')"
             >
                 <i class="fas fa-file-alt"></i><span class="d-none d-sm-inline pl-2">Noty</span>
             </a>
@@ -19,6 +21,7 @@
                 v-if="renderMedia"
                 class="btn btn-secondary"
                 href="#nahravky"
+                @click.prevent="scrollTo('#nahravky')"
             >
                 <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
             </a>
@@ -26,6 +29,7 @@
                 v-if="song_lyric.lyrics_no_chords"
                 class="btn btn-secondary"
                 href="#text"
+                @click.prevent="scrollTo('#text')"
             >
                 <i class="fas fa-align-left"></i><span class="d-none d-sm-inline pl-2">Text</span>
             </a>
@@ -269,6 +273,12 @@ export default {
         }
     },
 
+    mounted() {
+        if (this.$route.hash) {
+            this.scrollTo(this.$route.hash);
+        }
+    },
+
     methods: {
         fileTypeConvert: function(type) {
             const mapping = {
@@ -279,6 +289,16 @@ export default {
             };
 
             return mapping[type] || type;
+        },
+
+        scrollTo(el) {
+            var element = document.querySelector(el);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (el.charAt(0) == '#') {
+                history.pushState(null, null, el);
+            }
         }
     }
 };
