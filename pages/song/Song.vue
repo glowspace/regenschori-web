@@ -28,6 +28,7 @@ const FETCH_SONG_LYRIC = gql`
             public_url
             type
             lyrics_no_chords
+            only_regenschori
             authors_pivot {
                 author {
                     ...authorFields

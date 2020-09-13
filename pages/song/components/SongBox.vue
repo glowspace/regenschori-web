@@ -52,6 +52,7 @@
                     <i class="fas fa-pen"></i>
                 </a>
                 <a
+                    v-if="!song_lyric.only_regenschori"
                     class="btn btn-secondary"
                     target="_blank"
                     title="Otevřít ve Zpěvníku ProScholy.cz"
