@@ -46,11 +46,11 @@
                                 class="py-0 pl-2 pr-0 align-middle w-min"
                             >
                                 <a
+                                    tabindex="0"
                                     :class="[
                                         'btn btn-secondary rounded-circle drawer-button',
                                         {'drawer-button--opened': (openDrawer == song_lyric.id)},
-                                        (song_lyric.tags_liturgy_part.length + song_lyric.liturgy_approval_status + song_lyric.tags_liturgy_period.length + song_lyric.tags_generic.length + song_lyric.tags_saints.length + song_lyric.tags_history_period.length + song_lyric.tags_musical_form.length + song_lyric.songbook_records.length)
-                                            ? 'text-secondary' : 'text-very-muted'
+                                        plusActive(song_lyric) ? 'text-secondary' : 'text-very-muted disabled'
                                     ]"
                                     @click="openDrawer = (openDrawer == song_lyric.id) ? 0 : song_lyric.id"
                                 ><i class="fas fa-plus"></i></a>
@@ -349,6 +349,19 @@ export default {
                 return e;
             }
 
+        },
+
+        plusActive(song_lyric) {
+            return (
+                song_lyric.tags_liturgy_part.length +
+                song_lyric.liturgy_approval_status +
+                song_lyric.tags_liturgy_period.length +
+                song_lyric.tags_generic.length +
+                song_lyric.tags_saints.length +
+                song_lyric.tags_history_period.length +
+                song_lyric.tags_musical_form.length +
+                song_lyric.songbook_records.length
+            );
         }
     },
 
