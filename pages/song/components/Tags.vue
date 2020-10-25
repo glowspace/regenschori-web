@@ -65,6 +65,19 @@
                 </component>
             </div>
         </div>
+        <div class="d-flex" v-if="bibleRefs">
+            <div>
+                <span class="tag tag-category" title="biblické reference"><i class="fas fa-bible"></i></span>
+            </div>
+            <div class="d-flex flex-wrap">
+                <a
+                    class="tag tag-blue"
+                    v-for="(reference, key2) in bibleRefs"
+                    :key="'ref' + key2"
+                    :href="`https://www.bibleserver.com/CEP/${reference}`" target="_blank"
+                >{{ reference }}</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -76,8 +89,10 @@
  * 1) related tags
  * 2) related songbooks
  * 3) liturgy approval
+ * 4) bible reference
  */
 import TagCategory from './TagCategory';
+import BibleReference from 'bible-reference/bible_reference';
 
 export default {
     name: 'Tags',
@@ -91,7 +106,20 @@ export default {
             if (this.inSongList) {
                 return 'span';
             }
+
             return 'nuxt-link';
+        },
+
+        bibleRefs() {
+            if (this.song.bible_refs_src) {
+                const lines = this.song.bible_refs_src.split('\n');
+                const bib_refs = lines.map(l => BibleReference.fromEuropean(l));
+                const lines_cz = bib_refs.flatMap(r => r.toCzechStrings());
+
+                return lines_cz;
+            }
+
+            return false;
         }
     }
 };

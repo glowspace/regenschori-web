@@ -101,7 +101,7 @@
                                 class="no-left-padding align-middle d-none d-sm-table-cell"
                             >
                                 <i
-                                    v-if="song_lyric.scoreFiles.length > 0"
+                                    v-if="song_lyric.scores.length"
                                     class="fas fa-file-alt text-danger"
                                     title="K této písni jsou k dispozici noty."
                                 ></i>
@@ -115,12 +115,7 @@
                                 class="no-left-padding pr-4 align-middle d-none d-sm-table-cell"
                             >
                                 <i
-                                    v-if="
-                                        song_lyric.spotifyTracks.length +
-                                            song_lyric.soundcloudTracks.length +
-                                            song_lyric.youtubeVideos.length +
-                                            song_lyric.audioFiles.length
-                                    "
+                                    v-if="song_lyric.recordings.length"
                                     class="fas fa-headphones text-success"
                                     title="U této písně je k dispozici nahrávka."
                                 ></i>
@@ -212,22 +207,11 @@ const FETCH_ITEMS = gql`
         public_route
         lang
         lang_string
-        scoreExternals: externals(type: 4) {
+        bible_refs_src
+        scores: externals(content_type: SCORE) {
             id
         }
-        scoreFiles: files(type: 3) {
-            id
-        }
-        youtubeVideos: externals(type: 3) {
-            id
-        }
-        spotifyTracks: externals(type: 1) {
-            id
-        }
-        soundcloudTracks: externals(type: 2) {
-            id
-        }
-        audioFiles: files(type: 4) {
+        recordings: externals(content_type: RECORDING) {
             id
         }
         authors_pivot {
