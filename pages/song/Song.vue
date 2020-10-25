@@ -28,28 +28,27 @@ const FETCH_SONG_LYRIC = gql`
             public_url
             type
             lyrics_no_chords
+            only_regenschori
+            bible_refs_src
+            lilypond_svg
             authors_pivot {
                 author {
                     ...authorFields
                 }
                 authorship_type
             }
-            externals(orderBy: { field: "type", order: ASC }) {
+            externals {
                 id
-                public_name
                 url
-                type
                 media_id
-                authors {
-                    ...authorFields
+                caption
+                is_uploaded
+                tags_instrumentation {
+                    id name
                 }
-            }
-            files {
-                id
-                public_name
-                url
-                download_url
-                type
+                content_type
+                content_type_string
+                media_type
                 authors {
                     ...authorFields
                 }

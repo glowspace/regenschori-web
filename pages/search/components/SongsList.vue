@@ -46,11 +46,11 @@
                                 class="py-0 pl-2 pr-0 align-middle w-min"
                             >
                                 <a
+                                    tabindex="0"
                                     :class="[
                                         'btn btn-secondary rounded-circle drawer-button',
                                         {'drawer-button--opened': (openDrawer == song_lyric.id)},
-                                        (song_lyric.tags_liturgy_part.length + song_lyric.liturgy_approval_status + song_lyric.tags_liturgy_period.length + song_lyric.tags_generic.length + song_lyric.tags_saints.length + song_lyric.tags_history_period.length + song_lyric.tags_musical_form.length + song_lyric.songbook_records.length)
-                                            ? 'text-secondary' : 'text-very-muted'
+                                        plusActive(song_lyric) ? 'text-secondary' : 'text-very-muted disabled'
                                     ]"
                                     @click="openDrawer = (openDrawer == song_lyric.id) ? 0 : song_lyric.id"
                                 ><i class="fas fa-plus"></i></a>
@@ -101,7 +101,7 @@
                                 class="no-left-padding align-middle d-none d-sm-table-cell"
                             >
                                 <i
-                                    v-if="song_lyric.scoreFiles.length > 0"
+                                    v-if="song_lyric.scores.length"
                                     class="fas fa-file-alt text-danger"
                                     title="K této písni jsou k dispozici noty."
                                 ></i>
@@ -115,12 +115,7 @@
                                 class="no-left-padding pr-4 align-middle d-none d-sm-table-cell"
                             >
                                 <i
-                                    v-if="
-                                        song_lyric.spotifyTracks.length +
-                                            song_lyric.soundcloudTracks.length +
-                                            song_lyric.youtubeVideos.length +
-                                            song_lyric.audioFiles.length
-                                    "
+                                    v-if="song_lyric.recordings.length"
                                     class="fas fa-headphones text-success"
                                     title="U této písně je k dispozici nahrávka."
                                 ></i>
@@ -212,22 +207,11 @@ const FETCH_ITEMS = gql`
         public_route
         lang
         lang_string
-        scoreExternals: externals(type: 4) {
+        bible_refs_src
+        scores: externals(content_type: SCORE) {
             id
         }
-        scoreFiles: files(type: 3) {
-            id
-        }
-        youtubeVideos: externals(type: 3) {
-            id
-        }
-        spotifyTracks: externals(type: 1) {
-            id
-        }
-        soundcloudTracks: externals(type: 2) {
-            id
-        }
-        audioFiles: files(type: 4) {
+        recordings: externals(content_type: RECORDING) {
             id
         }
         authors_pivot {
@@ -349,6 +333,19 @@ export default {
                 return e;
             }
 
+        },
+
+        plusActive(song_lyric) {
+            return (
+                song_lyric.tags_liturgy_part.length +
+                song_lyric.liturgy_approval_status +
+                song_lyric.tags_liturgy_period.length +
+                song_lyric.tags_generic.length +
+                song_lyric.tags_saints.length +
+                song_lyric.tags_history_period.length +
+                song_lyric.tags_musical_form.length +
+                song_lyric.songbook_records.length
+            );
         }
     },
 

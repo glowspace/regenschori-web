@@ -150,6 +150,7 @@ export default {
                 {id: 'it', name: 'italština'},
                 {id: 'sv', name: 'svahilština'},
                 {id: 'he', name: 'hebrejština'},
+                {id: 'cr', name: 'chorvatština'},
                 {id: 'cu', name: 'staroslověnština'},
                 {id: 'mixed', name: 'vícejazyčná píseň'}
             ]

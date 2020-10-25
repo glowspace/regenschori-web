@@ -3,9 +3,7 @@ import Router from 'vue-router';
 
 import Search from '~/pages/search/Search';
 import AboutProject from '~/pages/about/AboutProject';
-import Song from '~/pages/song/Song';
 import Author from '~/pages/author/Author';
-import Support from '~/pages/support/Support';
 
 Vue.use(Router);
 
@@ -18,8 +16,6 @@ export function createRouter() {
             { path: '/o-projektu', component: AboutProject },
             { path: '/pisen/:id/*', component: Search },
             { path: '/autor/:id', component: Author },
-
-            { path: '/napoveda', component: Support },
 
             { path: '/vanoce', redirect: { name: 'index', query: { stitky: '22' } } },
             { path: '/velikonoce', redirect: { name: 'index', query: { stitky: '23' } } },

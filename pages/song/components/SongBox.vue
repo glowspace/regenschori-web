@@ -5,20 +5,23 @@
                 v-if="renderTranslations"
                 class="btn btn-secondary"
                 href="#preklady"
+                @click.prevent="scrollTo('#preklady')"
             >
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
             <a
-                v-if="renderScores"
+                v-if="scores.length"
                 class="btn btn-secondary"
                 href="#noty"
+                @click.prevent="scrollTo('#noty')"
             >
                 <i class="fas fa-file-alt"></i><span class="d-none d-sm-inline pl-2">Noty</span>
             </a>
             <a
-                v-if="renderMedia"
+                v-if="recordings.length"
                 class="btn btn-secondary"
                 href="#nahravky"
+                @click.prevent="scrollTo('#nahravky')"
             >
                 <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
             </a>
@@ -26,6 +29,7 @@
                 v-if="song_lyric.lyrics_no_chords"
                 class="btn btn-secondary"
                 href="#text"
+                @click.prevent="scrollTo('#text')"
             >
                 <i class="fas fa-align-left"></i><span class="d-none d-sm-inline pl-2">Text</span>
             </a>
@@ -52,6 +56,7 @@
                     <i class="fas fa-pen"></i>
                 </a>
                 <a
+                    v-if="!song_lyric.only_regenschori"
                     class="btn btn-secondary"
                     target="_blank"
                     title="Otevřít ve Zpěvníku ProScholy.cz"
@@ -100,55 +105,45 @@
             </table>
         </div>
         <!-- arrangements -->
-        <div v-if="renderScores">
+        <div v-if="scores.length">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
             <div class="row mx-0">
                 <table class="table border">
                     <tbody>
-                        <external-line
-                            v-for="(score, index) in scores"
-                            v-bind:key="index"
+                        <external
+                            v-for="(external, index) in scores"
+                            :key="index"
+                            :line="true"
                             :index="index"
-                            :url="score.url"
-                            :download-url="score.download_url"
+                            :external="external"
                             :song-name="song_lyric.name"
-                            :name="score.public_name"
-                            :type="score.type"
-                            :authors="score.authors"
-                        ></external-line>
+                        ></external>
                     </tbody>
                 </table>
+                <div
+                    v-if="song_lyric.lilypond_svg"
+                    v-html="song_lyric.lilypond_svg"
+                    class="pt-3 w-100 text-center"
+                    style="pointer-events:none"
+                ></div>
             </div>
         </div>
-        <div v-if="renderMedia">
+        <div v-if="recordings.length">
             <div id="nahravky" class="anchor"></div>
             <h2 class="h4">Nahrávky</h2>
             <div class="row">
                 <div
                     class="col-md-6"
-                    v-for="external in mediaExternals"
-                    v-bind:key="external.id"
+                    v-for="(external, index) in recordings"
+                    :key="index"
                 >
-                    <external-view
-                        :url="external.url"
-                        :media-id="external.media_id"
-                        :type="external.type"
-                        :authors="external.authors"
-                    ></external-view>
-                </div>
-                <div
-                    class="col-md-6"
-                    v-for="file in mediaFiles"
-                    v-bind:key="file.id"
-                >
-                    <external-view
-                        :url="file.url"
-                        :download-url="file.download_url"
-                        :media-id="file.media_id"
-                        :type="fileTypeConvert(file.type)"
-                        :authors="file.authors"
-                    ></external-view>
+                    <external
+                        :line="false"
+                        :index="index"
+                        :external="external"
+                        :song-name="song_lyric.name"
+                    ></external>
                 </div>
             </div>
         </div>
@@ -164,16 +159,14 @@
 import { clone } from 'lodash';
 
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
-import ExternalView from '@bit/proscholy.utilities.external-view/ExternalView.vue';
-import ExternalLine from '@bit/proscholy.utilities.external-line/ExternalLine.vue';
+import External from '@bit/proscholy.utilities.external/External.vue';
 
 export default {
     name: 'SongBox',
 
     components: {
         TranslationLine,
-        ExternalView,
-        ExternalLine
+        External
     },
 
     props: ['song_lyric'],
@@ -185,54 +178,19 @@ export default {
     },
 
     computed: {
-        hasExternalsOrFiles: {
+       recordings: {
             get() {
-                return (
-                    this.song_lyric &&
-                    (this.song_lyric.externals || this.song_lyric.files) &&
-                    (this.song_lyric.externals.length ||
-                        this.song_lyric.files.length)
-                );
-            }
-        },
-
-        mediaExternals: {
-            get() {
-                if (!this.hasExternalsOrFiles) return [];
-
                 return this.song_lyric.externals.filter(ext =>
-                    [1, 2, 3, 7].includes(ext.type)
-                );
-            }
-        },
-
-        mediaFiles: {
-            get() {
-                if (!this.hasExternalsOrFiles) return [];
-
-                return this.song_lyric.files.filter(file =>
-                    [1, 2, 3, 7].includes(this.fileTypeConvert(file.type))
+                    ext.content_type == "RECORDING"
                 );
             }
         },
 
         scores: {
             get() {
-                // File => File with unified type
-                const mapFile = file => {
-                    const copy = clone(file);
-                    copy.type = this.fileTypeConvert(copy.type);
-                    return copy;
-                };
-
-                const filteredExternals = this.song_lyric.externals.filter(
-                    ext => [4, 8, 9].includes(ext.type)
+                return this.song_lyric.externals.filter(ext =>
+                    ext.content_type == "SCORE"
                 );
-                const filteredFiles = this.song_lyric.files
-                    .map(mapFile)
-                    .filter(file => [4, 8, 9].includes(file.type));
-
-                return [...filteredExternals, ...filteredFiles];
             }
         },
 
@@ -243,41 +201,33 @@ export default {
             }
         },
 
-        renderMedia: {
-            get() {
-                return this.mediaExternals.length + this.mediaFiles.length > 0;
-            }
-        },
-
-        renderScores: {
-            get() {
-                return this.scores.length > 0;
-            }
-        },
-
         mediaTypes: {
             get() {
-                var arrayOfTypes = [1, 2, 3, 7];
+                var arrayOfTypes = ["spotify", "soundcloud", "youtube", "file/mp3", "file/wav", "file/aac", "file/flac"];
                 var returnArray = [];
                 for (let i = 0; i < arrayOfTypes.length; i++) {
-                    returnArray[i] = this.mediaExternals.filter(ext => ext.type == arrayOfTypes[i]).length
-                    + this.mediaFiles.filter(file => this.fileTypeConvert(file.type) == arrayOfTypes[i]).length;
+                    returnArray[i] = this.recordings.filter(ext => ext.media_type == arrayOfTypes[i]).length;
                 }
                 return returnArray;
             }
         }
     },
 
-    methods: {
-        fileTypeConvert: function(type) {
-            const mapping = {
-                1: 8,
-                2: 9,
-                3: 4,
-                4: 7
-            };
+    mounted() {
+        if (this.$route.hash) {
+            this.scrollTo(this.$route.hash);
+        }
+    },
 
-            return mapping[type] || type;
+    methods: {
+        scrollTo(el) {
+            var element = document.querySelector(el);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (el.charAt(0) == '#') {
+                history.pushState(null, null, el);
+            }
         }
     }
 };
