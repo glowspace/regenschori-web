@@ -108,19 +108,21 @@
         <div v-if="scores.length">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
-            <div class="row mx-0">
-                <table class="table border">
-                    <tbody>
+            <div>
+                <div class="row">
+                    <div
+                        class="col-md-6"
+                        v-for="(external, index) in scores"
+                        :key="index"
+                    >
                         <external
-                            v-for="(external, index) in scores"
-                            :key="index"
-                            :line="true"
+                            :is-regenschori="true"
                             :index="index"
                             :external="external"
                             :song-name="song_lyric.name"
                         ></external>
-                    </tbody>
-                </table>
+                    </div>
+                </div>
                 <div
                     v-if="song_lyric.lilypond_svg"
                     v-html="song_lyric.lilypond_svg"
@@ -139,7 +141,7 @@
                     :key="index"
                 >
                     <external
-                        :line="false"
+                        :is-regenschori="true"
                         :index="index"
                         :external="external"
                         :song-name="song_lyric.name"
