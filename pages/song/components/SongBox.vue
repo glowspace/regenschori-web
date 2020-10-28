@@ -10,7 +10,7 @@
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
             <a
-                v-if="scores.length"
+                v-if="scores.length || song_lyric.lilypond_svg"
                 class="btn btn-secondary"
                 href="#noty"
                 @click.prevent="scrollTo('#noty')"
@@ -24,6 +24,14 @@
                 @click.prevent="scrollTo('#nahravky')"
             >
                 <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
+            </a>
+            <a
+                v-if="otherExternals.length"
+                class="btn btn-secondary"
+                href="#dalsi"
+                @click.prevent="scrollTo('#dalsi')"
+            >
+                <i class="fas fa-link"></i><span class="d-none d-sm-inline pl-2">Další materiály</span>
             </a>
             <a
                 v-if="song_lyric.lyrics_no_chords"
@@ -105,7 +113,7 @@
             </table>
         </div>
         <!-- arrangements -->
-        <div v-if="scores.length">
+        <div v-if="scores.length || song_lyric.lilypond_svg">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
             <div>
@@ -149,6 +157,24 @@
                 </div>
             </div>
         </div>
+        <div v-if="otherExternals.length">
+            <div id="dalsi" class="anchor"></div>
+            <h2 class="h4">Další materiály</h2>
+            <div class="row">
+                <div
+                    class="col-md-6"
+                    v-for="(external, index) in otherExternals"
+                    :key="index"
+                >
+                    <external
+                        :is-regenschori="true"
+                        :index="index"
+                        :external="external"
+                        :song-name="song_lyric.name"
+                    ></external>
+                </div>
+            </div>
+        </div>
         <div v-if="song_lyric.lyrics_no_chords">
             <div id="text" class="anchor"></div>
             <h2 class="h4">Text</h2>
@@ -175,14 +201,15 @@ export default {
 
     data() {
         return {
-            adminUrl: process.env.adminUrl
+            adminUrl: process.env.adminUrl,
+            currentSource: this.song_lyric
         };
     },
 
     computed: {
        recordings: {
             get() {
-                return this.song_lyric.externals.filter(ext =>
+                return this.currentSource.externals.filter(ext =>
                     ext.content_type == "RECORDING"
                 );
             }
@@ -190,8 +217,16 @@ export default {
 
         scores: {
             get() {
-                return this.song_lyric.externals.filter(ext =>
+                return this.currentSource.externals.filter(ext =>
                     ext.content_type == "SCORE"
+                );
+            }
+        },
+
+        otherExternals: {
+            get() {
+                return this.currentSource.externals.filter(ext =>
+                    ext.content_type != "RECORDING" && ext.content_type != "SCORE"
                 );
             }
         },
