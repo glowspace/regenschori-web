@@ -11,6 +11,21 @@ h2 {
     margin-top: 2rem;
 }
 
+.nav-tabs {
+    .nav-link {
+        border-top-left-radius: .5rem;
+        border-top-right-radius: .5rem;
+        margin-left: 1.5rem;
+        margin-right: -1rem;
+
+        &.active {
+            color: inherit;
+            background-color: inherit;
+            border-color: #dee2e6 #dee2e6 #fff;
+        }
+    }
+}
+
 .tools {
     border: solid #dee2e6;
     border-width: 1px 0;
@@ -133,7 +148,7 @@ a.tag {
     display: inline-block;
     transition: 0.2s;
     border: #bfbfbf 1px solid;
-    background-color: #ffffff;
+    background-color: #fff;
 
     &:hover {
         text-decoration: none;

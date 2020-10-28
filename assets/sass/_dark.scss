@@ -28,8 +28,20 @@ body[data-dark] {
         color: #ccc;
     }
 
-    .tag, div.filters .btn-group, div.filters .btn-group a, .tools {
+    .tag, div.filters .btn-group, div.filters .btn-group a, .tools, .nav-tabs {
         border-color: #555;
+    }
+
+    .nav-tabs {
+        .nav-link {
+            &:hover, &:focus {
+                border-color: #333 #333 #555;
+            }
+
+            &.active {
+                border-color: #555 #555 #111;
+            }
+        }
     }
 
     .song-tags .songbook-tag .songbook-number {

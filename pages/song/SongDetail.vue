@@ -1,5 +1,5 @@
 <template>
-    <div class="py-3 px-4">
+    <div class="pt-3 pb-4 px-4">
         <div class="mb-3">
             <h1 class="song-title">{{ song_lyric.name }}</h1>
             <div class="d-flex align-items-center mt-1">
