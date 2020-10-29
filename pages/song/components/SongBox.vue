@@ -173,7 +173,7 @@
                 <div
                     v-if="currentSource.lilypond_svg"
                     v-html="currentSource.lilypond_svg"
-                    class="pt-3 w-100 text-center"
+                    class="pt-3 w-100 text-center lilypond-container"
                     style="pointer-events:none"
                 ></div>
             </div>

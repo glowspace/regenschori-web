@@ -210,6 +210,13 @@ a.tag {
         color: white !important;
     }
 }
+
+.lilypond-container {
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+}
 /*! purgecss end ignore */
 
 .songbook-tag {
