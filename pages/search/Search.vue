@@ -128,6 +128,10 @@
                 </div>
             </div>
 
+            <a href="http://www.musicasacra.cz/" target="_blank" class="footer-logo">
+                <img src="/img/musica-sacra.svg" />
+            </a>
+
             <a
                 class="btn btn-secondary mb-0 search-report bg-transparent"
                 target="_blank"
