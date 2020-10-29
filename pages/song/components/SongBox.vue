@@ -10,7 +10,15 @@
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
             <a
-                v-if="scores.length"
+                v-if="song_lyric.arrangements.length"
+                class="btn btn-secondary"
+                href="#aranze"
+                @click.prevent="scrollTo('#aranze')"
+            >
+                <i class="fas fa-edit"></i><span class="d-none d-sm-inline pl-2">Aranže</span>
+            </a>
+            <a
+                v-if="scores.length || currentSource.lilypond_svg"
                 class="btn btn-secondary"
                 href="#noty"
                 @click.prevent="scrollTo('#noty')"
@@ -24,6 +32,14 @@
                 @click.prevent="scrollTo('#nahravky')"
             >
                 <i class="fas fa-headphones"></i><span class="d-none d-sm-inline pl-2">Nahrávky</span>
+            </a>
+            <a
+                v-if="otherExternals.length"
+                class="btn btn-secondary"
+                href="#dalsi"
+                @click.prevent="scrollTo('#dalsi')"
+            >
+                <i class="fas fa-link"></i><span class="d-none d-sm-inline pl-2">Další materiály</span>
             </a>
             <a
                 v-if="song_lyric.lyrics_no_chords"
@@ -104,27 +120,60 @@
                 </tbody>
             </table>
         </div>
-        <!-- arrangements -->
-        <div v-if="scores.length">
+        <div v-if="song_lyric.arrangements.length">
+            <div id="aranze" class="anchor"></div>
+            <h2 class="h4">Aranže</h2>
+            <div class="mt-3 mx-n4">
+                <ul class="nav nav-tabs pr-4">
+                    <li class="nav-item" :key="song_lyric.id">
+                        <button
+                            type="button"
+                            :class="['nav-link ml-4', {active: song_lyric.id === currentSource.id}]"
+                            @click="currentSource = song_lyric"
+                        >Originál ({{ song_lyric.name }})</button>
+                    </li>
+                    <li class="nav-item" v-for="arrangement in song_lyric.arrangements" :key="arrangement.id">
+                        <button
+                            type="button"
+                            :class="['nav-link', {active: arrangement.id === currentSource.id}]"
+                            @click="currentSource = arrangement"
+                        >{{ arrangement.name }}</button>
+                    </li>
+                </ul>
+            </div>
+            <div v-if="song_lyric.id !== currentSource.id" class="my-3">
+                <span v-if="currentSource.authors_pivot.length == 0">Autor aranže neznámý</span>
+                <span v-else>
+                    <span v-if="currentSource.authors_pivot.length == 1">Autor aranže:</span>
+                    <span v-else>Autoři aranže:</span>
+                    <span v-for="(ap, key) in currentSource.authors_pivot" :key="key3">
+                        <span v-if="key">,</span> <nuxt-link :to="ap.author.public_route">{{ ap.author.name }}</nuxt-link>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div v-if="scores.length || currentSource.lilypond_svg">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
-            <div class="row mx-0">
-                <table class="table border">
-                    <tbody>
+            <div>
+                <div class="row">
+                    <div
+                        class="col-md-6"
+                        v-for="(external, index) in scores"
+                        :key="index"
+                    >
                         <external
-                            v-for="(external, index) in scores"
-                            :key="index"
-                            :line="true"
+                            :is-regenschori="true"
                             :index="index"
                             :external="external"
                             :song-name="song_lyric.name"
                         ></external>
-                    </tbody>
-                </table>
+                    </div>
+                </div>
                 <div
-                    v-if="song_lyric.lilypond_svg"
-                    v-html="song_lyric.lilypond_svg"
-                    class="pt-3 w-100 text-center"
+                    v-if="currentSource.lilypond_svg"
+                    v-html="currentSource.lilypond_svg"
+                    class="pt-3 w-100 text-center lilypond-container"
                     style="pointer-events:none"
                 ></div>
             </div>
@@ -139,7 +188,25 @@
                     :key="index"
                 >
                     <external
-                        :line="false"
+                        :is-regenschori="true"
+                        :index="index"
+                        :external="external"
+                        :song-name="song_lyric.name"
+                    ></external>
+                </div>
+            </div>
+        </div>
+        <div v-if="otherExternals.length">
+            <div id="dalsi" class="anchor"></div>
+            <h2 class="h4">Další materiály</h2>
+            <div class="row">
+                <div
+                    class="col-md-6"
+                    v-for="(external, index) in otherExternals"
+                    :key="index"
+                >
+                    <external
+                        :is-regenschori="true"
                         :index="index"
                         :external="external"
                         :song-name="song_lyric.name"
@@ -158,6 +225,7 @@
 <script>
 import { clone } from 'lodash';
 
+import SongAuthorLabel from './SongAuthorLabel';
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 import External from '@bit/proscholy.utilities.external/External.vue';
 
@@ -165,6 +233,7 @@ export default {
     name: 'SongBox',
 
     components: {
+        SongAuthorLabel,
         TranslationLine,
         External
     },
@@ -173,14 +242,15 @@ export default {
 
     data() {
         return {
-            adminUrl: process.env.adminUrl
+            adminUrl: process.env.adminUrl,
+            currentSource: this.song_lyric
         };
     },
 
     computed: {
        recordings: {
             get() {
-                return this.song_lyric.externals.filter(ext =>
+                return this.currentSource.externals.filter(ext =>
                     ext.content_type == "RECORDING"
                 );
             }
@@ -188,8 +258,16 @@ export default {
 
         scores: {
             get() {
-                return this.song_lyric.externals.filter(ext =>
+                return this.currentSource.externals.filter(ext =>
                     ext.content_type == "SCORE"
+                );
+            }
+        },
+
+        otherExternals: {
+            get() {
+                return this.currentSource.externals.filter(ext =>
+                    ext.content_type != "RECORDING" && ext.content_type != "SCORE"
                 );
             }
         },

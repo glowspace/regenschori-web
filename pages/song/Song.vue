@@ -20,38 +20,18 @@ const VISIT_SONG = gql`
 const FETCH_SONG_LYRIC = gql`
     query($id: ID!) {
         song_lyric(id: $id) {
-            has_lyrics
-            id
             song_number
-            name
             public_route
             public_url
             type
+            has_lyrics
             lyrics_no_chords
+            capo
             only_regenschori
             bible_refs_src
-            lilypond_svg
-            authors_pivot {
-                author {
-                    ...authorFields
-                }
-                authorship_type
-            }
-            externals {
-                id
-                url
-                media_id
-                caption
-                is_uploaded
-                tags_instrumentation {
-                    id name
-                }
-                content_type
-                content_type_string
-                media_type
-                authors {
-                    ...authorFields
-                }
+            ...arrangementSharedFields
+            arrangements {
+                ...arrangementSharedFields
             }
             song {
                 song_lyrics {
@@ -69,7 +49,6 @@ const FETCH_SONG_LYRIC = gql`
                     lang_string
                 }
             }
-            capo
             songbook_records {
                 number
                 songbook {
@@ -93,6 +72,34 @@ const FETCH_SONG_LYRIC = gql`
         id
         name
         public_route
+    }
+
+    fragment arrangementSharedFields on SongLyric {
+        id
+        name
+        lilypond_svg
+        authors_pivot {
+            author {
+                ...authorFields
+            }
+            authorship_type
+        }
+        externals {
+            id
+            url
+            media_id
+            caption
+            is_uploaded
+            tags_instrumentation {
+                id name
+            }
+            content_type
+            content_type_string
+            media_type
+            authors {
+                ...authorFields
+            }
+        }
     }
 `;
 
