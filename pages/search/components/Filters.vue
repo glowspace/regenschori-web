@@ -59,6 +59,7 @@
                 ><i class="fas fa-search mr-0"></i></a
             >
         </div>
+        <nuxt-link v-if="!isLiturgy" class="mt-3 tag tag-blue" to="/liturgie/aktualne">Co hrát na mši</nuxt-link>
         <div v-if="!localShowAuthors">
             <tag-category
                 v-if="!isLiturgy"

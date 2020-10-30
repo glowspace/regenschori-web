@@ -56,6 +56,15 @@
                                 ><i class="fas fa-plus"></i></a>
                             </td>
                             <td
+                                v-if="showNumbers"
+                                class="p-1 align-middle w-min"
+                            >
+                                <nuxt-link
+                                    class="p-2 d-inline-block text-secondary"
+                                    :to="{path: song_lyric.public_route, query: $route.query }"
+                                >{{ song_lyric.song_number }}</nuxt-link>
+                            </td>
+                            <td
                                 class="p-1 align-middle"
                             >
                                 <nuxt-link
@@ -205,6 +214,7 @@ const FETCH_ITEMS = gql`
     fragment SongLyricFragment on SongLyric {
         id
         name
+        song_number
         public_route
         lang
         lang_string
@@ -257,7 +267,8 @@ export default {
         'descending',
         'seed',
         'disableObserver',
-        'overridePerPage'
+        'overridePerPage',
+        'showNumbers'
     ],
 
     components: { ScrollTrigger, Tags },
