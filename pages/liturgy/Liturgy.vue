@@ -24,6 +24,21 @@
                 class="tag tag-blue"
             ><i class="fas fa-chevron-right"></i></nuxt-link>
         </div>
+        <div>
+            <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters">{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na „další písně“.</span>
+            <Filters
+                v-show="showFilters"
+                :init="false"
+                :selected-songbooks.sync="selected_songbooks"
+                :selected-tags.sync="selected_tags"
+                :selected-languages.sync="selected_languages"
+                :show-authors.sync="showAuthors"
+                :sort.sync="sort"
+                :descending.sync="descending"
+                :search-string="''"
+                :is-liturgy="true"
+            ></Filters>
+        </div>
         <div v-for="tag in tags_enum" :key="tag.id">
             <h2>{{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</h2>
             <h3 class="h5">Písně podle liturgického kalendáře</h3>
@@ -119,16 +134,16 @@
                     </div>
                 </div>
             </div>
-            <h3 class="h5">Další písně</h3>
+            <h3 class="h5">Další písně{{ filters_active ? ' (filtrovány)' : '' }}</h3>
             <div class="card">
                 <div class="card-body p-0">
                     <SongsList
                         :search-string="''"
-                        :selected-tags="{}"
-                        :selected-songbooks="{}"
-                        :selected-languages="{}"
-                        :sort="0"
-                        :descending="false"
+                        :selected-tags="{...selected_tags, ...objGeneratedFromTag(tag.id)}"
+                        :selected-songbooks="selected_songbooks"
+                        :selected-languages="selected_languages"
+                        :sort="sort"
+                        :descending="descending"
                         :seed="seed"
                         :disable-observer="true"
                         :override-per-page="3"
@@ -159,6 +174,7 @@
 <script>
 import gql from 'graphql-tag';
 import SongsList from '../search/components/SongsList';
+import Filters from '../search/components/Filters';
 
 const FETCH_ITEMS = gql`
     query {
@@ -190,7 +206,8 @@ const FETCH_TAGS = gql`
 
 export default {
     components: {
-        SongsList
+        SongsList,
+        Filters
     },
 
     head() {
@@ -211,7 +228,16 @@ export default {
             titleWebsite: process.env.titleWebsite,
             titleSeparator: process.env.titleSeparator,
             thisDate: this.$route.params.date || new Date().toISOString().split('T')[0],
-            seed: null
+            seed: null,
+            showFilters: false,
+
+            // Search data
+            selected_songbooks: {},
+            selected_languages: {},
+            selected_tags: {},
+            showAuthors: false,
+            sort: 0,
+            descending: false,
         };
     },
 
@@ -238,6 +264,12 @@ export default {
             var theDay = new Date(this.thisDate);
             theDay.setDate(theDay.getDate() - 1 + i);
             return [theDay.toISOString().split('T')[0], this.$dateFns.format(theDay, 'EEEEEE d. M.', { locale: 'cs' })];
+        },
+
+        objGeneratedFromTag(id) {
+            let obj = {};
+            obj[id] = true;
+            return obj;
         }
     },
 
@@ -248,6 +280,15 @@ export default {
 
         todayDate() {
             return new Date().toISOString().split('T')[0];
+        },
+
+        filters_active() {
+            return (
+                Object.keys(this.selected_songbooks).length +
+                    Object.keys(this.selected_tags).length +
+                    Object.keys(this.selected_languages).length >
+                0
+            );
         }
     },
 

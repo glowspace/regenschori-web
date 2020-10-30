@@ -11,7 +11,7 @@
         </template>
     </div>
     <div class="song-tags filters card px-3 py-1" v-else>
-        <button type="button" class="btn btn-primary mr-2" @click="$emit('enter', null)">
+        <div v-if="!isLiturgy"><button type="button" class="btn btn-primary mr-2" @click="$emit('enter', null)">
             <i class="fas fa-search"></i>
         </button><div class="btn-group m-0 my-2 bg-light" role="group">
             <a
@@ -26,9 +26,9 @@
                 @click="localShowAuthors = true"
                 ><i class="fas fa-user"></i>autoři</a
             >
-        </div><br>
+        </div></div>
         <div
-            v-if="!localShowAuthors"
+            v-if="!localShowAuthors && !isLiturgy"
             class="btn-group m-0 my-2 bg-light btn-group--icons"
             role="group"
             :title="[searchString ? 'Písně jsou řazeny podle vyhledávání.' : '']"
@@ -61,6 +61,7 @@
         </div>
         <div v-if="!localShowAuthors">
             <tag-category
+                v-if="!isLiturgy"
                 heading="Liturgie – mše svatá"
                 color="blue"
                 :tags-in-category="tags_liturgy_part"
@@ -127,7 +128,7 @@ import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import TagCategory from '@bit/proscholy.search.tag-category/TagCategory.vue';
 
 export default {
-    props: ['init', 'selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string'],
+    props: ['init', 'selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string', 'is-liturgy'],
 
     components: {
         TagCategory
