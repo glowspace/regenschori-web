@@ -44,6 +44,9 @@
 
         <mass-summary></mass-summary>
 
+        <pick-alternative-modal id="vstup"
+                                show="true"></pick-alternative-modal>
+
 
 <!--        <div v-for="tag in tags_enum" :key="tag.id">-->
 <!--            <h2>{{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</h2>-->
@@ -144,6 +147,7 @@ import gql from 'graphql-tag';
 import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
 import MassSummary from "~/pages/liturgy/components/MassSummary";
+import PickAlternativeModal from "~/pages/liturgy/components/PickAlternativeModal";
 
 const FETCH_ITEMS = gql`
     query {
@@ -176,6 +180,7 @@ const FETCH_TAGS = gql`
 
 export default {
     components: {
+        PickAlternativeModal,
         MassSummary,
         SongsList,
         Filters

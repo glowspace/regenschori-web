@@ -1,7 +1,4 @@
 require('dotenv').config();
-import PurgecssPlugin from 'purgecss-webpack-plugin'
-import glob from 'glob-all'
-import path from 'path'
 
 export default {
     ssr: !process.env.NUXT_SPA,
@@ -70,17 +67,18 @@ export default {
      ** Customize the progress-bar color
      */
     loading: {color: '#aaaaaa'},
+
     /*
      ** Global CSS
      */
-    css: ['~assets/sass/app.scss'],
+    css: ['@/assets/sass/app.scss'],
+
     /*
      ** Plugins to load before mounting the App
      */
     plugins: [
         // ssr: false to only include it on client-side
         {src: '~/plugins/firebase.js', ssr: false},
-        '@plugins/bootstrap-vue.js'
     ],
     /*
      ** Nuxt.js dev-modules
@@ -97,11 +95,19 @@ export default {
     */
     modules: [
         // '@nuxtjs/pwa',
+        'bootstrap-vue/nuxt',
         '@nuxtjs/apollo',
         '@nuxtjs/axios',
         '@nuxtjs/proxy',
         '@nuxtjs/sentry'
     ],
+
+    // Bootstrap Vue SCSS resourcess are loaded manually in app.scss.
+    bootstrapVue: {
+        bootstrapCSS: false,
+        bootstrapVueCSS: false
+    },
+
     apollo: {
         clientConfigs: {
             default: {
@@ -131,25 +137,25 @@ export default {
         /*
          ** You can extend webpack config here
          */
-        extend(config, {isDev, isClient}) {
-            config.plugins.push(
-                new PurgecssPlugin({
-                    paths: glob.sync([
-                        path.join(__dirname, './pages/**/*.vue'),
-                        path.join(__dirname, './layouts/**/*.vue'),
-                        path.join(__dirname, './components/**/*.vue'),
-                        path.join(__dirname, './node_modules/@bit/**/*.vue')
-                    ]),
-                    whitelist: ['html', 'body', 'nuxt-progress', 'tag-selected'],
-                    whitelistPatterns: [/^v-((?!application).)*$/, /^nuxt/],
-                    whitelistPatternsChildren: [/^theme--*/, /^v-((?!application).)*$/, /^nuxt/, /data-dark/]
-                })
-            );
-
-            if (isClient) {
-                config.optimization.splitChunks.maxSize = 500000;
-            }
-        },
-        extractCSS: true
+        // extend(config, {isDev, isClient}) {
+        //     config.plugins.push(
+        //         new PurgecssPlugin({
+        //             paths: glob.sync([
+        //                 path.join(__dirname, './pages/**/*.vue'),
+        //                 path.join(__dirname, './layouts/**/*.vue'),
+        //                 path.join(__dirname, './components/**/*.vue'),
+        //                 path.join(__dirname, './node_modules/@bit/**/*.vue')
+        //             ]),
+        //             whitelist: ['html', 'body', 'nuxt-progress', 'tag-selected'],
+        //             whitelistPatterns: [/^v-((?!application).)*$/, /^nuxt/],
+        //             whitelistPatternsChildren: [/^theme--*/, /^v-((?!application).)*$/, /^nuxt/, /data-dark/]
+        //         })
+        //     );
+        //
+        //     if (isClient) {
+        //         config.optimization.splitChunks.maxSize = 500000;
+        //     }
+        // },
+        // extractCSS: true
     }
 };

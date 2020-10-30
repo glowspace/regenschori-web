@@ -22,3 +22,8 @@ $cyan: #6cb2eb;
 $theme-colors: (
   "primary": #1e3caa,
 );
+
+$main-red: #d83027;
+$main-blue: map-get($theme-colors, "primary");
+$main-green: #098845;
+$main-yellow: #faa61b;
