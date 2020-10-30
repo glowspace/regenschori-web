@@ -20,7 +20,7 @@ export default {
     props: [
         'open_modal',
         'title',
-        'song_lyric'
+        'song_selected'
     ],
 
     data: () => {
@@ -37,14 +37,14 @@ export default {
     width: 25px;
 
     .fa-pencil-alt {
-        color: grey;
+        color:  #7a7777;
         cursor: pointer;
     }
 }
 
 
 .title {
-    color:          grey;
+    color:          #4c4c4c;
     font-size:      0.9em;
 
     text-transform: uppercase;
