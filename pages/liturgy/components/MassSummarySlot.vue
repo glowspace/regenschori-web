@@ -7,8 +7,6 @@
         <td><span class="title">{{ title }}</span></td>
         <td>123</td>
         <td>Ať srdce mé</td>
-        <td>Autor</td>
-        <td>Ikonky</td>
         <td>Vazba</td>
     </tr>
 </template>
