@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Search from '~/pages/search/Search';
 import AboutProject from '~/pages/about/AboutProject';
 import Author from '~/pages/author/Author';
+import Liturgy from '~/pages/liturgy/Liturgy';
 
 Vue.use(Router);
 
@@ -16,6 +17,8 @@ export function createRouter() {
             { path: '/o-projektu', component: AboutProject },
             { path: '/pisen/:id/*', component: Search },
             { path: '/autor/:id', component: Author },
+            { path: '/liturgie/aktualne', component: Liturgy },
+            { path: '/liturgie/aktualne/:date', component: Liturgy },
 
             { path: '/vanoce', redirect: { name: 'index', query: { stitky: '22' } } },
             { path: '/velikonoce', redirect: { name: 'index', query: { stitky: '23' } } },
