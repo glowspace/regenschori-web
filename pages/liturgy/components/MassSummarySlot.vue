@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="column-edit pl-3">
-            <a v-b-modal="open_modal"><i class="fas fa-pencil-alt"></i></a>
+            <a v-b-modal="part"><i class="fas fa-pencil-alt"></i></a>
         </td>
 
         <td><span class="title">{{ title }}</span></td>
@@ -18,7 +18,7 @@ export default {
     name: "MassSummarySlot",
 
     props: [
-        'open_modal',
+        'part',
         'title',
         'song_selected'
     ],
