@@ -88,7 +88,8 @@ export default {
         ['@nuxtjs/google-analytics', { id: 'G-CTBZFXNL2E' }],
         '@nuxtjs/router',
         '@nuxtjs/dotenv',
-        ['@nuxtjs/vuetify', { treeShake: true, theme: { disable: true } }]
+        ['@nuxtjs/vuetify', { treeShake: true, theme: { disable: true } }],
+        ['@nuxtjs/date-fns', { locales: ['cs'] }]
     ],
     /*
     ** Nuxt.js modules

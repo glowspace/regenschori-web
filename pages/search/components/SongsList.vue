@@ -130,6 +130,7 @@
                         </tr>
                     </template>
                     <tr v-if="results_loaded"><td class="p-0 border-top-0"><scroll-trigger
+                        v-if="!disableObserver"
                         @triggerIntersected="loadMore"
                         @noObserver="caniuseObserver = false"
                         :enabled="enable_more"
@@ -254,7 +255,9 @@ export default {
         'selected-languages',
         'sort',
         'descending',
-        'seed'
+        'seed',
+        'disableObserver',
+        'overridePerPage'
     ],
 
     components: { ScrollTrigger, Tags },
@@ -262,11 +265,11 @@ export default {
     data() {
         return {
             page: 1,
-            per_page: 20,
+            per_page: this.overridePerPage || 20,
             enable_more: true,
             results_loaded: false,
             preferred_songbook_id: null,
-            caniuseObserver: true,
+            caniuseObserver: !this.disableObserver,
             loadedMore: false,
             openDrawer: 0
         };
