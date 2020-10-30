@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <h1>Co hrát na mši {{ headerDateString }}?</h1>
+        <p>Písně k aktuální liturgii jsou generovány automaticky podle korespondence textu písně s&nbsp;mešním čtením, liturgického období atd.</p>
         <div class="d-flex mb-3">
             <nuxt-link
-                :to="'/liturgie/aktualne/' + getDate(-7)[0]"
-                class="tag tag-blue"
-            ><i class="fas fa-chevron-left"></i></nuxt-link>
+                :to="'/liturgie/aktualne/' + getDate(-5)[0]"
+                class="tag tag-blue flex-shrink-0"
+            ><i class="fas fa-chevron-left mr-3"></i>&minus;7</nuxt-link>
             <nuxt-link
                 v-if="todayDate != thisDate"
                 :to="'/liturgie/aktualne/' + todayDate"
@@ -15,14 +16,14 @@
                 <nuxt-link
                     v-for="i in 9"
                     :key="i"
-                    :to="'/liturgie/aktualne/' + getDate(i - 1)[0]"
-                    :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i - 1)[0]}]"
-                >{{ getDate(i - 1)[1] }}</nuxt-link>
+                    :to="'/liturgie/aktualne/' + getDate(i)[0]"
+                    :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i)[0]}]"
+                >{{ getDate(i)[1] }}</nuxt-link>
             </div>
             <nuxt-link
                 :to="'/liturgie/aktualne/' + getDate(9)[0]"
-                class="tag tag-blue"
-            ><i class="fas fa-chevron-right"></i></nuxt-link>
+                class="tag tag-blue flex-shrink-0"
+            >+7<i class="fas fa-chevron-right ml-3"></i></nuxt-link>
         </div>
         <div>
             <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters">{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na „další písně“.</span>
@@ -41,44 +42,17 @@
         </div>
         <div v-for="tag in tags_enum" :key="tag.id">
             <h2>{{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</h2>
-            <h3 class="h5">Písně podle liturgického kalendáře</h3>
+            <h3 class="h5">Písně k aktuální liturgii</h3>
             <div class="card">
                 <div class="card-body p-0">
-                    <div class="songs-list">
-                        <v-progress-linear
-                            indeterminate
-                            color="bg-main-blue"
-                            :height="4"
-                            :class="[!$apollo.loading ? '' : 'opacity-1', 'custom-progress-bar']"
-                        ></v-progress-linear>
+                    <div class="songs-list overflow-auto">
                         <table class="table m-0">
                             <tbody>
-                                <tr v-if="$apollo.loading && !(liturgical_references && liturgical_references.length)">
-                                    <td style="width:4rem">
-                                        <div class="d-flex justify-content-end align-items-center">
-                                            <span>&nbsp;</span>
-                                            <span
-                                                class="spinner-border spinner-border-sm"
-                                                role="status"
-                                                aria-hidden="true"
-                                            ></span>
-                                        </div>
-                                    </td>
-                                    <td>Načítám...</td>
-                                    <td class="p-1" colspan="5">
-                                        <a
-                                            class="btn btn-secondary float-right m-0"
-                                            :href="
-                                                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=' +
-                                                    encodeURIComponent($route.fullPath)
-                                            "
-                                        >
-                                            Nahlásit
-                                        </a>
-                                    </td>
+                                <tr v-if="$apollo.loading && !(liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length)">
+                                    <td class="px-4">Načítám...</td>
                                 </tr>
                                 <template
-                                    v-else-if="liturgical_references && liturgical_references.length"
+                                    v-else-if="liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length"
                                 >
                                     <tr>
                                         <th class="text-right" title="číslo písně ve Zpěvníku ProScholy.cz">#</th>
@@ -89,7 +63,7 @@
                                         <th class="align-middle pr-4">cyklus</th>
                                     </tr>
                                     <tr
-                                        v-for="litref in liturgical_references"
+                                        v-for="litref in liturgical_references_filtered(tag.id)"
                                         :key="litref.song_lyric.id"
                                     >
                                         <td
@@ -117,17 +91,7 @@
                                     </tr>
                                 </template>
                                 <tr v-else-if="!$apollo.loading">
-                                    <td class="p-1" colspan="7">
-                                        <span class="px-3 py-2 d-inline-block"
-                                            >Nebyla nalezena žádná vhodná píseň.</span
-                                        >
-                                        <a
-                                            class="btn btn-secondary float-right m-0"
-                                            :href="'https://forms.gle/AYXXxkWtDHQQ13856'"
-                                        >
-                                            Přidat píseň
-                                        </a>
-                                    </td>
+                                    <td class="px-4">Nebyla nalezena žádná vhodná píseň.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -147,12 +111,11 @@
                         :seed="seed"
                         :disable-observer="true"
                         :override-per-page="3"
+                        :show-numbers="true"
                     ></SongsList>
                 </div>
             </div>
         </div>
-
-        <p>Písně k aktuální liturgii jsou generovány automaticky podle korespondence textu písně s&nbsp;mešním čtením, liturgického období atd.</p>
 
         <a href="http://www.musicasacra.cz/" target="_blank" class="footer-logo">
             <img src="/img/musica-sacra.svg" />
@@ -162,7 +125,7 @@
             class="btn btn-secondary mb-0 search-report bg-transparent"
             title="Nahlásit"
             :href="
-                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=' +
+                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
                     encodeURIComponent($route.fullPath)
             "
         >
@@ -186,6 +149,7 @@ const FETCH_ITEMS = gql`
                 type
                 public_route
                 only_regenschori
+                tags_liturgy_part {id name}
             }
             reading
             date
@@ -262,14 +226,36 @@ export default {
 
         getDate(i) {
             var theDay = new Date(this.thisDate);
-            theDay.setDate(theDay.getDate() - 1 + i);
-            return [theDay.toISOString().split('T')[0], this.$dateFns.format(theDay, 'EEEEEE d. M.', { locale: 'cs' })];
+            theDay.setDate(theDay.getDate() - 2 + i);
+            return [this.dateToString(theDay), this.$dateFns.format(theDay, 'EEEEEE d. M.', { locale: 'cs' })];
         },
 
         objGeneratedFromTag(id) {
             let obj = {};
             obj[id] = true;
             return obj;
+        },
+
+        liturgical_references_filtered(id) {
+            return this.liturgical_references ? this.liturgical_references.filter(ref => {
+                let correctTags = ref.song_lyric.tags_liturgy_part ? ref.song_lyric.tags_liturgy_part.filter(tag => {
+                    return tag.id === id
+                }).length : false;
+                let correctDate = ref.date == this.thisDate;
+                return correctTags && correctDate;
+            }) : [];
+        },
+
+        dateToString(date) {
+            function pad(number) {
+                if (number < 10) {
+                    return '0' + number;
+                }
+
+                return number;
+            }
+
+            return `${pad(date.getFullYear())}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
         }
     },
 
@@ -279,7 +265,7 @@ export default {
         },
 
         todayDate() {
-            return new Date().toISOString().split('T')[0];
+            return this.dateToString(new Date());
         },
 
         filters_active() {
