@@ -3,6 +3,15 @@
         <div class="card mt-4">
             <div class="card-body p-0">
                 <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>část mše</th>
+                        <th>#</th>
+                        <th>název písně</th>
+                        <th>důvod výběru</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <mass-summary-slot title="Vstup"
                                        part="vstup"></mass-summary-slot>
