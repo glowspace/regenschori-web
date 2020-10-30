@@ -351,29 +351,24 @@ export default {
 
     // GraphQL client
     apollo: {
+        $prefetch: false,
         tags_generic: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         tags_liturgy_part: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         tags_liturgy_period: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         tags_saints: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         tags_history_period: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         tags_musical_form: {
-            query: fetchFiltersQuery,
-            prefetch: false
+            query: fetchFiltersQuery
         },
         song_lyrics_paginated: {
             query: FETCH_ITEMS,
@@ -398,8 +393,7 @@ export default {
                 if (!this.loadedMore) {
                     this.page = result.data.song_lyrics_paginated.paginatorInfo.currentPage;
                 }
-            },
-            prefetch: false
+            }
         },
     },
 
