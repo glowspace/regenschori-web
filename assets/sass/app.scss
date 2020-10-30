@@ -1,32 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:200,400,600");
 
-// @font-face {
-//     font-family: "Cocogoose";
-//     src: url("/fonts/cocogoose-pro-regular.ttf");
-// }
-
-// @font-face {
-//     font-family: "Lucida Grande";
-//     src: url("/fonts/LucidaGrande.ttf");
-// }
-
-// @font-face {
-//     font-family: "Helvetica";
-//     src: url("/fonts/Helvetica.ttf");
-// }
-
-// @font-face {
-//     font-family: "PingFang";
-//     src: url("/fonts/pingfang-sc-regular.ttf");
-// }
-
 @import "variables";
 $main-red: #d83027;
 $main-blue: map-get($theme-colors, "primary");
 $main-green: #098845;
 $main-yellow: #faa61b;
 
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap';
+//@import '~bootstrap-vue';
 
 @import "base";
 @import "navbar";
