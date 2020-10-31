@@ -1,25 +1,29 @@
 <template>
     <div class="container">
         <h1>Co hrát na mši {{ headerDateString }}?</h1>
-        <p>Písně k aktuální liturgii jsou generovány automaticky podle korespondence textu písně s mešním čtením, liturgického období atd.</p>
+        <p>Písně k aktuální liturgii jsou generovány automaticky podle korespondence textu písně s mešním čtením,
+            liturgického období atd.</p>
 
         <div class="d-flex mb-3">
             <nuxt-link
                 :to="'/liturgie/aktualne/' + getDate(-5)[0]"
                 class="tag tag-blue flex-shrink-0"
-            ><i class="fas fa-chevron-left mr-3"></i>&minus;7</nuxt-link>
+            ><i class="fas fa-chevron-left mr-3"></i>&minus;7
+            </nuxt-link>
             <nuxt-link
                 v-if="todayDate != thisDate"
                 :to="'/liturgie/aktualne/' + todayDate"
                 class="tag tag-blue"
             ><i class="fas fa-redo-alt"></i></nuxt-link>
-            <div style="overflow-x:auto;white-space:nowrap" class="w-100 text-center">
+            <div style="overflow-x:auto;white-space:nowrap"
+                 class="w-100 text-center">
                 <nuxt-link
                     v-for="i in 9"
                     :key="i"
                     :to="'/liturgie/aktualne/' + getDate(i)[0]"
                     :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i)[0]}]"
-                >{{ getDate(i)[1] }}</nuxt-link>
+                >{{ getDate(i)[1] }}
+                </nuxt-link>
             </div>
             <nuxt-link
                 :to="'/liturgie/aktualne/' + getDate(9)[0]"
@@ -27,7 +31,12 @@
             >+7<i class="fas fa-chevron-right ml-3"></i></nuxt-link>
         </div>
         <div>
-            <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters">{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na „další písně“.</span>
+            <button type="button"
+                    class="btn btn-primary mr-3"
+                    @click="showFilters = !showFilters">
+                {{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}
+            </button>
+            <span class="py-2 d-inline-block">Filtry se použijí pouze na „další písně“.</span>
             <Filters
                 v-show="showFilters"
                 :init="false"
@@ -42,71 +51,34 @@
             ></Filters>
         </div>
 
-        <mass-summary></mass-summary>
+        <mass-summary :liturgical_references="liturgical_references"
+                      :date="thisDate"
+
+                      :init="false"
+                      :selected-songbooks.sync="selected_songbooks"
+                      :selected-tags.sync="selected_tags"
+                      :selected-languages.sync="selected_languages"
+                      :show-authors.sync="showAuthors"
+                      :sort.sync="sort"
+                      :descending.sync="descending"
+                      :search-string="''"
+                      :is-liturgy="true"
+        ></mass-summary>
 
 
-        <div v-for="tag in tags_enum" :key="tag.id">
+
+
+
+
+
+        <div v-for="tag in tags_enum"
+             :key="tag.id">
             <h2>{{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</h2>
-            <h3 class="h5">Písně k aktuální liturgii</h3>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="songs-list overflow-auto">
-                        <table class="table m-0">
-                            <tbody>
-                                <tr v-if="$apollo.loading && !(liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length)">
-                                    <td class="px-4">Načítám...</td>
-                                </tr>
-                                <template
-                                    v-else-if="liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length"
-                                >
-                                    <tr>
-                                        <th class="text-right" title="číslo písně ve Zpěvníku ProScholy.cz">#</th>
-                                        <th class="align-middle">název písně</th>
-                                        <th class="align-middle">odkaz</th>
-                                        <th class="align-middle">datum</th>
-                                        <th class="align-middle">vazba</th>
-                                        <th class="align-middle pr-4">cyklus</th>
-                                    </tr>
-                                    <tr
-                                        v-for="litref in liturgical_references_filtered(tag.id)"
-                                        :key="litref.song_lyric.id"
-                                    >
-                                        <td
-                                            class="p-1 align-middle text-right w-min"
-                                        >
-                                            <nuxt-link
-                                                class="p-2 pl-3 w-100 d-flex justify-content-between text-secondary"
-                                                :to="litref.song_lyric.public_route"
-                                            >{{ litref.song_lyric.song_number }}</nuxt-link>
-                                        </td>
-                                        <td
-                                            class="p-1 align-middle"
-                                        >
-                                            <nuxt-link
-                                                class="p-2 w-100 d-inline-block"
-                                                :to="litref.song_lyric.public_route"
-                                            >{{ litref.song_lyric.name }}</nuxt-link>
-                                        </td>
-                                        <td class="align-middle">{{ litref.reading }}</td>
-                                        <td class="align-middle" style="white-space:nowrap">{{
-                                            (new Date(litref.date)).toLocaleDateString(undefined, {weekday: 'short', day: 'numeric', month: 'numeric'})
-                                        }}</td>
-                                        <td class="align-middle">{{ litref.type }}</td>
-                                        <td class="align-middle pr-4">{{ litref.cycle }}</td>
-                                    </tr>
-                                </template>
-                                <tr v-else-if="!$apollo.loading">
-                                    <td class="px-4">Nebyla nalezena žádná vhodná píseň.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
             <h3 class="h5">Další písně{{ filters_active ? ' (filtrovány)' : '' }}</h3>
             <div class="card">
                 <div class="card-body p-0">
-                    <SongsList
+                    <SearchOtherSongs
                         :search-string="''"
                         :selected-tags="{...selected_tags, ...objGeneratedFromTag(tag.id)}"
                         :selected-songbooks="selected_songbooks"
@@ -117,13 +89,15 @@
                         :disable-observer="true"
                         :override-per-page="3"
                         :show-numbers="true"
-                    ></SongsList>
+                    ></SearchOtherSongs>
                 </div>
             </div>
         </div>
 
-        <a href="http://www.musicasacra.cz/" target="_blank" class="footer-logo">
-            <img src="/img/musica-sacra.svg" />
+        <a href="http://www.musicasacra.cz/"
+           target="_blank"
+           class="footer-logo">
+            <img src="/img/musica-sacra.svg"/>
         </a>
 
         <a
@@ -145,6 +119,7 @@ import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
 import MassSummary from "~/pages/liturgy/components/MassSummary";
 import PickAlternativeModal from "~/pages/liturgy/components/PickAlternativeModal";
+import SearchOtherSongs from "~/pages/liturgy/components/SearchOtherSongs";
 
 const FETCH_ITEMS = gql`
     query {
@@ -177,6 +152,7 @@ const FETCH_TAGS = gql`
 
 export default {
     components: {
+        SearchOtherSongs,
         PickAlternativeModal,
         MassSummary,
         SongsList,
@@ -236,7 +212,7 @@ export default {
         getDate(i) {
             var theDay = new Date(this.thisDate);
             theDay.setDate(theDay.getDate() - 2 + i);
-            return [this.dateToString(theDay), this.$dateFns.format(theDay, 'EEEEEE d. M.', { locale: 'cs' })];
+            return [this.dateToString(theDay), this.$dateFns.format(theDay, 'EEEEEE d. M.', {locale: 'cs'})];
         },
 
         objGeneratedFromTag(id) {
@@ -270,7 +246,7 @@ export default {
 
     computed: {
         headerDateString() {
-            return this.$dateFns.format(new Date(this.thisDate), 'd. MMMM', { locale: 'cs' });
+            return this.$dateFns.format(new Date(this.thisDate), 'd. MMMM', {locale: 'cs'});
         },
 
         todayDate() {
@@ -280,8 +256,8 @@ export default {
         filters_active() {
             return (
                 Object.keys(this.selected_songbooks).length +
-                    Object.keys(this.selected_tags).length +
-                    Object.keys(this.selected_languages).length >
+                Object.keys(this.selected_tags).length +
+                Object.keys(this.selected_languages).length >
                 0
             );
         }

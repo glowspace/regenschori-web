@@ -6,30 +6,29 @@
         <div class="card p-0">
             <div class="card-body p-0">
                 <table class="table mb-0">
-                    <tr>
-                        <td>Ať srdce mé Tebe vídá</td>
-                        <td>koresponduje evangelium</td>
+                    <tr v-for="litref in referenced_songs">
+                        <td>
+                            <nuxt-link
+                                class="p-2 w-100 d-inline-block"
+                                :to="litref.song_lyric.public_route"
+                                target="_blank">{{ litref.song_lyric.name }}
+                            </nuxt-link>
+                        </td>
+                        <td>koresponduje {{ litref.type }}<br><small>{{ litref.reading }}</small></td>
                         <td>
                             <b-button>Zvolit</b-button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Ať srdce mé Tebe vídá</td>
-                        <td>koresponduje 1. čtení</td>
+
+                    <tr v-for="song in other_songs">
                         <td>
-                            <b-button>Zvolit</b-button>
+                            <nuxt-link
+                                class="p-2 w-100 d-inline-block"
+                                :to="song.public_route"
+                                target="_blank">{{ song.name }}
+                            </nuxt-link>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Ať srdce mé Tebe vídá</td>
-                        <td>vhodné na vstup</td>
-                        <td>
-                            <b-button>Zvolit</b-button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ať srdce mé Tebe vídá</td>
-                        <td>vhodné na vstup</td>
+                        <td>hodí se na</td>
                         <td>
                             <b-button>Zvolit</b-button>
                         </td>
@@ -46,10 +45,15 @@ export default {
 
     props: [
         'id',
-        'show',
         'title',
-        'part',
-    ]
+        'referenced_songs',
+    ],
+
+    data: () => {
+        return {
+            other_songs: []
+        }
+    }
 }
 </script>
 
