@@ -268,7 +268,9 @@ export default {
         'seed',
         'disableObserver',
         'overridePerPage',
-        'showNumbers'
+        'showNumbers',
+        'is-liturgy',
+        'liturgical-references'
     ],
 
     components: { ScrollTrigger, Tags },
@@ -319,9 +321,22 @@ export default {
         },
 
         song_lyrics() {
-            return this.song_lyrics_paginated
-                ? this.song_lyrics_paginated.data
-                : [];
+            let lr = this.litRefsProcessed;
+            let slp = this.song_lyrics_paginated ? this.song_lyrics_paginated.data : [];
+            return [...lr, ...slp];
+        },
+
+        litRefsProcessed() {
+            let litRefArray = [];
+
+            if (this.liturgicalReferences && this.liturgicalReferences.length) {
+                for (let i = 0; i < this.liturgicalReferences.length; i++) {
+                    const { reading, date, type, cycle, song_lyric } = this.liturgicalReferences[i];
+                    litRefArray[i] = { reading, date, type, cycle, ...song_lyric };
+                }
+            }
+
+            return litRefArray;
         }
     },
 

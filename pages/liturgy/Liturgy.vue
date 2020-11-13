@@ -17,7 +17,7 @@
                     v-for="i in 9"
                     :key="i"
                     :to="'/liturgie/aktualne/' + getDate(i)[0]"
-                    :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i)[0]}]"
+                    :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i)[0]}, {'font-weight-bold': getDate(i)[1].substr(0, 2) == 'ne'}]"
                 >{{ getDate(i)[1] }}</nuxt-link>
             </div>
             <nuxt-link
@@ -58,7 +58,6 @@
                                         <th class="text-right" title="číslo písně ve Zpěvníku ProScholy.cz">#</th>
                                         <th class="align-middle">název písně</th>
                                         <th class="align-middle">odkaz</th>
-                                        <th class="align-middle">datum</th>
                                         <th class="align-middle">vazba</th>
                                         <th class="align-middle pr-4">cyklus</th>
                                     </tr>
@@ -83,9 +82,6 @@
                                             >{{ litref.song_lyric.name }}</nuxt-link>
                                         </td>
                                         <td class="align-middle">{{ osisConvert(litref.reading) }}</td>
-                                        <td class="align-middle" style="white-space:nowrap">{{
-                                            (new Date(litref.date)).toLocaleDateString(undefined, {weekday: 'short', day: 'numeric', month: 'numeric'})
-                                        }}</td>
                                         <td class="align-middle">{{ litref.type }}</td>
                                         <td class="align-middle pr-4">{{ litref.cycle }}</td>
                                     </tr>
@@ -110,8 +106,10 @@
                         :descending="descending"
                         :seed="seed"
                         :disable-observer="true"
-                        :override-per-page="3"
+                        :override-per-page="5"
                         :show-numbers="true"
+                        :is-liturgy="true"
+                        :liturgical-references="liturgical_references_filtered(tag.id)"
                     ></SongsList>
                 </div>
             </div>
@@ -147,10 +145,45 @@ const FETCH_ITEMS = gql`
                 id
                 name
                 song_number
-                type
                 public_route
-                only_regenschori
-                tags_liturgy_part {id name}
+                lang
+                lang_string
+                bible_refs_src
+                scores: externals(content_type: SCORE) {
+                    id
+                }
+                recordings: externals(content_type: RECORDING) {
+                    id
+                }
+                authors_pivot {
+                    author {
+                        id
+                        name
+                        public_route
+                    }
+                    authorship_type
+                }
+                tags {
+                    id
+                }
+                tags_liturgy_part   {id name}
+                tags_liturgy_period {id name}
+                tags_generic        {id name}
+                tags_saints         {id name}
+                tags_history_period {id name}
+                tags_musical_form   {id name}
+                liturgy_approval_status
+                liturgy_approval_status_string_values
+                has_chords
+                has_lyrics
+                songbook_records {
+                    number
+                    songbook {
+                        id
+                        name
+                        shortcut
+                    }
+                }
             }
             reading
             date
