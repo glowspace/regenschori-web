@@ -82,7 +82,7 @@
                                                 :to="litref.song_lyric.public_route"
                                             >{{ litref.song_lyric.name }}</nuxt-link>
                                         </td>
-                                        <td class="align-middle">{{ litref.reading }}</td>
+                                        <td class="align-middle">{{ osisConvert(litref.reading) }}</td>
                                         <td class="align-middle" style="white-space:nowrap">{{
                                             (new Date(litref.date)).toLocaleDateString(undefined, {weekday: 'short', day: 'numeric', month: 'numeric'})
                                         }}</td>
@@ -138,6 +138,7 @@
 import gql from 'graphql-tag';
 import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
+import BibleReference from 'bible-reference/bible_reference';
 
 const FETCH_ITEMS = gql`
     query {
@@ -256,6 +257,10 @@ export default {
             }
 
             return `${pad(date.getFullYear())}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+        },
+
+        osisConvert(osisString) {
+            return BibleReference.fromEuropean(osisString).toCzechStrings().join('; ');
         }
     },
 
