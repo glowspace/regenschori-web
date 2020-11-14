@@ -39,8 +39,9 @@
                 >
                     <template
                         v-for="(song_lyric, index) in song_lyrics"
+                        v-if="!showOne || !index"
                     >
-                        <tr :key="song_lyric.id + '0'">
+                        <tr :key="song_lyric.id + '0' + index">
                             <td
                                 class="py-0 pl-2 pr-0 align-middle w-min"
                             >
@@ -57,6 +58,7 @@
                             <td
                                 v-if="!hideNumbers"
                                 class="p-1 align-middle w-min"
+                                :style="(isLiturgy ? 'width:8%' : '')"
                             >
                                 <nuxt-link
 	                                class="p-2 pl-3 w-100 d-flex justify-content-between text-secondary"
@@ -72,6 +74,7 @@
                             </td>
                             <td
                                 class="p-1 align-middle"
+                                :style="(isLiturgy ? 'width:40%' : '')"
                             >
                                 <nuxt-link
                                     class="p-2 w-100 d-inline-block"
@@ -112,8 +115,7 @@
                                 >
                             </td>
                             <td
-	                            style="width:10px"
-	                            class="no-left-padding align-middle d-none d-sm-table-cell"
+	                            class="no-left-padding align-middle d-none d-sm-table-cell w-min"
 	                        >
 	                            <i
 	                                v-if="song_lyric.has_chords"
@@ -128,8 +130,7 @@
 	                            <i v-else class="fas fa-align-left text-very-muted"></i>
 	                        </td>
                             <td
-                                style="width:10px"
-                                class="no-left-padding align-middle d-none d-sm-table-cell"
+                                class="no-left-padding align-middle d-none d-sm-table-cell w-min"
                             >
                                 <i
                                     v-if="song_lyric.scores.length"
@@ -142,8 +143,7 @@
                                 ></i>
                             </td>
                             <td
-                                style="width:10px"
-                                class="no-left-padding pr-4 align-middle d-none d-sm-table-cell"
+                                class="no-left-padding pr-4 align-middle d-none d-sm-table-cell w-min"
                             >
                                 <i
                                     v-if="song_lyric.recordings.length"
@@ -155,9 +155,39 @@
                                     class="fas fa-headphones text-very-muted"
                                 ></i>
                             </td>
+                            <td
+                                v-if="isLiturgy"
+                                @click="index ? (chosenSongId = song_lyric.id) : (showOne = !showOne)"
+                                class="no-left-padding pr-4 align-middle d-none d-sm-table-cell w-min"
+                            >OOO</td>
                         </tr>
-                        <tr :key="song_lyric.id + '1'" v-if="openDrawer == song_lyric.id">
-                            <td colspan="6" class="pl-4 pb-2"><tags :song="song_lyric" :in-song-list="true"></tags></td>
+                        <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.reading || song_lyric.type || song_lyric.cycle">
+                            <td colspan="42" class="px-4 pb-2 border-top-0">
+                                <div class="d-inline-block mr-4" v-if="song_lyric.type">
+                                    <span class="tag tag-category" title="vazba"><i class="fas fa-link"></i></span>
+                                    <span class="tag tag-blue">{{ song_lyric.type.toLowerCase() }}</span>
+                                </div>
+                                <div class="d-inline-flex mr-4" v-if="song_lyric.reading">
+                                    <div>
+                                        <span class="tag tag-category" title="odkazy"><i class="fas fa-bible"></i></span>
+                                    </div>
+                                    <div>
+                                        <a
+                                            class="tag tag-blue"
+                                            v-for="(reference, key2) in osisConvert(song_lyric.reading)"
+                                            :key="'ref' + key2"
+                                            :href="`https://www.bibleserver.com/CEP/${reference}`"
+                                        >{{ reference }}</a>
+                                    </div>
+                                </div>
+                                <div class="d-inline-block" v-if="song_lyric.cycle && song_lyric.cycle.replace(/\W/g, '')">
+                                    <span class="tag tag-category"><i class="far fa-circle"></i></span>
+                                    <span class="tag tag-blue">cyklus {{ song_lyric.cycle }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr :key="song_lyric.id + '2' + index" v-if="openDrawer == song_lyric.id">
+                            <td colspan="42" class="pl-4 pb-2"><tags :song="song_lyric" :in-song-list="true"></tags></td>
                         </tr>
                     </template>
                     <tr v-if="results_loaded"><td class="p-0 border-top-0"><scroll-trigger
@@ -186,15 +216,15 @@
         <div class="text-center">
             <div
                 class="btn btn-secondary d-inline-flex align-items-center"
-                v-if="enable_more && results_loaded"
+                v-if="enable_more && results_loaded && !showOne"
                 @click="loadMore"
             >
                 <span
                     class="spinner-border spinner-border-sm mr-3"
                     role="status"
                     aria-hidden="true"
-                    v-if="caniuseObserver"
-                ></span>{{ caniuseObserver ? 'Načítám' : 'Načíst' }} další výsledky (celkem {{ song_lyrics_paginated.paginatorInfo.total }})</div
+                    v-if="caniuseObserver || $apollo.loading"
+                ></span>{{ caniuseObserver || $apollo.loading ? 'Načítám' : 'Načíst' }} další výsledky (celkem {{ song_lyrics_paginated.paginatorInfo.total }})</div
             >
         </div>
     </div>
@@ -208,6 +238,7 @@ import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@b
 import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import Tags from '~/pages/song/components/Tags';
+import BibleReference from 'bible-reference/bible_reference';
 
 // Query
 const FETCH_ITEMS = gql`
@@ -315,7 +346,9 @@ export default {
             preferred_songbook_id: null,
             caniuseObserver: !this.disableObserver,
             loadedMore: false,
-            openDrawer: 0
+            openDrawer: 0,
+            showOne: this.isLiturgy,
+            chosenSongId: null
         };
     },
 
@@ -354,7 +387,14 @@ export default {
         song_lyrics() {
             let lr = this.litRefsProcessed;
             let slp = this.song_lyrics_paginated ? this.song_lyrics_paginated.data : [];
-            return [...lr, ...slp];
+            let comb = [...lr, ...slp];
+
+            if (comb.length && !this.chosenSongId) {
+                this.chosenSongId = comb[0].id;
+                // todo emit
+            }
+
+            return comb;
         },
 
         litRefsProcessed() {
@@ -368,6 +408,17 @@ export default {
             }
 
             return litRefArray;
+        },
+
+        filtersLoaded() {
+            return (
+                this.tags_generic
+                && this.tags_liturgy_part
+                && this.tags_liturgy_period
+                && this.tags_saints
+                && this.tags_history_period
+                && this.tags_musical_form
+            );
         }
     },
 
@@ -426,6 +477,10 @@ export default {
                 return song_lyric.song_number;
             }
             return '';
+        },
+
+        osisConvert(osisString) {
+            return BibleReference.fromEuropean(osisString).toCzechStrings();
         }
     },
 
@@ -451,6 +506,9 @@ export default {
             query: fetchFiltersQuery
         },
         song_lyrics_paginated: {
+            skip() {
+                return !this.filtersLoaded;
+            },
             query: FETCH_ITEMS,
             variables() {
                 return {

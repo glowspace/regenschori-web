@@ -40,78 +40,29 @@
                 :is-liturgy="true"
             ></Filters>
         </div>
-        <div v-for="tag in tags_enum" :key="tag.id">
-            <h2>{{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</h2>
-            <h3 class="h5">Písně k aktuální liturgii</h3>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="songs-list overflow-auto">
-                        <table class="table m-0">
-                            <tbody>
-                                <tr v-if="$apollo.loading && !(liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length)">
-                                    <td class="px-4">Načítám...</td>
-                                </tr>
-                                <template
-                                    v-else-if="liturgical_references_filtered(tag.id) && liturgical_references_filtered(tag.id).length"
-                                >
-                                    <tr>
-                                        <th class="text-right" title="číslo písně ve Zpěvníku ProScholy.cz">#</th>
-                                        <th class="align-middle">název písně</th>
-                                        <th class="align-middle">odkaz</th>
-                                        <th class="align-middle">vazba</th>
-                                        <th class="align-middle pr-4">cyklus</th>
-                                    </tr>
-                                    <tr
-                                        v-for="litref in liturgical_references_filtered(tag.id)"
-                                        :key="litref.song_lyric.id"
-                                    >
-                                        <td
-                                            class="p-1 align-middle text-right w-min"
-                                        >
-                                            <nuxt-link
-                                                class="p-2 pl-3 w-100 d-flex justify-content-between text-secondary"
-                                                :to="litref.song_lyric.public_route"
-                                            >{{ litref.song_lyric.song_number }}</nuxt-link>
-                                        </td>
-                                        <td
-                                            class="p-1 align-middle"
-                                        >
-                                            <nuxt-link
-                                                class="p-2 w-100 d-inline-block"
-                                                :to="litref.song_lyric.public_route"
-                                            >{{ litref.song_lyric.name }}</nuxt-link>
-                                        </td>
-                                        <td class="align-middle">{{ osisConvert(litref.reading) }}</td>
-                                        <td class="align-middle">{{ litref.type }}</td>
-                                        <td class="align-middle pr-4">{{ litref.cycle }}</td>
-                                    </tr>
-                                </template>
-                                <tr v-else-if="!$apollo.loading">
-                                    <td class="px-4">Nebyla nalezena žádná vhodná píseň.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <h3 class="h5">Další písně{{ filters_active ? ' (filtrovány)' : '' }}</h3>
-            <div class="card">
-                <div class="card-body p-0">
-                    <SongsList
-                        :search-string="''"
-                        :selected-tags="{...selected_tags, ...objGeneratedFromTag(tag.id)}"
-                        :selected-songbooks="selected_songbooks"
-                        :selected-languages="selected_languages"
-                        :sort="sort"
-                        :descending="descending"
-                        :seed="seed"
-                        :disable-observer="true"
-                        :override-per-page="5"
-                        :is-liturgy="true"
-                        :liturgical-references="liturgical_references_filtered(tag.id)"
-                    ></SongsList>
-                </div>
-            </div>
+        <div class="card mt-3">
+            <table class="table">
+                <tbody>
+                    <tr v-for="(tag, index) in tags_enum" :key="tag.id" :class="{'bg-light': index % 2}">
+                        <td class="align-top px-4 font-weight-bold">{{ tag.name }}</td>
+                        <td class="p-0">
+                            <SongsList
+                                :search-string="''"
+                                :selected-tags="{...objGeneratedFromTag(tag.id), ...selected_tags}"
+                                :selected-songbooks="selected_songbooks"
+                                :selected-languages="selected_languages"
+                                :sort="sort"
+                                :descending="descending"
+                                :seed="seed"
+                                :disable-observer="true"
+                                :override-per-page="5"
+                                :is-liturgy="true"
+                                :liturgical-references="liturgical_references_filtered(tag.id)"
+                            ></SongsList>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <a href="http://www.musicasacra.cz/" class="footer-logo">
@@ -327,6 +278,12 @@ export default {
     mounted() {
         if (!this.$route.params.date) {
             window.history.replaceState(null, '', '/liturgie/aktualne/' + this.thisDate);
+        }
+
+        if (window.location.hash) {
+            this.seed = parseInt(window.location.hash.replace('#', ''));
+        } else {
+            window.location.hash = this.seed;
         }
     }
 };
