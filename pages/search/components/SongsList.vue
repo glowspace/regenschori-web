@@ -1,7 +1,7 @@
 <template>
     <!-- todo: refactor so that it does not need client-only wrapper -->
     <client-only>
-    <div class="songs-list">
+    <div :class="['songs-list', {'songs-list-liturgy-loading': !results_loaded && isLiturgy}]">
         <v-progress-linear
             indeterminate
             color="bg-main-blue"
@@ -157,20 +157,21 @@
                             </td>
                             <td
                                 v-if="isLiturgy"
-                                class="no-left-padding pr-4 align-middle d-none d-sm-table-cell w-min"
+                                class="no-left-padding pr-4 p-0 align-middle w-min"
                             >
                                 <a
                                     tabindex="0"
                                     :class="[
                                         'btn rounded-circle',
-                                        index ? '' : 'btn-primary'
+                                        index ? 'text-primary' : 'btn-primary'
                                     ]"
                                     @click="index ? (chosenSongId = song_lyric.id) : (showOne = !showOne)"
+                                    style="width:2.8rem"
                                 ><i :class="[index ? 'fa-check' : (showOne ? 'fa-retweet' : 'fa-chevron-up'), 'fas']"></i></a>
                             </td>
                         </tr>
                         <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.reading || song_lyric.type || song_lyric.cycle">
-                            <td colspan="42" class="px-4 pb-2 border-top-0">
+                            <td colspan="42" class="px-4 pb-2 pt-0 border-top-0">
                                 <div class="d-inline-block mr-4" v-if="song_lyric.type">
                                     <span class="tag tag-category" title="vazba"><i class="fas fa-link"></i></span>
                                     <span class="tag tag-blue">{{ song_lyric.type.toLowerCase() }}</span>
