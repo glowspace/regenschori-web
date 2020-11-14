@@ -176,3 +176,12 @@ div.card.news {
 .drawer-button--opened {
     transform: rotate(45deg);
 }
+
+.songs-list {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.songs-list-liturgy-loading {
+    opacity: 0.25;
+}

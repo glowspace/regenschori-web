@@ -1,7 +1,14 @@
 <template>
     <div class="container">
         <h1>Co hrát na mši {{ headerDateString }}?</h1>
-        <p>Písně k aktuální liturgii jsou generovány automaticky podle korespondence textu písně s&nbsp;mešním čtením, liturgického období atd.</p>
+        <div class="row mb-3">
+            <p class="col-md-10 col-lg-9">
+                Písně k aktuální liturgii jsou generovány automaticky podle
+                korespondence textu písně s&nbsp;mešním čtením. Poznáte je podle
+                ikony odkazu <i class="fas fa-link"></i>, která symbolizuje vazbu
+                na určitou část mše svaté. Ostatní písně jsou doplněny automaticky.
+            </p>
+        </div>
         <div class="d-flex mb-3">
             <nuxt-link
                 :to="'/liturgie/aktualne/' + getDate(-5)[0]"
@@ -18,6 +25,7 @@
                     :key="i"
                     :to="'/liturgie/aktualne/' + getDate(i)[0]"
                     :class="['tag tag-blue', {'tag-selected': thisDate == getDate(i)[0]}, {'font-weight-bold': getDate(i)[1].substr(0, 2) == 'ne'}]"
+                    @click.native="clickLink(thisDate == getDate(i)[0])"
                 >{{ getDate(i)[1] }}</nuxt-link>
             </div>
             <nuxt-link
@@ -26,7 +34,7 @@
             >+7<i class="fas fa-chevron-right ml-3"></i></nuxt-link>
         </div>
         <div>
-            <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters">{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na „další písně“.</span>
+            <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters"><i class="fas fa-filter mr-2"></i>{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na písně bez vazby na aktuální liturgii.</span>
             <Filters
                 v-show="showFilters"
                 :init="false"
@@ -40,30 +48,28 @@
                 :is-liturgy="true"
             ></Filters>
         </div>
-        <div class="card mt-3 overflow-auto mb-4">
-            <table class="table mb-0">
-                <tbody>
-                    <tr v-for="(tag, index) in tags_enum" :key="tag.id" :class="{'bg-light': index % 2}">
-                        <td class="align-top px-4 font-weight-bold" style="width:15%">{{ tag.name }}</td>
-                        <td class="p-0">
-                            <SongsList
-                                :search-string="''"
-                                :selected-tags="{...objGeneratedFromTag(tag.id), ...selected_tags}"
-                                :selected-songbooks="selected_songbooks"
-                                :selected-languages="selected_languages"
-                                :sort="sort"
-                                :descending="descending"
-                                :seed="seed"
-                                :disable-observer="true"
-                                :override-per-page="5"
-                                :is-liturgy="true"
-                                :liturgical-references="liturgical_references_filtered(tag.id)"
-                            ></SongsList>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="card d-table table mt-3 mb-5">
+            <tbody>
+                <tr v-for="(tag, index) in tags_enum" :key="tag.id" :class="{'bg-light': index % 2}">
+                    <td class="align-top px-4 font-weight-bold" style="width:15%">{{ tag.name }}</td>
+                    <td class="p-0">
+                        <SongsList
+                            :search-string="''"
+                            :selected-tags="{...objGeneratedFromTag(tag.id), ...selected_tags}"
+                            :selected-songbooks="selected_songbooks"
+                            :selected-languages="selected_languages"
+                            :sort="sort"
+                            :descending="descending"
+                            :seed="seed + parseInt(tag.id)"
+                            :disable-observer="true"
+                            :override-per-page="5"
+                            :is-liturgy="true"
+                            :liturgical-references="liturgical_references_filtered(tag.id)"
+                        ></SongsList>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <a href="http://www.musicasacra.cz/" class="footer-logo">
             <img src="/img/musica-sacra.svg" />
@@ -239,6 +245,21 @@ export default {
             }
 
             return `${pad(date.getFullYear())}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+        },
+
+        refreshSeed() {
+            const randomInteger = function randomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            this.seed = randomInteger(1, 100000);
+            window.location.hash = this.seed;
+        },
+
+        clickLink(current) {
+            if (current) {
+                this.refreshSeed();
+            }
         }
     },
 
@@ -271,15 +292,11 @@ export default {
     },
 
     mounted() {
-        if (!this.$route.params.date) {
-            window.history.replaceState(null, '', '/liturgie/aktualne/' + this.thisDate);
-        }
-
         if (window.location.hash) {
             this.seed = parseInt(window.location.hash.replace('#', ''));
-        } else {
-            window.location.hash = this.seed;
         }
+
+        window.history.replaceState(null, '', '/liturgie/aktualne/' + this.thisDate + '#' + this.seed);
     }
 };
 </script>
