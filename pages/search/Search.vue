@@ -104,7 +104,7 @@
                                 :selected-languages="selected_languages"
                                 :sort="sort"
                                 :descending="descending"
-                                :seed="seed"
+                                :seed="parseInt(seed)"
                                 @query-loaded="queryLoaded"
                             ></SongsList>
                             <AuthorsList
