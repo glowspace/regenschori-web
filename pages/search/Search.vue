@@ -128,13 +128,12 @@
                 </div>
             </div>
 
-            <a href="http://www.musicasacra.cz/" target="_blank" class="footer-logo">
+            <a href="http://www.musicasacra.cz/" class="footer-logo">
                 <img src="/img/musica-sacra.svg" />
             </a>
 
             <a
                 class="btn btn-secondary mb-0 search-report bg-transparent"
-                target="_blank"
                 title="Nahlásit"
                 :href="
                     'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +

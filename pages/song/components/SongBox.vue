@@ -52,7 +52,6 @@
             <div class="float-right">
                 <a
                     class="btn btn-secondary"
-                    target="_blank"
                     title="Nahlásit"
                     :href="[
                         song_lyric
@@ -65,7 +64,6 @@
                 </a>
                 <a
                     class="btn btn-secondary"
-                    target="_blank"
                     title="Upravit"
                     :href="[song_lyric ? adminUrl + '/song/' + song_lyric.id + '/edit' : '']"
                 >
@@ -74,7 +72,6 @@
                 <a
                     v-if="!song_lyric.only_regenschori"
                     class="btn btn-secondary"
-                    target="_blank"
                     title="Otevřít ve Zpěvníku ProScholy.cz"
                     :href="[song_lyric ? song_lyric.public_url : '']"
                 >
