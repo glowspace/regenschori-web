@@ -49,6 +49,13 @@
             >
                 <i class="fas fa-align-left"></i><span class="d-none d-sm-inline pl-2">Text</span>
             </a>
+            <a
+                v-if="song_lyric.has_chords"
+                class="btn btn-secondary"
+                :href="[song_lyric ? song_lyric.public_url : '']"
+            >
+                <i class="fas fa-guitar"></i><span class="d-none d-sm-inline pl-2">Akordy</span>
+            </a>
             <div class="float-right">
                 <a
                     class="btn btn-secondary"
