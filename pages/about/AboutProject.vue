@@ -8,8 +8,8 @@
         </p>
 
         <p>
-            Po vzoru <a href="https://imslp.org/" target="_blank">Petrucciho hudební knihovny</a> či
-            <a href="https://cpdl.org/" target="_blank">ChoralWiki</a> vystavěných na MediaWiki umožňuje tento web
+            Po vzoru <a href="https://imslp.org/">Petrucciho hudební knihovny</a> či
+            <a href="https://cpdl.org/">ChoralWiki</a> vystavěných na MediaWiki umožňuje tento web
             organizaci materiálu dle štítků (např. dle autora, nástroje či liturgického zařazení: vánoční, eucharistie, mariánská apod.),
             a generuje tak notový materiál přívětivěji než dosavadní hudební webové archivy, jež převážně nabízejí pouze tabulkové zobrazení.
         </p>
@@ -33,13 +33,12 @@
 
         <p>
             <span class="mr-2">
-                Regenschori vzniká jako součást <a href="https://zpevnik.proscholy.cz/" target="_blank">iniciativy ProScholy.cz</a>,
-                na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku" target="_blank">členové týmu ProScholy</a>:
+                Regenschori vzniká jako součást <a href="https://zpevnik.proscholy.cz/">iniciativy ProScholy.cz</a>,
+                na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
             </span>
             <a
                 class="btn btn-outline-primary"
                 href="https://zpevnik.proscholy.cz/o-zpevniku"
-                target="_blank"
                 >O zpěvníku ProScholy.cz</a
             >
         </p>

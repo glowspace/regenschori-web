@@ -11,7 +11,6 @@
             </div>
             <div class="text-center pt-5">
                 <a :href="'https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=RS' + encodeURIComponent($route.fullPath) + '&entry.456507920=' + error.statusCode"
-                    target="_blank"
                     class="btn btn-primary display-all-songs font-weight-bold">
                     <i class="fas fa-exclamation-triangle pr-1"></i> NAHLÁSIT
                 </a>

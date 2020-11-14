@@ -107,7 +107,6 @@
                         :seed="seed"
                         :disable-observer="true"
                         :override-per-page="5"
-                        :show-numbers="true"
                         :is-liturgy="true"
                         :liturgical-references="liturgical_references_filtered(tag.id)"
                     ></SongsList>
@@ -115,7 +114,7 @@
             </div>
         </div>
 
-        <a href="http://www.musicasacra.cz/" target="_blank" class="footer-logo">
+        <a href="http://www.musicasacra.cz/" class="footer-logo">
             <img src="/img/musica-sacra.svg" />
         </a>
 

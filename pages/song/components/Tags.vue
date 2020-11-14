@@ -9,7 +9,6 @@
         >
             <a
                 href="https://zpevnik.proscholy.cz/napoveda#schvaleno-cbk"
-                target="_blank"
                 class="tag tag-blue"
                 v-if="song.liturgy_approval_status"
             >{{ JSON.parse(song.liturgy_approval_status_string_values)[song.liturgy_approval_status]
@@ -74,7 +73,7 @@
                     class="tag tag-blue"
                     v-for="(reference, key2) in bibleRefs"
                     :key="'ref' + key2"
-                    :href="`https://www.bibleserver.com/CEP/${reference}`" target="_blank"
+                    :href="`https://www.bibleserver.com/CEP/${reference}`"
                 >{{ reference }}</a>
             </div>
         </div>

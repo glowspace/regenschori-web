@@ -25,7 +25,6 @@
                     <td class="p-1">
                         <a
                             class="btn btn-secondary float-right m-0"
-                            target="_blank"
                             :href="
                                 'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
                                     encodeURIComponent($route.fullPath)
@@ -56,13 +55,20 @@
                                 ><i class="fas fa-plus"></i></a>
                             </td>
                             <td
-                                v-if="showNumbers"
+                                v-if="!hideNumbers"
                                 class="p-1 align-middle w-min"
                             >
                                 <nuxt-link
-                                    class="p-2 d-inline-block text-secondary"
-                                    :to="{path: song_lyric.public_route, query: $route.query }"
-                                >{{ song_lyric.song_number }}</nuxt-link>
+	                                class="p-2 pl-3 w-100 d-flex justify-content-between text-secondary"
+	                                :to="{path: song_lyric.public_route, query: $route.query }"
+	                            >
+	                                <span>{{
+	                                    getSongNumber(song_lyric, true)
+	                                }}</span>
+	                                <span>{{
+	                                    getSongNumber(song_lyric, false)
+	                                }}</span>
+	                            </nuxt-link>
                             </td>
                             <td
                                 class="p-1 align-middle"
@@ -105,6 +111,22 @@
                                     >{{ song_lyric.lang.substring(0, 3) }}</span
                                 >
                             </td>
+                            <td
+	                            style="width:10px"
+	                            class="no-left-padding align-middle d-none d-sm-table-cell"
+	                        >
+	                            <i
+	                                v-if="song_lyric.has_chords"
+	                                class="fas fa-guitar text-primary"
+	                                title="Tato píseň má přidané akordy."
+	                            ></i>
+	                            <i
+	                                v-else-if="song_lyric.has_lyrics"
+	                                class="fas fa-align-left text-secondary"
+	                                title="U této písně je zaznamenán text (bez akordů)."
+	                            ></i>
+	                            <i v-else class="fas fa-align-left text-very-muted"></i>
+	                        </td>
                             <td
                                 style="width:10px"
                                 class="no-left-padding align-middle d-none d-sm-table-cell"
@@ -153,7 +175,6 @@
                         >
                         <a
                             class="btn btn-secondary float-right m-0"
-                            target="_blank"
                             :href="'https://forms.gle/AYXXxkWtDHQQ13856'"
                         >
                             Přidat píseň
@@ -258,20 +279,30 @@ const FETCH_ITEMS = gql`
 `;
 
 export default {
-    props: [
-        'search-string',
-        'selected-songbooks',
-        'selected-tags',
-        'selected-languages',
-        'sort',
-        'descending',
-        'seed',
-        'disableObserver',
-        'overridePerPage',
-        'showNumbers',
-        'is-liturgy',
-        'liturgical-references'
-    ],
+    props: {
+        searchString: {
+            type: String,
+            default: ""
+        },
+
+        selectedSongbooks: Object,
+        selectedTags: Object,
+        selectedLanguages: Object,
+
+        // todo: refactor `sort` to String (or a kind of enum)
+        sort: Number,
+        descending: Boolean,
+        seed: Number,
+
+        disableObserver: Boolean,
+        overridePerPage: Number,
+        hideNumbers: Boolean,
+
+        isLiturgy: Boolean,
+        liturgicalReferences: Array,
+
+        isProscholy: Boolean
+    },
 
     components: { ScrollTrigger, Tags },
 
@@ -314,7 +345,7 @@ export default {
                     is_descending: this.descending
                 },
                 filterConfig: {
-                    show_regenschori: true,
+                    show_regenschori: !this.isProscholy,
                     show_arrangements: false
                 }
             });
@@ -375,6 +406,26 @@ export default {
                 song_lyric.tags_musical_form.length +
                 song_lyric.songbook_records.length
             );
+        },
+
+        getSongNumber(song_lyric, getfirstPart) {
+            if (this.preferred_songbook_id !== null) {
+                let rec = song_lyric.songbook_records.filter(
+                    record => record.songbook.id === this.preferred_songbook_id
+                )[0];
+                if (rec) {
+                    if (getfirstPart) {
+                        return rec.songbook.shortcut + ' ';
+                    } else {
+                        return rec.number;
+                    }
+                }
+            }
+
+            if (!getfirstPart) {
+                return song_lyric.song_number;
+            }
+            return '';
         }
     },
 
