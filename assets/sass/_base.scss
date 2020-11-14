@@ -86,7 +86,7 @@ a:focus {
 }
 
 .table tr:first-child {
-    td, th {
+    & > td, & > th {
         border-top: none;
     }
 }
