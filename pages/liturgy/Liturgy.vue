@@ -40,11 +40,11 @@
                 :is-liturgy="true"
             ></Filters>
         </div>
-        <div class="card mt-3">
-            <table class="table">
+        <div class="card mt-3 overflow-auto mb-4">
+            <table class="table mb-0">
                 <tbody>
                     <tr v-for="(tag, index) in tags_enum" :key="tag.id" :class="{'bg-light': index % 2}">
-                        <td class="align-top px-4 font-weight-bold">{{ tag.name }}</td>
+                        <td class="align-top px-4 font-weight-bold" style="width:15%">{{ tag.name }}</td>
                         <td class="p-0">
                             <SongsList
                                 :search-string="''"
@@ -86,7 +86,6 @@
 import gql from 'graphql-tag';
 import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
-import BibleReference from 'bible-reference/bible_reference';
 
 const FETCH_ITEMS = gql`
     query {
@@ -240,10 +239,6 @@ export default {
             }
 
             return `${pad(date.getFullYear())}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-        },
-
-        osisConvert(osisString) {
-            return BibleReference.fromEuropean(osisString).toCzechStrings().join('; ');
         }
     },
 
