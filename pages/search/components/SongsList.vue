@@ -157,9 +157,17 @@
                             </td>
                             <td
                                 v-if="isLiturgy"
-                                @click="index ? (chosenSongId = song_lyric.id) : (showOne = !showOne)"
                                 class="no-left-padding pr-4 align-middle d-none d-sm-table-cell w-min"
-                            >OOO</td>
+                            >
+                                <a
+                                    tabindex="0"
+                                    :class="[
+                                        'btn rounded-circle',
+                                        index ? '' : 'btn-primary'
+                                    ]"
+                                    @click="index ? (chosenSongId = song_lyric.id) : (showOne = !showOne)"
+                                ><i :class="[index ? 'fa-check' : (showOne ? 'fa-retweet' : 'fa-chevron-up'), 'fas']"></i></a>
+                            </td>
                         </tr>
                         <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.reading || song_lyric.type || song_lyric.cycle">
                             <td colspan="42" class="px-4 pb-2 border-top-0">
@@ -239,6 +247,7 @@ import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fet
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import Tags from '~/pages/song/components/Tags';
 import BibleReference from 'bible-reference/bible_reference';
+import { uniqBy } from 'lodash';
 
 // Query
 const FETCH_ITEMS = gql`
@@ -388,9 +397,21 @@ export default {
             let lr = this.litRefsProcessed;
             let slp = this.song_lyrics_paginated ? this.song_lyrics_paginated.data : [];
             let comb = [...lr, ...slp];
+            comb = uniqBy(comb, 'id');
 
-            if (comb.length && !this.chosenSongId) {
-                this.chosenSongId = comb[0].id;
+            if (comb.length) {
+                if (!this.chosenSongId) {
+                    this.chosenSongId = comb[0] ? comb[0].id : null;
+                } else {
+                    let chosenSong = comb.find(sl => {return sl.id == this.chosenSongId});
+                    let chosenSongIndex = comb.findIndex(sl => {return sl.id == this.chosenSongId});
+
+                    if (chosenSong && (chosenSongIndex + 1)) {
+                        comb.splice(chosenSongIndex, 1);
+                        comb.splice(0, 0, chosenSong);
+                    }
+                }
+
                 // todo emit
             }
 
@@ -480,7 +501,7 @@ export default {
         },
 
         osisConvert(osisString) {
-            return BibleReference.fromEuropean(osisString).toCzechStrings();
+            return BibleReference.fromOsis(osisString).toCzechStrings();
         }
     },
 
