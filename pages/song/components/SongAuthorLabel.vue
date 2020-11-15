@@ -3,7 +3,7 @@
         <span v-if="song.type">
             <span v-if="original">
                 <span>Originál: </span>
-                <nuxt-link :to="original.public_route">{{ original.name }}</nuxt-link><br>
+                <nuxt-link :to="original.public_route"><song-name :song="original"/></nuxt-link><br>
                 <span v-if="original.authors_pivot.length == 0">Autor neznámý,</span>
                 <span v-else>
                     <span v-if="original.authors_pivot.length == 1">Autor:</span>
@@ -43,10 +43,14 @@
 </template>
 
 <script>
+import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
+
 export default {
     name: 'SongAuthorLabel',
 
     props: ['song'],
+
+    components: {SongName},
 
     computed: {
         original: function() {

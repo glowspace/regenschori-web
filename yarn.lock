@@ -1000,6 +1000,11 @@
     bowser "^2.4.0"
     graphql-tag "^2.10.3"
 
+"@bit/proscholy.utilities.song-name@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.song-name/-/proscholy.utilities.song-name-1.0.0.tgz#e7a4c38bc34f01c5a165c9851164045a4073da87"
+  integrity sha1-56TDi8NPAcWhZcmFEWQEWkBz2oc=
+
 "@bit/proscholy.utilities.translation-line@^1.0.0":
   version "1.0.0"
   resolved "https://node.bit.dev/proscholy.utilities.translation-line/-/proscholy.utilities.translation-line-1.0.0.tgz#94d4c5ae38e3e3d95d93c2cf1959595f5086de97"

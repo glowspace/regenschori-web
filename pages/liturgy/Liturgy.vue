@@ -99,6 +99,8 @@ const FETCH_ITEMS = gql`
             song_lyric {
                 id
                 name
+                secondary_name_1
+                secondary_name_2
                 song_number
                 public_route
                 lang
