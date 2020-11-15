@@ -140,10 +140,12 @@ const FETCH_ITEMS = gql`
                     }
                 }
             }
-            reading
+            readings {
+                type
+                reading_reference
+                cycle
+            }
             date
-            type
-            cycle
         }
     }
 `;

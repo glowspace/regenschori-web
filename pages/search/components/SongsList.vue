@@ -170,28 +170,30 @@
                                 ><i :class="[index ? 'fa-check' : (showOne ? 'fa-retweet' : 'fa-chevron-up'), 'fas']"></i></a>
                             </td>
                         </tr>
-                        <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.reading || song_lyric.type || song_lyric.cycle">
+                        <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.readings && song_lyric.readings.length">
                             <td colspan="42" class="px-4 pb-2 pt-0 border-top-0">
-                                <div class="d-inline-block mr-4" v-if="song_lyric.type">
-                                    <span class="tag tag-category" title="vazba"><i class="fas fa-link"></i></span>
-                                    <span class="tag tag-blue">{{ song_lyric.type.toLowerCase() }}</span>
-                                </div>
-                                <div class="d-inline-flex mr-4" v-if="song_lyric.reading">
-                                    <div>
-                                        <span class="tag tag-category" title="odkazy"><i class="fas fa-bible"></i></span>
+                                <div v-for="reading in song_lyric.readings">
+                                    <div class="d-inline-block mr-4" v-if="reading.type">
+                                        <span class="tag tag-category" title="vazba"><i class="fas fa-link"></i></span>
+                                        <span class="tag tag-blue">{{ reading.type.toLowerCase() }}</span>
                                     </div>
-                                    <div>
-                                        <a
-                                            class="tag tag-blue"
-                                            v-for="(reference, key2) in osisConvert(song_lyric.reading)"
-                                            :key="'ref' + key2"
-                                            :href="`https://www.bibleserver.com/CEP/${reference}`"
-                                        >{{ reference }}</a>
+                                    <div class="d-inline-flex mr-4" v-if="reading.reading_reference">
+                                        <div>
+                                            <span class="tag tag-category" title="odkazy"><i class="fas fa-bible"></i></span>
+                                        </div>
+                                        <div>
+                                            <a
+                                                class="tag tag-blue"
+                                                v-for="(reference, key2) in osisConvert(reading.reading_reference)"
+                                                :key="'ref' + key2"
+                                                :href="`https://www.bibleserver.com/CEP/${reference}`"
+                                            >{{ reference }}</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="d-inline-block" v-if="song_lyric.cycle && song_lyric.cycle.replace(/\W/g, '')">
-                                    <span class="tag tag-category"><i class="far fa-circle"></i></span>
-                                    <span class="tag tag-blue">cyklus {{ song_lyric.cycle }}</span>
+                                    <div class="d-inline-block" v-if="reading.cycle && reading.cycle.length && reading.cycle[0].replace(/\W/g, '')">
+                                        <span class="tag tag-category"><i class="far fa-circle"></i></span>
+                                        <span class="tag tag-blue">cyklus {{ reading.cycle.join(', ') }}</span>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -424,8 +426,35 @@ export default {
 
             if (this.liturgicalReferences && this.liturgicalReferences.length) {
                 for (let i = 0; i < this.liturgicalReferences.length; i++) {
-                    const { reading, date, type, cycle, song_lyric } = this.liturgicalReferences[i];
-                    litRefArray[i] = { reading, date, type, cycle, ...song_lyric };
+                    let { readings, song_lyric } = this.liturgicalReferences[i];
+
+                    // let's create an array from cycles (we need to merge multiple even readings with different cycles)
+                    readings.forEach((reading, key) => {
+                        // find the first reading that is similar (and before this one)
+                        let keyOfSimilarReading = readings.findIndex((r, k) => {
+                            return (
+                                r.type == reading.type
+                                && r.reading_reference == reading.reading_reference
+                                && k < key
+                            );
+                        });
+
+                        // create array from cycle string
+                        if (typeof reading.cycle == 'string') {
+                            reading.cycle = [reading.cycle];
+                        }
+
+                        // add cycle of the similar reading here and remove dupes
+                        if (keyOfSimilarReading !== -1) {
+                            readings[keyOfSimilarReading].cycle = uniqBy([...readings[keyOfSimilarReading].cycle, ...reading.cycle]);
+                            reading.cycle = uniqBy(readings[keyOfSimilarReading].cycle);
+                        }
+                    });
+
+                    // remove duplicates from the previous algorithm
+                    readings = uniqBy(readings, r => [r.type, r.reading_reference].join());
+
+                    litRefArray[i] = { readings, ...song_lyric };
                 }
             }
 
