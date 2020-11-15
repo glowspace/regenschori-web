@@ -79,7 +79,7 @@
                                 <nuxt-link
                                     class="p-2 w-100 d-inline-block"
                                     :to="{path: song_lyric.public_route, query: $route.query }"
-                                >{{ song_lyric.name }}</nuxt-link>
+                                ><song-name :song="song_lyric"/></nuxt-link>
                             </td>
                             <td
                                 class="p-1 align-middle"
@@ -250,6 +250,7 @@ import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fet
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import Tags from '~/pages/song/components/Tags';
 import BibleReference from 'bible-reference/bible_reference';
+import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
 import { uniqBy } from 'lodash';
 
 // Query
@@ -278,6 +279,8 @@ const FETCH_ITEMS = gql`
     fragment SongLyricFragment on SongLyric {
         id
         name
+        secondary_name_1
+        secondary_name_2
         song_number
         public_route
         lang
@@ -347,7 +350,7 @@ export default {
         isProscholy: Boolean
     },
 
-    components: { ScrollTrigger, Tags },
+    components: { ScrollTrigger, Tags, SongName },
 
     data() {
         return {

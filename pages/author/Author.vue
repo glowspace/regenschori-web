@@ -97,6 +97,8 @@ const FETCH_AUTHOR = gql`
     fragment slFields on SongLyric {
         type
         name
+        secondary_name_1
+        secondary_name_2
         public_route
         authors_pivot {
             author {

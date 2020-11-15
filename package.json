@@ -23,6 +23,7 @@
     "@bit/proscholy.utilities.news": "^1.0.0",
     "@bit/proscholy.utilities.translation-line": "^1.0.0",
     "@bit/proscholy.utilities.universal-link": "^1.0.0",
+    "@bit/proscholy.utilities.song-name": "^1.0.0",
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/pwa": "^3.0.0-0",
