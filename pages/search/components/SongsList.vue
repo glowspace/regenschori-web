@@ -38,8 +38,7 @@
                     v-else-if="song_lyrics && song_lyrics.length"
                 >
                     <template
-                        v-for="(song_lyric, index) in song_lyrics"
-                        v-if="!showOne || !index"
+                        v-for="(song_lyric, index) in showOne ? [song_lyrics[0]] : song_lyrics"
                     >
                         <tr :key="song_lyric.id + '0' + index">
                             <td
@@ -172,7 +171,7 @@
                         </tr>
                         <tr :key="song_lyric.id + '1' + index" v-if="song_lyric.readings && song_lyric.readings.length">
                             <td colspan="42" class="px-4 pb-2 pt-0 border-top-0">
-                                <div v-for="reading in song_lyric.readings">
+                                <div v-for="(reading, i) in song_lyric.readings" :key="i">
                                     <div class="d-inline-block mr-4" v-if="reading.type">
                                         <span class="tag tag-category" title="vazba"><i class="fas fa-link"></i></span>
                                         <span class="tag tag-blue">{{ reading.type.toLowerCase() }}</span>
@@ -190,9 +189,9 @@
                                             >{{ reference }}</a>
                                         </div>
                                     </div>
-                                    <div class="d-inline-block" v-if="reading.cycle && reading.cycle.length && reading.cycle[0].replace(/\W/g, '')">
+                                    <div class="d-inline-block" v-if="reading.cycle && reading.cycle.length && reading.cycle.replace(/\W/g, '')">
                                         <span class="tag tag-category"><i class="far fa-circle"></i></span>
-                                        <span class="tag tag-blue">cyklus {{ reading.cycle.join(', ') }}</span>
+                                        <span class="tag tag-blue">cyklus {{ reading.cycle }}</span>
                                     </div>
                                 </div>
                             </td>
@@ -404,63 +403,41 @@ export default {
             let comb = [...lr, ...slp];
             comb = uniqBy(comb, 'id');
 
-            if (comb.length) {
-                if (!this.chosenSongId) {
-                    this.chosenSongId = comb[0] ? comb[0].id : null;
-                } else {
-                    let chosenSong = comb.find(sl => {return sl.id == this.chosenSongId});
-                    let chosenSongIndex = comb.findIndex(sl => {return sl.id == this.chosenSongId});
+            const isChosenOneScore = s => s.id === this.chosenSongId ? 1 : 0;
 
-                    if (chosenSong && (chosenSongIndex + 1)) {
-                        comb.splice(chosenSongIndex, 1);
-                        comb.splice(0, 0, chosenSong);
-                    }
-                }
-
-                // todo emit
-            }
-
-            return comb;
+            // this way the chosen song gets to the top by having higher score then every other
+            return comb.sort((a, b) => isChosenOneScore(b) - isChosenOneScore(a));
         },
 
         litRefsProcessed() {
-            let litRefArray = [];
-
-            if (this.liturgicalReferences && this.liturgicalReferences.length) {
-                for (let i = 0; i < this.liturgicalReferences.length; i++) {
-                    let { readings, song_lyric } = this.liturgicalReferences[i];
-
-                    // let's create an array from cycles (we need to merge multiple even readings with different cycles)
-                    readings.forEach((reading, key) => {
-                        // find the first reading that is similar (and before this one)
-                        let keyOfSimilarReading = readings.findIndex((r, k) => {
-                            return (
-                                r.type == reading.type
-                                && r.reading_reference == reading.reading_reference
-                                && k < key
-                            );
-                        });
-
-                        // create array from cycle string
-                        if (typeof reading.cycle == 'string') {
-                            reading.cycle = [reading.cycle];
-                        }
-
-                        // add cycle of the similar reading here and remove dupes
-                        if (keyOfSimilarReading !== -1) {
-                            readings[keyOfSimilarReading].cycle = uniqBy([...readings[keyOfSimilarReading].cycle, ...reading.cycle]);
-                            reading.cycle = uniqBy(readings[keyOfSimilarReading].cycle);
-                        }
-                    });
-
-                    // remove duplicates from the previous algorithm
-                    readings = uniqBy(readings, r => [r.type, r.reading_reference].join());
-
-                    litRefArray[i] = { readings, ...song_lyric };
-                }
+            if (!(this.liturgicalReferences)) {
+                return [];
             }
 
-            return litRefArray;
+            // we should merge cycles when the readings are the same
+            const shouldMergeReading = (a,b) => a.type == b.type && a.reading_reference == b.reading_reference;
+
+            return this.liturgicalReferences.map(ref => 
+                ({
+                    // spread the song_lyric attribute from ligurgicalReferences
+                    // so that we in fact return array of SongLyrics adjoined with 'readings' attribute
+                    ...ref.song_lyric,
+                    // ..and merge the readings
+                    readings: ref.readings.reduce((acc, item) => {
+                            const last = acc[acc.length - 1];
+                            if (last && shouldMergeReading(last, item)) {
+                                return [
+                                    ...acc.splice(0, acc.length - 1),
+                                    {
+                                        ...last,
+                                        cycle: last.cycle + ', ' + item.cycle
+                                    }
+                                ]
+                            }
+                            return [...acc, item];
+                        }, [])
+                })
+            );
         },
 
         filtersLoaded() {
