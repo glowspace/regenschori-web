@@ -419,7 +419,7 @@ export default {
 
             return this.liturgicalReferences.map(ref => 
                 ({
-                    // spread the song_lyric attribute from ligurgicalReferences
+                    // spread the song_lyric attribute from liturgicalReferences
                     // so that we in fact return array of SongLyrics adjoined with 'readings' attribute
                     ...ref.song_lyric,
                     // ..and merge the readings
