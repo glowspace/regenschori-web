@@ -309,8 +309,7 @@ const FETCH_ITEMS = gql`
         tags_saints         {id name}
         tags_history_period {id name}
         tags_musical_form   {id name}
-        liturgy_approval_status
-        liturgy_approval_status_string_values
+        is_approved_for_liturgy
         has_chords
         has_lyrics
         songbook_records {
@@ -503,7 +502,7 @@ export default {
         plusActive(song_lyric) {
             return (
                 song_lyric.tags_liturgy_part.length +
-                song_lyric.liturgy_approval_status +
+                song_lyric.is_approved_for_liturgy ? 1 : 0 +
                 song_lyric.tags_liturgy_period.length +
                 song_lyric.tags_generic.length +
                 song_lyric.tags_saints.length +

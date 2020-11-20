@@ -129,8 +129,7 @@ const FETCH_ITEMS = gql`
                 tags_saints         {id name}
                 tags_history_period {id name}
                 tags_musical_form   {id name}
-                liturgy_approval_status
-                liturgy_approval_status_string_values
+                is_approved_for_liturgy
                 has_chords
                 has_lyrics
                 songbook_records {
