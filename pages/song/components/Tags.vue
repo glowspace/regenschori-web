@@ -2,7 +2,7 @@
     <div :class="[{'mt-3': !inSongList}, 'd-block']">
         <tag-category
             :taglist="song.tags_liturgy_part"
-            :or-condition="song.liturgy_approval_status"
+            :or-condition="song.is_approved_for_liturgy"
             title="liturgie"
             icon-classes="fas fa-place-of-worship"
             color="blue"
@@ -10,9 +10,8 @@
             <a
                 href="https://zpevnik.proscholy.cz/napoveda#schvaleno-cbk"
                 class="tag tag-blue"
-                v-if="song.liturgy_approval_status"
-            >{{ JSON.parse(song.liturgy_approval_status_string_values)[song.liturgy_approval_status]
-            }} <i class="fas fa-check"></i></a>
+                v-if="song.is_approved_for_liturgy"
+            >schváleno ČBK pro liturgii <i class="fas fa-check"></i></a>
         </tag-category>
         <tag-category
             :taglist="song.tags_liturgy_period"

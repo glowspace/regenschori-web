@@ -63,8 +63,7 @@ const FETCH_SONG_LYRIC = gql`
                     shortcut
                 }
             }
-            liturgy_approval_status
-            liturgy_approval_status_string_values
+            is_approved_for_liturgy
             tags_liturgy_part   {id name}
             tags_generic        {id name}
             tags_liturgy_period {id name}
