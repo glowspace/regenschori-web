@@ -33,8 +33,9 @@
 
         <p>
             <span class="mr-2">
-                Regenschori vzniká jako součást <a href="https://zpevnik.proscholy.cz/">iniciativy ProScholy.cz</a>,
-                na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
+                Regenschori vzniká v rámci <a href="http://www.musicasacra.cz/">jednoty Musica Sacra</a>, 
+                ve spolupráci s <a href="http://www.liturgie.cz/">Liturgickou komisí ČBK</a> a <a href="https://www.cirkev.cz/mladez">Sekcí pro mládež ČBK</a>.
+                Na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
             </span>
             <a
                 class="btn btn-outline-primary"
