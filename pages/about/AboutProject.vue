@@ -12,6 +12,7 @@
             <a href="https://cpdl.org/">ChoralWiki</a> vystavěných na MediaWiki umožňuje tento web
             organizaci materiálu dle štítků (např. dle autora, nástroje či liturgického zařazení: vánoční, eucharistie, mariánská apod.),
             a generuje tak notový materiál přívětivěji než dosavadní hudební webové archivy, jež převážně nabízejí pouze tabulkové zobrazení.
+            Vítaným pomocníkem je propojení písní s biblickými souřadnicemi a začleněním do liturgického kalendáře.
         </p>
 
         <p>
@@ -22,7 +23,8 @@
 
         <p>
             Regenschori chce být dobrým rádcem pro chrámové hudebníky, kteří se často se dotazují na to, co kdy hrát,
-            a zároveň prostorem pro uveřejňování nové hudební liturgické tvorby, k&nbsp;níž vybízela i nedávná instrukce ČBK o hudbě v&nbsp;liturgii.
+            a zároveň prostorem pro uveřejňování nové hudební liturgické tvorby, k&nbsp;níž vybízela i nedávná 
+            <a href="http://www.liturgie.cz/shared/clanky/411/V%C3%BDb%C4%9Br%20hudby%20k%20bohoslu%C5%BEb%C3%A1m.pdf">instrukce ČBK o hudbě v&nbsp;liturgii</a>.
             Kromě toho může být depozitářem již užívaných kompozic. Obohacován je postupnou digitalizací některých hudebních archivů.
         </p>
 
@@ -33,8 +35,9 @@
 
         <p>
             <span class="mr-2">
-                Regenschori vzniká jako součást <a href="https://zpevnik.proscholy.cz/">iniciativy ProScholy.cz</a>,
-                na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
+                Regenschori vzniká jako projekt <a href="http://www.musicasacra.cz/">jednoty Musica Sacra</a> ve spolupráci s <a href="http://www.liturgie.cz/">Liturgickou komisí ČBK</a> 
+                a <a href="https://www.cirkev.cz/mladez">Sekcí pro mládež ČBK</a>.
+                Na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
             </span>
             <a
                 class="btn btn-outline-primary"
