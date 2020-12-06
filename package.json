@@ -54,7 +54,17 @@
     "eslint-plugin-prettier": "^3.1.2",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "husky": "^4.3.4",
+    "jira-prepare-commit-msg": "^1.4.2"
+  },
+  "husky": {
+      "hooks": {
+          "prepare-commit-msg": "jira-prepare-commit-msg"
+      }
+  },
+  "jira-prepare-commit-msg": {
+      "messagePattern": "$J $M"
   },
   "bit": {
     "env": {
