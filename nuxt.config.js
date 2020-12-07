@@ -103,12 +103,8 @@ export default {
     ],
     apollo: {
         clientConfigs: {
-            default: {
-                httpEndpoint: process.env.APP_URL,
-                // when running in docker, the server-side endpoint differs from the client-side one
-                // --> httpEndpoint is accessed from the inside of the Docker image, so the url is http://(docker-img-name):(inside-port)
-                // --> browserHttpEndpoint is accessed from the browser, so the url is http://localhost:(outside-port)
-                browserHttpEndpoint: process.env.APP_URL_BROWSER || process.env.APP_URL,
+            clientConfigs: {
+                default: '~/plugins/apollo-config-auth.js',
             }
         }
     },
