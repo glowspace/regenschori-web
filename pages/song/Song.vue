@@ -150,7 +150,7 @@ export default {
                 lyrics = lyrics.substring(0, 300);
                 return lyrics;
             }
-            return '';
+            return 'I tuto píseň máme v databázi Regenschori.';
         },
 
         notifySongVisit(visit_type) {

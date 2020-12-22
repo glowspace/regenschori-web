@@ -173,15 +173,17 @@ export default {
     extends: SearchHistoryManager,
 
     head() {
-        return {
-            title: this.getTitle(),
-            meta: [
-                {property: 'og:title', content: this.getTitle()},
-                {property: 'twitter:title', content: this.getTitle()},
-                {name: 'description', content: this.getDescription()},
-                {property: 'og:description', content: this.getDescription()},
-                {property: 'twitter:description', content: this.getDescription()}
-            ]
+        if (!this.$route.params.id) {
+            return {
+                title: this.getTitle(),
+                meta: [
+                    {property: 'og:title', content: this.getTitle()},
+                    {property: 'twitter:title', content: this.getTitle()},
+                    {name: 'description', content: this.getDescription()},
+                    {property: 'og:description', content: this.getDescription()},
+                    {property: 'twitter:description', content: this.getDescription()}
+                ]
+            }
         }
     },
 
@@ -234,7 +236,7 @@ export default {
         },
 
         getDescription() {
-            return '';
+            return 'Regenschori je největší česká platforma sdružující křesťanské písně. Patří do rodiny ProScholy.cz.';
         },
 
         resetState(manual = false) {
