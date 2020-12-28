@@ -95,8 +95,8 @@ import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
 
 const FETCH_ITEMS = gql`
-    query {
-        liturgical_references {
+    query($date: Date!) {
+        liturgical_references(date: $date) {
             song_lyric {
                 id
                 name
@@ -288,7 +288,12 @@ export default {
 
     apollo: {
         liturgical_references: {
-            query: FETCH_ITEMS
+            query: FETCH_ITEMS,
+            variables() {
+                return {
+                    date: this.thisDate
+                };
+            }
         },
         tags_enum: {
             query: FETCH_TAGS
