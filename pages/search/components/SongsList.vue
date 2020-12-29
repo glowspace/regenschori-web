@@ -164,8 +164,8 @@
                                         'btn rounded-circle',
                                         index ? 'text-primary' : 'btn-primary'
                                     ]"
-                                    @click="index ? (chosenSongId = song_lyric.id) : (showOne = !showOne)"
-                                    style="width:2.8rem"
+                                    @click="chosenSongId = song_lyric.id; showOne = !showOne;"
+                                    style="width:2.32rem;padding-right:0;padding-left:0"
                                 ><i :class="[index ? 'fa-check' : (showOne ? 'fa-retweet' : 'fa-chevron-up'), 'fas']"></i></a>
                             </td>
                         </tr>
@@ -417,7 +417,7 @@ export default {
             // we should merge cycles when the readings are the same
             const shouldMergeReading = (a,b) => a.type == b.type && a.reading_reference == b.reading_reference;
 
-            return this.liturgicalReferences.map(ref => 
+            return this.liturgicalReferences.map(ref =>
                 ({
                     // spread the song_lyric attribute from liturgicalReferences
                     // so that we in fact return array of SongLyrics adjoined with 'readings' attribute

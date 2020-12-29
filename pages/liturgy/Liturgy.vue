@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <h1>Co hrát na mši {{ headerDateString }}?</h1>
+        <div class="mt-n4 mb-3"><span class="badge badge-danger" style="font-size:90%">testovací provoz</span></div>
         <div class="row mb-3">
             <p class="col-md-10 col-lg-9">
                 Písně k aktuální liturgii jsou generovány automaticky podle
                 korespondence textu písně s&nbsp;mešním čtením. Poznáte je podle
-                ikony odkazu <i class="fas fa-link"></i>, která symbolizuje vazbu
+                ikony <i class="fas fa-link"></i> odkazu, která symbolizuje vazbu
                 na určitou část mše svaté. Ostatní písně jsou doplněny automaticky.
             </p>
         </div>
@@ -94,8 +95,8 @@ import SongsList from '../search/components/SongsList';
 import Filters from '../search/components/Filters';
 
 const FETCH_ITEMS = gql`
-    query {
-        liturgical_references {
+    query($date: Date!) {
+        liturgical_references(date: $date) {
             song_lyric {
                 id
                 name
@@ -153,7 +154,7 @@ const FETCH_ITEMS = gql`
 
 const FETCH_TAGS = gql`
     query {
-        tags_enum(type:LITURGY_PART) {
+        tags_enum(type: LITURGY_PART, hide_in_liturgy: false) {
             id
             name
         }
@@ -209,11 +210,11 @@ export default {
 
     methods: {
         getTitle() {
-            return 'Co hrát na mši ' + this.headerDateString + this.titleSeparator + this.titleWebsite;
+            return 'Co hrát na mši' + ((this.$route.params.date || process.client) ? ' ' + this.headerDateString : '') + this.titleSeparator + this.titleWebsite;
         },
 
         getDescription() {
-            return 'Co hrát v neděli na mši svaté? I to zjistíte na Zpěvníku ProScholy.cz.';
+            return 'Co hrát v neděli na mši svaté? I to zjistíte v databázi Regenschori.';
         },
 
         getDate(i) {
@@ -287,7 +288,12 @@ export default {
 
     apollo: {
         liturgical_references: {
-            query: FETCH_ITEMS
+            query: FETCH_ITEMS,
+            variables() {
+                return {
+                    date: this.thisDate
+                };
+            }
         },
         tags_enum: {
             query: FETCH_TAGS
@@ -300,6 +306,10 @@ export default {
         }
 
         window.history.replaceState(null, '', '/liturgie/aktualne/' + this.thisDate + '#' + this.seed);
+
+        if (window.document.title && window.document.title != this.getTitle()) {
+            window.document.title = this.getTitle();
+        }
     }
 };
 </script>
