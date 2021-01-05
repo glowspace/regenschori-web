@@ -989,6 +989,11 @@
     bowser "^2.4.0"
     graphql-tag "^2.10.3"
 
+"@bit/proscholy.utilities.song-info@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/proscholy.utilities.song-info/-/proscholy.utilities.song-info-1.0.0.tgz#59edb13ab730dd603e421290c6f9498b2f536ec7"
+  integrity sha1-We2xOrcw3WA+QhKQxvlJiy9Tbsc=
+
 "@bit/proscholy.utilities.song-name@^1.0.0":
   version "1.0.1"
   resolved "https://node.bit.dev/proscholy.utilities.song-name/-/proscholy.utilities.song-name-1.0.1.tgz#4ad63e0444867aa8c7572ba5b3dbd43dac4d8971"

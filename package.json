@@ -21,6 +21,7 @@
     "@bit/proscholy.utilities.dark-mode-button": "^1.0.0",
     "@bit/proscholy.utilities.external": "^1.0.1",
     "@bit/proscholy.utilities.news": "^1.0.0",
+    "@bit/proscholy.utilities.song-info": "^1.0.0",
     "@bit/proscholy.utilities.song-name": "^1.0.0",
     "@bit/proscholy.utilities.translation-line": "^1.0.0",
     "@bit/proscholy.utilities.universal-link": "^1.0.0",

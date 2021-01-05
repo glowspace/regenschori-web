@@ -86,6 +86,8 @@ const FETCH_SONG_LYRIC = gql`
         lilypond_svg
         lang
         lang_string
+        licence_type_cc
+        licence_type_cc_string_values
         authors_pivot {
             author {
                 ...authorFields

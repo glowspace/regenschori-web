@@ -61,9 +61,9 @@
                     class="btn btn-secondary"
                     title="Nahlásit"
                     :href="[
-                        song_lyric
+                        currentSource
                             ? 'https://docs.google.com/forms/d/e/1FAIpQLSdTaOCzzlfZmyoCB0I_S2kSPiSZVGwDhDovyxkWB7w2LfH0IA/viewform?entry.2038741493=' +
-                            encodeURI(getFullName(song_lyric)) + '%20(Regenschori)'
+                            encodeURI(getFullName(currentSource)) + '%20(Regenschori)'
                             : ''
                     ]"
                 >
@@ -72,7 +72,7 @@
                 <a
                     class="btn btn-secondary"
                     title="Upravit"
-                    :href="[song_lyric ? adminUrl + '/song/' + song_lyric.id + '/edit' : '']"
+                    :href="[currentSource ? adminUrl + '/song/' + currentSource.id + '/edit' : '']"
                 >
                     <i class="fas fa-pen"></i>
                 </a>
@@ -154,6 +154,7 @@
                         <span v-if="key">,</span> <nuxt-link :to="ap.author.public_route">{{ ap.author.name }}</nuxt-link>
                     </span>
                 </span>
+                <song-info :song="currentSource" />
             </div>
         </div>
         <div v-if="scores.length || currentSource.lilypond_svg">
@@ -233,6 +234,7 @@ import SongAuthorLabel from './SongAuthorLabel';
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 import External from '@bit/proscholy.utilities.external/External.vue';
 import { getFullName } from '@bit/proscholy.utilities.song-name/SongName.vue';
+import SongInfo from '@bit/proscholy.utilities.song-info/SongInfo.vue';
 
 export default {
     name: 'SongBox',
@@ -240,7 +242,8 @@ export default {
     components: {
         SongAuthorLabel,
         TranslationLine,
-        External
+        External,
+        SongInfo
     },
 
     props: ['song_lyric'],
