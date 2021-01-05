@@ -63,7 +63,7 @@
                     :href="[
                         song_lyric
                             ? 'https://docs.google.com/forms/d/e/1FAIpQLSdTaOCzzlfZmyoCB0I_S2kSPiSZVGwDhDovyxkWB7w2LfH0IA/viewform?entry.2038741493=' +
-                            encodeURI(song_lyric.name) + '%20(Regenschori)'
+                            encodeURI(getFullName(song_lyric)) + '%20(Regenschori)'
                             : ''
                     ]"
                 >
@@ -232,6 +232,7 @@ import { clone } from 'lodash';
 import SongAuthorLabel from './SongAuthorLabel';
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 import External from '@bit/proscholy.utilities.external/External.vue';
+import { getFullName } from '@bit/proscholy.utilities.song-name/SongName.vue';
 
 export default {
     name: 'SongBox',
@@ -310,7 +311,8 @@ export default {
             if (el.charAt(0) == '#') {
                 history.pushState(null, null, el);
             }
-        }
+        },
+        getFullName: getFullName
     }
 };
 </script>
