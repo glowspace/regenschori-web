@@ -62,6 +62,7 @@ const FETCH_SONG_LYRIC = gql`
                     id
                     name
                     shortcut
+                    is_private
                 }
             }
             is_approved_for_liturgy
