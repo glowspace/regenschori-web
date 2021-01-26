@@ -78,7 +78,7 @@
                                 <nuxt-link
                                     class="p-2 w-100 d-inline-block"
                                     :to="{path: song_lyric.public_route, query: $route.query }"
-                                ><song-name :song="song_lyric"/></nuxt-link>
+                                ><song-name :song="song_lyric" :multiline="true"/></nuxt-link>
                             </td>
                             <td
                                 class="p-1 align-middle"

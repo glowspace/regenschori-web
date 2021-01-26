@@ -45,7 +45,7 @@
         ></tag-category>
         <div
             class="d-flex"
-            v-if="song.songbook_records.length"
+            v-if="publicSongbookRecords.length" 
         >
             <div>
                 <span class="tag tag-category" title="zpěvníky"><i class="fas fa-book"></i></span>
@@ -54,7 +54,7 @@
                 <component
                     :is="whichComponent"
                     class="tag tag-yellow songbook-tag"
-                    v-for="(sb, key) in song.songbook_records"
+                    v-for="(sb, key) in publicSongbookRecords"
                     :key="'sb' + key"
                     :to="'/?zpevniky=' + sb.songbook.id"
                 >
@@ -106,6 +106,10 @@ export default {
             }
 
             return 'nuxt-link';
+        },
+
+        publicSongbookRecords() {
+            return this.song.songbook_records.filter(sb => !sb.songbook.is_private)
         },
 
         bibleRefs() {

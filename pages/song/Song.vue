@@ -6,6 +6,7 @@
 <script>
 import SongDetail from './SongDetail';
 import SongLoading from './SongLoading';
+import { getFullName } from '@bit/proscholy.utilities.song-name/SongName.vue';
 
 import gql, { disableFragmentWarnings } from 'graphql-tag';
 
@@ -61,6 +62,7 @@ const FETCH_SONG_LYRIC = gql`
                     id
                     name
                     shortcut
+                    is_private
                 }
             }
             is_approved_for_liturgy
@@ -83,6 +85,10 @@ const FETCH_SONG_LYRIC = gql`
         id
         name
         lilypond_svg
+        lang
+        lang_string
+        licence_type_cc
+        licence_type_cc_string_values
         authors_pivot {
             author {
                 ...authorFields
@@ -137,7 +143,7 @@ export default {
 
     methods: {
         getTitle() {
-            return (this.song_lyric ? this.song_lyric.name : 'Píseň') + this.titleSeparator + this.titleWebsite;
+            return (this.song_lyric ? getFullName(this.song_lyric) : 'Píseň') + this.titleSeparator + this.titleWebsite;
         },
 
         getDescription() {
