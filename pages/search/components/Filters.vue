@@ -149,6 +149,7 @@ export default {
                 {id: 'de', name: 'němčina'},
                 {id: 'fr', name: 'francouzština'},
                 {id: 'es', name: 'španělština'},
+                {id: 'pt', name: 'portugalština'},
                 {id: 'it', name: 'italština'},
                 {id: 'sv', name: 'svahilština'},
                 {id: 'he', name: 'hebrejština'},
