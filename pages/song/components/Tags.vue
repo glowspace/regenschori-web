@@ -45,7 +45,7 @@
         ></tag-category>
         <div
             class="d-flex"
-            v-if="publicSongbookRecords.length" 
+            v-if="publicSongbookRecords.length"
         >
             <div>
                 <span class="tag tag-category" title="zpěvníky"><i class="fas fa-book"></i></span>

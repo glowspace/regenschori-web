@@ -91,6 +91,20 @@
                 @selectTag="selectTag"
             ></tag-category>
             <tag-category
+                heading="Zpěvníky"
+                color="yellow"
+                :tags-in-category="songbooks"
+                :selected-tags="selected_songbooks"
+                @selectTag="selectSongbook"
+            ></tag-category>
+            <tag-category
+                heading="Jazyky"
+                color="red"
+                :tags-in-category="all_languages"
+                :selected-tags="selected_languages"
+                @selectTag="selectLanguage"
+            ></tag-category>
+            <tag-category
                 heading="Historické období"
                 color="red"
                 :tags-in-category="tags_history_period"
@@ -105,18 +119,11 @@
                 @selectTag="selectTag"
             ></tag-category>
             <tag-category
-                heading="Zpěvníky"
-                color="yellow"
-                :tags-in-category="songbooks"
-                :selected-tags="selected_songbooks"
-                @selectTag="selectSongbook"
-            ></tag-category>
-            <tag-category
-                heading="Jazyky"
-                color="red"
-                :tags-in-category="all_languages"
-                :selected-tags="selected_languages"
-                @selectTag="selectLanguage"
+                heading="Nástroje"
+                color="blue"
+                :tags-in-category="tags_instrumentation"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
             ></tag-category>
         </div>
     </div>
@@ -178,6 +185,9 @@ export default {
             query: fetchFiltersQuery
         },
         tags_musical_form: {
+            query: fetchFiltersQuery
+        },
+        tags_instrumentation: {
             query: fetchFiltersQuery
         },
         songbooks: {
