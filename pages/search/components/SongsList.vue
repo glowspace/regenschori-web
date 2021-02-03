@@ -375,7 +375,8 @@ export default {
                         liturgy_period: this.tags_liturgy_period,
                         saints: this.tags_saints,
                         history_period: this.tags_history_period,
-                        musical_form: this.tags_musical_form
+                        musical_form: this.tags_musical_form,
+                        instrumentation: this.tags_instrumentation
                     },
                     this.selectedTags),
                 filterLanguages: this.selectedLanguages,
@@ -448,6 +449,7 @@ export default {
                 && this.tags_saints
                 && this.tags_history_period
                 && this.tags_musical_form
+                && this.tags_instrumentation
             );
         }
     },
@@ -533,6 +535,9 @@ export default {
             query: fetchFiltersQuery
         },
         tags_musical_form: {
+            query: fetchFiltersQuery
+        },
+        tags_instrumentation: {
             query: fetchFiltersQuery
         },
         song_lyrics_paginated: {
