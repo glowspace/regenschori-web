@@ -194,7 +194,7 @@ export default {
             if (this.song_lyric === null) {
                 this.$nuxt.error({ statusCode: 404 });
             } else if (window.location.pathname != this.song_lyric.public_route) {
-                window.history.replaceState(null, '', this.song_lyric.public_route);
+                window.history.replaceState(null, '', this.song_lyric.public_route + window.location.search);
             }
         }
 

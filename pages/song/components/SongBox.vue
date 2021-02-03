@@ -150,7 +150,7 @@
                 <span v-else>
                     <span v-if="currentSource.authors_pivot.length == 1">Autor aranže:</span>
                     <span v-else>Autoři aranže:</span>
-                    <span v-for="(ap, key) in currentSource.authors_pivot" :key="key3">
+                    <span v-for="(ap, key) in currentSource.authors_pivot" :key="key">
                         <span v-if="key">,</span> <nuxt-link :to="ap.author.public_route">{{ ap.author.name }}</nuxt-link>
                     </span>
                 </span>
