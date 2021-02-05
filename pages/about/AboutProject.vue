@@ -1,9 +1,11 @@
 <template>
     <div class="container px-4">
         <h1>O projektu Regenschori</h1>
-
+ <p>
+            <i>Zpívejte Hospodinu píseň novou! Ať zní jeho chvála ze všech končin země</i> (Iz 42,10) "Bible jak známo inspirovala bezpočet hudebních výtvorů, mezi něž patří základní kapitoly dějin hudby: připomeňme gregoriánský chorál, Palestrinu či Bacha…; inspirovala nejrozličnější hudební skladby na pěti kontinentech a rovněž řada současných autorů se poměřuje s posvátnými texty. Mnoho církevních komunit v posledních desetiletích dokázalo interpretovat tyto texty jak s využitím nových hudebních forem, tak zhodnocováním odkazu minulých dob. Hudební dědictví církve je totiž nadmíru různorodé a vedle liturgie může být využito pro koncertní provedení, ve škole, při katechezi nebo také v divadle." (papež František ve videoposelství pro účastníky čtvrtého Mezinárodního sympózia o hudbě)
+        </p>
         <p>
-            Komplexní webová platforma pro chrámové hudebníky, zejména pro vedoucí sborů a schol, varhaníky a chrámové zpěváky.
+            Projekt Regenschori je komplexní webová platforma pro chrámové hudebníky, zejména pro vedoucí sborů a schol, varhaníky a chrámové zpěváky.
             Hlavní část tvoří rozsáhlý notový archiv s&nbsp;přehledně řazeným obsahem převážně liturgicky užívaného hudebního materiálu.
         </p>
 
