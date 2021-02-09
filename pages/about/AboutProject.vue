@@ -1,9 +1,16 @@
 <template>
     <div class="container px-4">
         <h1>O projektu Regenschori</h1>
- <p>
-            <i>Zpívejte Hospodinu píseň novou! Ať zní jeho chvála ze všech končin země</i> (Iz 42,10) "Bible jak známo inspirovala bezpočet hudebních výtvorů, mezi něž patří základní kapitoly dějin hudby: připomeňme gregoriánský chorál, Palestrinu či Bacha…; inspirovala nejrozličnější hudební skladby na pěti kontinentech a rovněž řada současných autorů se poměřuje s posvátnými texty. Mnoho církevních komunit v posledních desetiletích dokázalo interpretovat tyto texty jak s využitím nových hudebních forem, tak zhodnocováním odkazu minulých dob. Hudební dědictví církve je totiž nadmíru různorodé a vedle liturgie může být využito pro koncertní provedení, ve škole, při katechezi nebo také v divadle." (papež František ve videoposelství pro účastníky čtvrtého Mezinárodního sympózia o hudbě)
+
+        <p>
+            <i>Zpívejte Hospodinu píseň novou! Ať zní jeho chvála ze všech končin země.</i> (<a href="https://www.bibleserver.com/CEP/Iz%2042,%2010">Iz 42,10</a>)
         </p>
+
+        <p class="border-left pl-4 py-2">
+            „Bible jak známo inspirovala bezpočet hudebních výtvorů, mezi něž patří základní kapitoly dějin hudby: připomeňme gregoriánský chorál, Palestrinu či Bacha…; inspirovala nejrozličnější hudební skladby na pěti kontinentech a rovněž řada současných autorů se poměřuje s posvátnými texty. Mnoho církevních komunit v posledních desetiletích dokázalo interpretovat tyto texty jak s využitím nových hudebních forem, tak zhodnocováním odkazu minulých dob. Hudební dědictví církve je totiž nadmíru různorodé a vedle liturgie může být využito pro koncertní provedení, ve škole, při katechezi nebo také v divadle.“
+            <span class="blockquote-footer mt-2" style="font-size:100%">papež František ve videoposelství pro účastníky čtvrtého Mezinárodního sympózia o hudbě</span>
+        </p>
+
         <p>
             Projekt Regenschori je komplexní webová platforma pro chrámové hudebníky, zejména pro vedoucí sborů a schol, varhaníky a chrámové zpěváky.
             Hlavní část tvoří rozsáhlý notový archiv s&nbsp;přehledně řazeným obsahem převážně liturgicky užívaného hudebního materiálu.
@@ -25,7 +32,7 @@
 
         <p>
             Regenschori chce být dobrým rádcem pro chrámové hudebníky, kteří se často se dotazují na to, co kdy hrát,
-            a zároveň prostorem pro uveřejňování nové hudební liturgické tvorby, k&nbsp;níž vybízela i nedávná 
+            a zároveň prostorem pro uveřejňování nové hudební liturgické tvorby, k&nbsp;níž vybízela i nedávná
             <a href="http://www.liturgie.cz/shared/clanky/411/V%C3%BDb%C4%9Br%20hudby%20k%20bohoslu%C5%BEb%C3%A1m.pdf">instrukce ČBK o hudbě v&nbsp;liturgii</a>.
             Kromě toho může být depozitářem již užívaných kompozic. Obohacován je postupnou digitalizací některých hudebních archivů.
         </p>
@@ -37,7 +44,7 @@
 
         <p>
             <span class="mr-2">
-                Regenschori vzniká jako projekt <a href="http://www.musicasacra.cz/">jednoty Musica Sacra</a> ve spolupráci s <a href="http://www.liturgie.cz/">Liturgickou komisí ČBK</a> 
+                Regenschori vzniká jako projekt <a href="http://www.musicasacra.cz/">jednoty Musica Sacra</a> ve spolupráci s <a href="http://www.liturgie.cz/">Liturgickou komisí ČBK</a>
                 a <a href="https://www.cirkev.cz/mladez">Sekcí pro mládež ČBK</a>.
                 Na jeho vývoji se aktivně podílejí <a href="https://zpevnik.proscholy.cz/o-zpevniku">členové týmu ProScholy</a>:
             </span>
