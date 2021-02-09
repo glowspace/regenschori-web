@@ -222,14 +222,12 @@
         <div v-if="song_lyric.lyrics_no_chords">
             <div id="text" class="anchor"></div>
             <h2 class="h4">Text</h2>
-            <div class="d-inline-block border py-3 px-4" style="white-space:pre">{{ song_lyric.lyrics_no_chords }}</div>
+            <div class="d-inline-block border py-3 px-4" style="white-space:pre-wrap">{{ song_lyric.lyrics_no_chords }}</div>
         </div>
     </div>
 </template>
 
 <script>
-import { clone } from 'lodash';
-
 import SongAuthorLabel from './SongAuthorLabel';
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 import External from '@bit/proscholy.utilities.external/External.vue';
