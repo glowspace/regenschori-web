@@ -60,12 +60,7 @@
                 <a
                     class="btn btn-secondary"
                     title="Nahlásit"
-                    :href="[
-                        currentSource
-                            ? 'https://docs.google.com/forms/d/e/1FAIpQLSdTaOCzzlfZmyoCB0I_S2kSPiSZVGwDhDovyxkWB7w2LfH0IA/viewform?entry.2038741493=' +
-                            encodeURI(getFullName(currentSource)) + '%20(Regenschori)'
-                            : ''
-                    ]"
+                    :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/1/create/19?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
                 >
                     <i class="fas fa-exclamation-triangle"></i>
                 </a>
@@ -248,6 +243,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             adminUrl: process.env.adminUrl,
             currentSource: this.song_lyric
         };

@@ -25,10 +25,7 @@
                     <td class="p-1">
                         <a
                             class="btn btn-secondary float-right m-0"
-                            :href="
-                                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
-                                    encodeURIComponent($route.fullPath)
-                            "
+                            :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
                         >
                             Nahlásit
                         </a>
@@ -352,6 +349,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             page: 1,
             per_page: this.overridePerPage || 20,
             enable_more: true,

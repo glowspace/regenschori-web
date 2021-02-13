@@ -79,10 +79,7 @@
         <a
             class="btn btn-secondary mb-0 search-report bg-transparent"
             title="Nahlásit"
-            :href="
-                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
-                    encodeURIComponent($route.fullPath)
-            "
+            :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
         >
             <i class="fas fa-exclamation-triangle p-0"></i>
         </a>
@@ -182,6 +179,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             titleWebsite: process.env.titleWebsite,
             titleSeparator: process.env.titleSeparator,
             thisDate: this.$route.params.date || new Date().toISOString().split('T')[0],

@@ -9,8 +9,8 @@
                     <i class="fas fa-search pr-1"></i> VYHLEDÁVÁNÍ
                 </nuxt-link>
             </div>
-            <div class="text-center pt-5">
-                <a :href="'https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=RS' + encodeURIComponent($route.fullPath) + '&entry.456507920=' + error.statusCode"
+            <div class="text-center mt-3 mb-5">
+                <a :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath) + '&summary=Chyba%20webu%20(' + error.statusCode + ')'"
                     class="btn btn-primary display-all-songs font-weight-bold">
                     <i class="fas fa-exclamation-triangle pr-1"></i> NAHLÁSIT
                 </a>
@@ -25,17 +25,35 @@ export default {
 
     head() {
         return {
-            // title: this.$t('web.' + this.pageCode + '.page_title') + this.titleTemplate,
-            // meta: [
-            //     {name: 'description', content: this.$t('web.' + this.pageCode + '.description')},
-            //     {property: 'og:title', content: this.$t('web.' + this.pageCode + '.page_title') + this.titleTemplate},
-            //     {property: 'og:description', content: this.$t('web.' + this.pageCode + '.description')},
-            //     {property: 'twitter:title', content: this.$t('web.' + this.pageCode + '.page_title') + this.titleTemplate},
-            //     {property: 'twitter:description', content: this.$t('web.' + this.pageCode + '.description')}
-            // ],
+            title: this.getTitle(),
+            meta: [
+                {property: 'og:title', content: this.getTitle()},
+                {property: 'twitter:title', content: this.getTitle()},
+                {name: 'description', content: this.getDescription()},
+                {property: 'og:description', content: this.getDescription()},
+                {property: 'twitter:description', content: this.getDescription()}
+            ],
             bodyAttrs: {
                 class: ['home']
             }
+        }
+    },
+
+    data() {
+        return {
+            baseUrl: process.env.baseUrl,
+            titleWebsite: process.env.titleWebsite,
+            titleSeparator: process.env.titleSeparator
+        };
+    },
+
+    methods: {
+        getTitle() {
+            return 'Error ' + this.error.statusCode + this.titleSeparator + this.titleWebsite;
+        },
+
+        getDescription() {
+            return '';
         }
     }
 };
