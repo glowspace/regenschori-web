@@ -70,6 +70,7 @@ const FETCH_SONG_LYRIC = gql`
             tags_generic        {id name}
             tags_liturgy_period {id name}
             tags_saints         {id name}
+            tags_sacred_occasion {id name}
             tags_history_period {id name}
             tags_musical_form   {id name}
         }

@@ -3,7 +3,7 @@
         <tag-category
             :taglist="song.tags_liturgy_part"
             :or-condition="song.is_approved_for_liturgy"
-            title="liturgie"
+            title="mše svatá"
             icon-classes="fas fa-place-of-worship"
             color="blue"
         >
@@ -20,8 +20,14 @@
             color="red"
         ></tag-category>
         <tag-category
+            :taglist="song.tags_sacred_occasion"
+            title="svátosti a pobožnosti"
+            icon-classes="fas fa-clock"
+            color="green"
+        ></tag-category>
+        <tag-category
             :taglist="song.tags_generic"
-            title="příležitosti"
+            title="k příležitostem"
             icon-classes="fas fa-clock"
             color="green"
         ></tag-category>
