@@ -966,9 +966,9 @@
   integrity sha1-da4UwTC5c1fIKZStMhnDwSejJAA=
 
 "@bit/proscholy.search.tag-category@^1.0.0":
-  version "1.0.2"
-  resolved "https://node.bit.dev/proscholy.search.tag-category/-/proscholy.search.tag-category-1.0.2.tgz#d2499299018d0d5f033877a14ba1a3f0587d3607"
-  integrity sha1-0kmSmQGNDV8DOHehS6Gj8Fh9Ngc=
+  version "1.0.3"
+  resolved "https://node.bit.dev/proscholy.search.tag-category/-/proscholy.search.tag-category-1.0.3.tgz#60fc5c87a2bb604f4a36a0f4c2fa07e79c5e3ae7"
+  integrity sha1-YPxch6K7YE9KNqD0wvoH55xeOuc=
 
 "@bit/proscholy.utilities.dark-mode-button@^1.0.0":
   version "1.0.1"
@@ -976,9 +976,9 @@
   integrity sha1-PrG6MgFOod96EfQ/HyaCmYjtPUU=
 
 "@bit/proscholy.utilities.external@^1.0.1":
-  version "1.0.14"
-  resolved "https://node.bit.dev/proscholy.utilities.external/-/proscholy.utilities.external-1.0.14.tgz#a7c890509db6be0cd7cd838928f3dfff20e02826"
-  integrity sha1-p8iQUJ22vgzXzYOJKPPf/yDgKCY=
+  version "1.0.15"
+  resolved "https://node.bit.dev/proscholy.utilities.external/-/proscholy.utilities.external-1.0.15.tgz#f48ce195b72ff54463334152ddf2c655a74aea7a"
+  integrity sha1-9Izhlbcv9URjM0FS3fLGVadK6no=
   dependencies:
     bowser "^2.4.0"
 
