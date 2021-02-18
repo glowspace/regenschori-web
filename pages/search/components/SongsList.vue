@@ -303,6 +303,7 @@ const FETCH_ITEMS = gql`
         tags_liturgy_period {id name}
         tags_generic        {id name}
         tags_saints         {id name}
+        tags_sacred_occasion {id name}
         tags_history_period {id name}
         tags_musical_form   {id name}
         is_approved_for_liturgy
@@ -372,6 +373,7 @@ export default {
                         liturgy_part: this.tags_liturgy_part,
                         liturgy_period: this.tags_liturgy_period,
                         saints: this.tags_saints,
+                        sacred_occasion: this.tags_sacred_occasion,
                         history_period: this.tags_history_period,
                         musical_form: this.tags_musical_form,
                         instrumentation: this.tags_instrumentation
@@ -445,6 +447,7 @@ export default {
                 && this.tags_liturgy_part
                 && this.tags_liturgy_period
                 && this.tags_saints
+                && this.tags_sacred_occasion
                 && this.tags_history_period
                 && this.tags_musical_form
                 && this.tags_instrumentation
@@ -483,6 +486,7 @@ export default {
                 song_lyric.tags_liturgy_period.length +
                 song_lyric.tags_generic.length +
                 song_lyric.tags_saints.length +
+                song_lyric.tags_sacred_occasion.length +
                 song_lyric.tags_history_period.length +
                 song_lyric.tags_musical_form.length +
                 song_lyric.songbook_records.length
@@ -527,6 +531,9 @@ export default {
             query: fetchFiltersQuery
         },
         tags_saints: {
+            query: fetchFiltersQuery
+        },
+        tags_sacred_occasion: {
             query: fetchFiltersQuery
         },
         tags_history_period: {

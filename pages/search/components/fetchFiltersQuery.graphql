@@ -11,6 +11,9 @@ query {
     tags_saints: tags_enum(type: SAINTS) {
         ...TagFragment
     }
+    tags_sacred_occasion: tags_enum(type: SACRED_OCCASION) {
+        ...TagFragment
+    }
     tags_history_period: tags_enum(type: HISTORY_PERIOD) {
         ...TagFragment
     }
