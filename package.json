@@ -32,7 +32,7 @@
     "@nuxtjs/sentry": "^4.1.2",
     "@nuxtjs/vuetify": "^1.11.2",
     "axios": "^0.21.1",
-    "bible-reference": "https://github.com/proscholy/bible-reference#1.0.5",
+    "bible-reference": "https://github.com/proscholy/bible-reference#1.0.6",
     "bigpicture": "^2.5.3",
     "bootstrap": "^4.5.3",
     "bowser": "^2.4.0",
