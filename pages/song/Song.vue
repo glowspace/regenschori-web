@@ -70,6 +70,7 @@ const FETCH_SONG_LYRIC = gql`
             tags_generic        {id name}
             tags_liturgy_period {id name}
             tags_saints         {id name}
+            tags_sacred_occasion {id name}
             tags_history_period {id name}
             tags_musical_form   {id name}
         }
@@ -194,7 +195,7 @@ export default {
             if (this.song_lyric === null) {
                 this.$nuxt.error({ statusCode: 404 });
             } else if (window.location.pathname != this.song_lyric.public_route) {
-                window.history.replaceState(null, '', this.song_lyric.public_route);
+                window.history.replaceState(null, '', this.song_lyric.public_route + window.location.search);
             }
         }
 

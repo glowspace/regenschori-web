@@ -56,8 +56,7 @@
             <div class="px-3 py-2 d-inline-block">Regenschori {{ new Date().getFullYear() }}</div>
             <div class="float-right">
                 <a class="btn btn-secondary m-0"
-                    :href="'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS'
-                    + encodeURIComponent(author.public_route)"
+                    :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/1/create/21?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
                 >Nahlásit</a>
                 <a class="btn btn-secondary m-0"
                     :href="[author ? adminUrl + '/author/' + author.id + '/edit' : '']"
@@ -147,6 +146,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             titleWebsite: process.env.titleWebsite,
             titleSeparator: process.env.titleSeparator,
             adminUrl: process.env.adminUrl

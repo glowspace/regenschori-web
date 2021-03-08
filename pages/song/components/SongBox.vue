@@ -60,12 +60,7 @@
                 <a
                     class="btn btn-secondary"
                     title="Nahlásit"
-                    :href="[
-                        currentSource
-                            ? 'https://docs.google.com/forms/d/e/1FAIpQLSdTaOCzzlfZmyoCB0I_S2kSPiSZVGwDhDovyxkWB7w2LfH0IA/viewform?entry.2038741493=' +
-                            encodeURI(getFullName(currentSource)) + '%20(Regenschori)'
-                            : ''
-                    ]"
+                    :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/1/create/19?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
                 >
                     <i class="fas fa-exclamation-triangle"></i>
                 </a>
@@ -150,7 +145,7 @@
                 <span v-else>
                     <span v-if="currentSource.authors_pivot.length == 1">Autor aranže:</span>
                     <span v-else>Autoři aranže:</span>
-                    <span v-for="(ap, key) in currentSource.authors_pivot" :key="key3">
+                    <span v-for="(ap, key) in currentSource.authors_pivot" :key="key">
                         <span v-if="key">,</span> <nuxt-link :to="ap.author.public_route">{{ ap.author.name }}</nuxt-link>
                     </span>
                 </span>
@@ -178,8 +173,7 @@
                 <div
                     v-if="currentSource.lilypond_svg"
                     v-html="currentSource.lilypond_svg"
-                    class="pt-3 w-100 text-center lilypond-container"
-                    style="pointer-events:none"
+                    class="lilypond-container"
                 ></div>
             </div>
         </div>
@@ -222,14 +216,12 @@
         <div v-if="song_lyric.lyrics_no_chords">
             <div id="text" class="anchor"></div>
             <h2 class="h4">Text</h2>
-            <div class="d-inline-block border py-3 px-4" style="white-space:pre">{{ song_lyric.lyrics_no_chords }}</div>
+            <div class="d-inline-block border py-3 px-4" style="white-space:pre-wrap">{{ song_lyric.lyrics_no_chords }}</div>
         </div>
     </div>
 </template>
 
 <script>
-import { clone } from 'lodash';
-
 import SongAuthorLabel from './SongAuthorLabel';
 import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
 import External from '@bit/proscholy.utilities.external/External.vue';
@@ -250,6 +242,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             adminUrl: process.env.adminUrl,
             currentSource: this.song_lyric
         };

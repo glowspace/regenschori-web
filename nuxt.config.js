@@ -36,6 +36,9 @@ export default {
             // { rel: 'manifest', href: '/favicon/site.webmanifest' },
             // { rel: 'mask-icon', href: '/favicon/safari-pinned-tab.svg', color: '#5bbad5' },
 
+            { rel: 'preconnect', href: 'https://fonts.gstatic.com'},
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Amiri&display=swap'},
+
             {
                 rel: 'stylesheet',
                 type: 'text/css',
@@ -57,11 +60,11 @@ export default {
           `Ajajaj, na našem serveru se někde stala chyba.
           <br>Zkuste <u><a href="/">použít vyhledávání</a></u>.
           <br>Chybu také můžete <u><a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfry7CQD0vPpuC_VB7xGR6NUF2WdPUytQwX8KipKoZcIYxbdA/viewform?usp=pp_url&entry.1025781741=–&entry.456507920=e500"
+          href="https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=&summary=Chyba%20webu"
           id="report-link">nahlásit</a></u>.
           <script>if (document.getElementById('report-link'))
           {document.getElementById('report-link').setAttribute('href',
-          document.getElementById('report-link').getAttribute('href').replace('=–&', '=' + encodeURIComponent(window.location.href) + '&'));}</script>`,
+          document.getElementById('report-link').getAttribute('href').replace('=&', '=' + encodeURIComponent(window.location.href) + '&'));}</script>`,
         client_error: 'Chyba',
         client_error_details:
           'Během renderování stránky došlo k chybě. Více informací najdeš v konzoli nástrojů pro vývojáře.'

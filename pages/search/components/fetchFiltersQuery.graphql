@@ -1,25 +1,26 @@
 query {
     tags_generic: tags_enum(type: GENERIC) {
-        id
-        name
+        ...TagFragment
     }
     tags_liturgy_part: tags_enum(type: LITURGY_PART) {
-        id
-        name
+        ...TagFragment
     }
     tags_liturgy_period: tags_enum(type: LITURGY_PERIOD) {
-        id
-        name
+        ...TagFragment
     }
     tags_saints: tags_enum(type: SAINTS) {
-        id
-        name
+        ...TagFragment
+    }
+    tags_sacred_occasion: tags_enum(type: SACRED_OCCASION) {
+        ...TagFragment
     }
     tags_history_period: tags_enum(type: HISTORY_PERIOD) {
-        id
-        name
+        ...TagFragment
     }
     tags_musical_form: tags_enum(type: MUSICAL_FORM) {
+        ...TagFragment
+    }
+    tags_instrumentation: tags_enum(type: INSTRUMENTATION) {
         id
         name
     }
@@ -28,4 +29,10 @@ query {
         name
         shortcut
     }
+}
+
+fragment TagFragment on Tag {
+    id
+    name
+    song_lyrics_count
 }

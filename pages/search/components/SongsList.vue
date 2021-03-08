@@ -25,10 +25,7 @@
                     <td class="p-1">
                         <a
                             class="btn btn-secondary float-right m-0"
-                            :href="
-                                'https://docs.google.com/forms/d/e/1FAIpQLScmdiN_8S_e8oEY_jfEN4yJnLq8idxUR5AJpFmtrrnvd1NWRw/viewform?usp=pp_url&entry.1025781741=RS' +
-                                    encodeURIComponent($route.fullPath)
-                            "
+                            :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
                         >
                             Nahlásit
                         </a>
@@ -306,6 +303,7 @@ const FETCH_ITEMS = gql`
         tags_liturgy_period {id name}
         tags_generic        {id name}
         tags_saints         {id name}
+        tags_sacred_occasion {id name}
         tags_history_period {id name}
         tags_musical_form   {id name}
         is_approved_for_liturgy
@@ -352,6 +350,7 @@ export default {
 
     data() {
         return {
+            baseUrl: process.env.baseUrl,
             page: 1,
             per_page: this.overridePerPage || 20,
             enable_more: true,
@@ -374,8 +373,10 @@ export default {
                         liturgy_part: this.tags_liturgy_part,
                         liturgy_period: this.tags_liturgy_period,
                         saints: this.tags_saints,
+                        sacred_occasion: this.tags_sacred_occasion,
                         history_period: this.tags_history_period,
-                        musical_form: this.tags_musical_form
+                        musical_form: this.tags_musical_form,
+                        instrumentation: this.tags_instrumentation
                     },
                     this.selectedTags),
                 filterLanguages: this.selectedLanguages,
@@ -446,8 +447,10 @@ export default {
                 && this.tags_liturgy_part
                 && this.tags_liturgy_period
                 && this.tags_saints
+                && this.tags_sacred_occasion
                 && this.tags_history_period
                 && this.tags_musical_form
+                && this.tags_instrumentation
             );
         }
     },
@@ -483,6 +486,7 @@ export default {
                 song_lyric.tags_liturgy_period.length +
                 song_lyric.tags_generic.length +
                 song_lyric.tags_saints.length +
+                song_lyric.tags_sacred_occasion.length +
                 song_lyric.tags_history_period.length +
                 song_lyric.tags_musical_form.length +
                 song_lyric.songbook_records.length
@@ -529,10 +533,16 @@ export default {
         tags_saints: {
             query: fetchFiltersQuery
         },
+        tags_sacred_occasion: {
+            query: fetchFiltersQuery
+        },
         tags_history_period: {
             query: fetchFiltersQuery
         },
         tags_musical_form: {
+            query: fetchFiltersQuery
+        },
+        tags_instrumentation: {
             query: fetchFiltersQuery
         },
         song_lyrics_paginated: {

@@ -63,7 +63,7 @@
         <div v-if="!localShowAuthors">
             <tag-category
                 v-if="!isLiturgy"
-                heading="Liturgie – mše svatá"
+                heading="Mše svatá"
                 color="blue"
                 :tags-in-category="tags_liturgy_part"
                 :selected-tags="selected_tags"
@@ -77,7 +77,14 @@
                 @selectTag="selectTag"
             ></tag-category>
             <tag-category
-                heading="Příležitosti"
+                heading="Svátosti a pobožnosti"
+                color="green"
+                :tags-in-category="tags_sacred_occasion"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="K příležitostem"
                 color="green"
                 :tags-in-category="tags_generic"
                 :selected-tags="selected_tags"
@@ -87,20 +94,6 @@
                 heading="Ke svatým"
                 color="green"
                 :tags-in-category="tags_saints"
-                :selected-tags="selected_tags"
-                @selectTag="selectTag"
-            ></tag-category>
-            <tag-category
-                heading="Historické období"
-                color="red"
-                :tags-in-category="tags_history_period"
-                :selected-tags="selected_tags"
-                @selectTag="selectTag"
-            ></tag-category>
-            <tag-category
-                heading="Hudební forma"
-                color="green"
-                :tags-in-category="tags_musical_form"
                 :selected-tags="selected_tags"
                 @selectTag="selectTag"
             ></tag-category>
@@ -117,6 +110,27 @@
                 :tags-in-category="all_languages"
                 :selected-tags="selected_languages"
                 @selectTag="selectLanguage"
+            ></tag-category>
+            <tag-category
+                heading="Historické období"
+                color="red"
+                :tags-in-category="tags_history_period"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Hudební forma"
+                color="green"
+                :tags-in-category="tags_musical_form"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
+            ></tag-category>
+            <tag-category
+                heading="Nástroje"
+                color="blue"
+                :tags-in-category="tags_instrumentation"
+                :selected-tags="selected_tags"
+                @selectTag="selectTag"
             ></tag-category>
         </div>
     </div>
@@ -174,10 +188,16 @@ export default {
         tags_saints: {
             query: fetchFiltersQuery
         },
+        tags_sacred_occasion: {
+            query: fetchFiltersQuery
+        },
         tags_history_period: {
             query: fetchFiltersQuery
         },
         tags_musical_form: {
+            query: fetchFiltersQuery
+        },
+        tags_instrumentation: {
             query: fetchFiltersQuery
         },
         songbooks: {
