@@ -1,10 +1,10 @@
 production-deploy:
-	git checkout master
+	git checkout master -f
 	git pull origin master
 	make deploy
 
 staging-deploy:
-	git checkout develop
+	git checkout develop -f
 	git pull origin develop
 	make deploy
 
