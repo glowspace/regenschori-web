@@ -150,5 +150,6 @@ export default {
             }
         },
         extractCSS: true
-    }
+    },
+    rootDir: __dirname
 };
