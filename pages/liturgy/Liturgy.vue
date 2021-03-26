@@ -111,12 +111,14 @@ const FETCH_ITEMS = gql`
                     id
                 }
                 authors_pivot {
-                    author {
-                        id
-                        name
-                        public_route
+                    pivot {
+                        author {
+                            id
+                            name
+                            public_route
+                        }
+                        authorship_type
                     }
-                    authorship_type
                 }
                 tags {
                     id
@@ -132,11 +134,13 @@ const FETCH_ITEMS = gql`
                 has_chords
                 has_lyrics
                 songbook_records {
-                    number
-                    songbook {
-                        id
-                        name
-                        shortcut
+                    pivot {
+                        number
+                        songbook {
+                            id
+                            name
+                            shortcut
+                        }
                     }
                 }
             }

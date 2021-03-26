@@ -47,22 +47,26 @@ const FETCH_SONG_LYRIC = gql`
                     public_route
                     type
                     authors_pivot {
-                        author {
-                            ...authorFields
+                        pivot {
+                            author {
+                                ...authorFields
+                            }
+                            authorship_type
                         }
-                        authorship_type
                     }
                     lang
                     lang_string
                 }
             }
             songbook_records {
-                number
-                songbook {
-                    id
-                    name
-                    shortcut
-                    is_private
+                pivot {
+                    number
+                    songbook {
+                        id
+                        name
+                        shortcut
+                        is_private
+                    }
                 }
             }
             is_approved_for_liturgy
@@ -91,10 +95,12 @@ const FETCH_SONG_LYRIC = gql`
         licence_type_cc
         licence_type_cc_string_values
         authors_pivot {
-            author {
-                ...authorFields
+            pivot {
+                author {
+                    ...authorFields
+                }
+                authorship_type
             }
-            authorship_type
         }
         externals {
             id
