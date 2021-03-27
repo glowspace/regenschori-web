@@ -105,7 +105,8 @@ export default {
        '@nuxtjs/apollo',
        '@nuxtjs/axios',
        '@nuxtjs/proxy',
-       '@nuxtjs/sentry'
+       '@nuxtjs/sentry',
+       'nuxt-helmet'
     ],
     apollo: {
         clientConfigs: {
