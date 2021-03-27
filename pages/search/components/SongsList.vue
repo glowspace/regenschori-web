@@ -88,10 +88,10 @@
                                 >
                                     <span v-if="authorIndex">,</span>
                                     <nuxt-link
-                                        :to="ap.author.public_route"
-                                        :title="song_lyric.type ? {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}['LYRICS'] : {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}[ap.authorship_type]"
+                                        :to="ap.pivot.author.public_route"
+                                        :title="song_lyric.type ? {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}['LYRICS'] : {'GENERIC':'','LYRICS':'text','MUSIC':'hudba'}[ap.pivot.authorship_type]"
                                         class="text-secondary"
-                                        >{{ ap.author.name }}</nuxt-link
+                                        >{{ ap.pivot.author.name }}</nuxt-link
                                     >
                                 </span>
                             </td>
@@ -289,12 +289,14 @@ const FETCH_ITEMS = gql`
             id
         }
         authors_pivot {
-            author {
-                id
-                name
-                public_route
+            pivot {
+                author {
+                    id
+                    name
+                    public_route
+                }
+                authorship_type
             }
-            authorship_type
         }
         tags {
             id
@@ -310,11 +312,13 @@ const FETCH_ITEMS = gql`
         has_chords
         has_lyrics
         songbook_records {
-            number
-            songbook {
-                id
-                name
-                shortcut
+            pivot {
+                number
+                songbook {
+                    id
+                    name
+                    shortcut
+                }
             }
         }
     }
@@ -495,14 +499,15 @@ export default {
 
         getSongNumber(song_lyric, getfirstPart) {
             if (this.preferred_songbook_id !== null) {
-                let rec = song_lyric.songbook_records.filter(
-                    record => record.songbook.id === this.preferred_songbook_id
-                )[0];
+                let rec = song_lyric.songbook_records.find(
+                    record => record.pivot.songbook.id === this.preferred_songbook_id
+                );
+
                 if (rec) {
                     if (getfirstPart) {
-                        return rec.songbook.shortcut + ' ';
+                        return rec.pivot.songbook.shortcut + ' ';
                     } else {
-                        return rec.number;
+                        return rec.pivot.number;
                     }
                 }
             }

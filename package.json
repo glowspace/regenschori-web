@@ -44,6 +44,7 @@
     "lodash": "^4.17.19",
     "nosleep.js": "^0.9.0",
     "nuxt": "^2.12.0",
+    "nuxt-helmet": "^2.0.0",
     "purgecss-webpack-plugin": "^2.2.0"
   },
   "devDependencies": {
