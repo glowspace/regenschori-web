@@ -96,7 +96,7 @@
  * 4) bible reference
  */
 import TagCategory from './TagCategory';
-import BibleReference from 'bible-reference/bible_reference';
+import bible from 'bible-liturgy-utils/bible/bible'
 
 export default {
     name: 'Tags',
@@ -121,7 +121,7 @@ export default {
         bibleRefs() {
             if (this.song.bible_refs_src) {
                 const lines = this.song.bible_refs_src.split('\n');
-                const bib_refs = lines.map(l => BibleReference.fromEuropean(l));
+                const bib_refs = lines.map(bible.parseEuropean);
                 const lines_cz = bib_refs.flatMap(r => r.toCzechStrings());
 
                 return lines_cz;

@@ -32,7 +32,6 @@ const FETCH_SONG_LYRIC = gql`
             lyrics_no_chords
             has_chords
             capo
-            only_regenschori
             bible_refs_src
             ...arrangementSharedFields
             arrangements {

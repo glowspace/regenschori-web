@@ -245,7 +245,7 @@ import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@b
 import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import Tags from '~/pages/song/components/Tags';
-import BibleReference from 'bible-reference/bible_reference';
+import bible from 'bible-liturgy-utils/bible/bible';
 import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
 import { uniqBy } from 'lodash';
 
@@ -519,7 +519,7 @@ export default {
         },
 
         osisConvert(osisString) {
-            return BibleReference.fromOsis(osisString).toCzechStrings();
+            return bible.parseOsis(osisString).toCzechStrings();
         }
     },
 

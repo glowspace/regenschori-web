@@ -1,16 +1,34 @@
 <template>
-    <div class="container">
+    <div class="container pb-5">
         <h1>Co hrát na mši {{ headerDateString }}?</h1>
-        <div class="mt-n4 mb-3"><span class="badge badge-danger" style="font-size:90%">testovací provoz</span></div>
         <div class="row mb-3">
             <p class="col-md-10 col-lg-9">
                 Písně k aktuální liturgii jsou generovány automaticky podle
-                korespondence textu písně s&nbsp;mešním čtením. Poznáte je podle
-                ikony <i class="fas fa-link"></i> odkazu, která symbolizuje vazbu
-                na určitou část mše svaté. Ostatní písně jsou doplněny automaticky.
+                korespondence textu písně s&nbsp;mešním čtením.
             </p>
         </div>
-        <div class="d-flex mb-3">
+        <div class="row mb-3" :style="`opacity: ${customBibleString.length > 0 ? 0.4 : 1}`">
+            <div class="col-sm-4 col-lg-3" v-for="(lit_day, key) in currentDateReadings" :key='key'>
+                <h5>{{ lit_day.czechName}}</h5>
+                <p v-if="lit_day.firstReading && lit_day.firstReading.length > 0"><i>1. čtení: {{ lit_day.firstReading }}</i></p>
+                <p v-else><i>Nemá vlastní 1. čtení</i></p>
+                <p v-if="lit_day.psalm && lit_day.psalm.length > 0"><i>Žalm: {{ lit_day.psalm }}</i></p>
+                <p v-else><i>Nemá vlastní žalm</i></p>
+                <p v-if="lit_day.secondReading && lit_day.secondReading.length > 0"><i>2. čtení: {{ lit_day.secondReading }}</i></p>
+                <p v-if="lit_day.gospel && lit_day.gospel.length > 0"><i>Evangelium: {{ lit_day.gospel }}</i></p>
+                <p v-else><i>Nemá vlastní evangelium</i></p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <p class="mb-0">Nebo můžete zadat vlastní biblické odkazy:</p>
+            <v-textarea
+                placeholder="Např. Žalm 46 nebo Mt 3, 13-17"
+                v-model="customBibleString"
+                rows="3"
+            ></v-textarea>
+        </div>
+
+        <div class="d-flex mb-3" :style="`opacity: ${customBibleString.length > 0 ? 0.4 : 1}`">
             <nuxt-link
                 :to="'/liturgie/aktualne/' + getDate(-5)[0]"
                 class="tag tag-blue flex-shrink-0"
@@ -34,43 +52,92 @@
                 class="tag tag-blue flex-shrink-0"
             >+7<i class="fas fa-chevron-right ml-3"></i></nuxt-link>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary mr-3" @click="showFilters = !showFilters"><i class="fas fa-filter mr-2"></i>{{ showFilters ? 'Skrýt filtry' : (filters_active ? 'Upravit filtry' : 'Filtrovat') }}</button> <span class="py-2 d-inline-block">Filtry se použijí pouze na písně bez vazby na aktuální liturgii.</span>
-            <Filters
-                v-show="showFilters"
-                :init="false"
-                :selected-songbooks.sync="selected_songbooks"
-                :selected-tags.sync="selected_tags"
-                :selected-languages.sync="selected_languages"
-                :show-authors.sync="showAuthors"
-                :sort.sync="sort"
-                :descending.sync="descending"
-                :search-string="''"
-                :is-liturgy="true"
-            ></Filters>
-        </div>
-        <table class="card d-table table mt-3 mb-5">
+
+        <table class="card d-table table mt-3 mb-4">
             <tbody>
-                <tr v-for="(tag, index) in tags_enum" :key="tag.id" :class="{'bg-light': index % 2}">
-                    <td class="align-top px-4 font-weight-bold" style="width:15%">{{ tag.name }}</td>
-                    <td class="p-0">
-                        <SongsList
-                            :search-string="''"
-                            :selected-tags="{...objGeneratedFromTag(tag.id), ...selected_tags}"
-                            :selected-songbooks="selected_songbooks"
-                            :selected-languages="selected_languages"
-                            :sort="sort"
-                            :descending="descending"
-                            :seed="seed + parseInt(tag.id)"
-                            :disable-observer="true"
-                            :override-per-page="5"
-                            :is-liturgy="true"
-                            :liturgical-references="liturgical_references_filtered(tag.id)"
-                        ></SongsList>
+                <tr>
+                    <td colspan="7" class="p-0">
+                        <v-progress-linear
+                            indeterminate
+                            color="bg-main-blue"
+                            :height="4"
+                            :class="[!$apollo.loading ? '' : 'opacity-1', 'custom-progress-bar']"
+                        ></v-progress-linear>
+                    </td>
+                </tr>
+                <tr v-if="$apollo.loading && !(song_lyrics && song_lyrics.length)">
+                    <td style="width:4rem">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <span>&nbsp;</span>
+                            <span
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                        </div>
+                    </td>
+                    <td>Načítám...</td>
+                    <td class="p-1" colspan="5">
+                        <a
+                            class="btn btn-secondary float-right m-0"
+                            :href="'https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=' + encodeURIComponent(baseUrl + $route.fullPath)"
+                        >
+                            Nahlásit
+                        </a>
+                    </td>
+                </tr>
+                <template
+                    v-else-if="song_lyrics && song_lyrics.length"
+                >
+                    <tr>
+                        <th class="text-right border-top-0" title="číslo písně ve Zpěvníku ProScholy.cz">#</th>
+                        <th class="align-middle border-top-0">název písně</th>
+                        <th class="align-middle border-top-0">biblické odkazy</th>
+                    </tr>
+                    <tr v-for="(sl, key) in song_lyrics" :key='key'>
+                        <td
+                            class="p-1 align-middle text-right w-min"
+                        >
+                            <nuxt-link
+                                class="p-2 pl-3 text-secondary"
+                                :to="sl.public_route"
+                            >{{ sl.song_number }}</nuxt-link>
+                        </td>
+                        <td
+                            class="p-1 align-middle"
+                        >
+                            <nuxt-link
+                                class="p-2 w-100 d-inline-block"
+                                :to="sl.public_route"
+                            ><song-name :song="sl" :multiline="true"></song-name></nuxt-link>
+                        </td>
+                        <td class="align-middle p-1">
+                            <a
+                                class="tag tag-blue my-1"
+                                v-for="(reference, key2) in osisConvert(sl.bible_refs_osis)"
+                                :key="'ref' + key2"
+                                :href="`https://www.bibleserver.com/CEP/${reference}`"
+                            >{{ reference }}</a>
+                        </td>
+                    </tr>
+                </template>
+                <tr v-else-if="!$apollo.loading">
+                    <td class="p-1" colspan="7">
+                        <span class="px-3 py-2 d-inline-block"
+                        >Nebyla nalezena žádná vhodná píseň.</span
+                        >
+                        <a
+                            class="btn btn-secondary float-right m-0"
+                            :href="'https://forms.gle/AYXXxkWtDHQQ13856'"
+                        >
+                            Přidat píseň
+                        </a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <a :href="regenschoriUrl + '/liturgie/aktualne/' + thisDate + '#' + seed" class="tag tag-blue" v-if="!$apollo.loading">Zobrazit původní Co hrát na mši</a>
 
         <a href="http://www.musicasacra.cz/" class="footer-logo">
             <img src="/img/musica-sacra.svg" />
@@ -88,86 +155,26 @@
 
 <script>
 import gql from 'graphql-tag';
-import SongsList from '../search/components/SongsList';
-import Filters from '../search/components/Filters';
+import bible from 'bible-liturgy-utils/bible/bible'
+import liturgy from 'bible-liturgy-utils/litcal/litcal'
+import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
 
 const FETCH_ITEMS = gql`
-    query($date: Date!) {
-        liturgical_references(date: $date) {
-            song_lyric {
-                id
-                name
-                secondary_name_1
-                secondary_name_2
-                song_number
-                public_route
-                lang
-                lang_string
-                bible_refs_src
-                scores: externals(content_type: SCORE) {
-                    id
-                }
-                recordings: externals(content_type: RECORDING) {
-                    id
-                }
-                authors_pivot {
-                    pivot {
-                        author {
-                            id
-                            name
-                            public_route
-                        }
-                        authorship_type
-                    }
-                }
-                tags {
-                    id
-                }
-                tags_liturgy_part   {id name}
-                tags_liturgy_period {id name}
-                tags_generic        {id name}
-                tags_saints         {id name}
-                tags_sacred_occasion {id name}
-                tags_history_period {id name}
-                tags_musical_form   {id name}
-                is_approved_for_liturgy
-                has_chords
-                has_lyrics
-                songbook_records {
-                    pivot {
-                        number
-                        songbook {
-                            id
-                            name
-                            shortcut
-                        }
-                    }
-                }
-            }
-            readings {
-                type
-                reading_reference
-                cycle
-            }
-            date
-        }
-    }
-`;
-
-const FETCH_TAGS = gql`
-    query {
-        tags_enum(type: LITURGY_PART, hide_in_liturgy: false) {
+    query($bible_reference_osis: String!) {
+        song_lyrics(bible_reference_osis: $bible_reference_osis) {
             id
             name
+            secondary_name_1
+            secondary_name_2
+            song_number
+            public_route
+            bible_refs_osis
         }
     }
-`;
+`
 
 export default {
-    components: {
-        SongsList,
-        Filters
-    },
+    components: {SongName},
 
     head() {
         return {
@@ -189,15 +196,10 @@ export default {
             titleSeparator: process.env.titleSeparator,
             thisDate: this.$route.params.date || new Date().toISOString().split('T')[0],
             seed: null,
-            showFilters: false,
-
-            // Search data
-            selected_songbooks: {},
-            selected_languages: {},
-            selected_tags: {},
-            showAuthors: false,
-            sort: 0,
-            descending: false,
+            regenschoriUrl: process.env.regenschoriUrl,
+            customBibleString: '',
+            litCalendarLoaded: false,
+            litCalendarDays: null // async loaded in mounted() func
         };
     },
 
@@ -217,7 +219,7 @@ export default {
         },
 
         getDescription() {
-            return 'Co hrát v neděli na mši svaté? I to zjistíte v databázi Regenschori.';
+            return 'Co hrát v neděli na mši svaté? I to zjistíte na webu ProScholy.cz.';
         },
 
         getDate(i) {
@@ -230,16 +232,6 @@ export default {
             let obj = {};
             obj[id] = true;
             return obj;
-        },
-
-        liturgical_references_filtered(id) {
-            return this.liturgical_references ? this.liturgical_references.filter(ref => {
-                let correctTags = ref.song_lyric.tags_liturgy_part ? ref.song_lyric.tags_liturgy_part.filter(tag => {
-                    return tag.id === id
-                }).length : false;
-                let correctDate = ref.date == this.thisDate;
-                return correctTags && correctDate;
-            }) : [];
         },
 
         dateToString(date) {
@@ -267,7 +259,15 @@ export default {
             if (current) {
                 this.refreshSeed();
             }
-        }
+        },
+
+        osisConvert(osisString) {
+            return bible.parseOsis(osisString).toCzechStrings()
+        },
+
+        dayString(date) {
+            return date.toISOString().slice(0, 10)
+        },
     },
 
     computed: {
@@ -279,31 +279,57 @@ export default {
             return this.dateToString(new Date());
         },
 
-        filters_active() {
-            return (
-                Object.keys(this.selected_songbooks).length +
-                    Object.keys(this.selected_tags).length +
-                    Object.keys(this.selected_languages).length >
-                0
-            );
+        currentDateReadings() {
+            if (!this.litCalendarLoaded) {
+                return []
+            }
+
+            const day_str = this.dayString(new Date(this.thisDate))
+
+            // get all liturgical events (including workdays)
+            let lit_events = this.litCalendarDays[day_str]
+            for (const event of lit_events) {
+                if (event.weekday && !lit_events.map(e => e.key).includes(event.weekday.key)) {
+                    lit_events.push(event.weekday)
+                }
+            }
+
+            return lit_events.flatMap(liturgy.getReadings).filter(x => x.czechName)
+        },
+
+        currentOsis() {
+            let readings_strs = []
+
+            if (this.customBibleString.length == 0) {
+                readings_strs = this.currentDateReadings
+                    .flatMap(r => [r.firstReading, r.psalm, r.secondReading, r.gospel])
+            } else {
+                readings_strs.push(this.customBibleString)
+            }
+
+            return readings_strs
+                .map(bible.parseEuropean)
+                .map(x => x.toString())
+                .filter(x => x.length > 0)
+                .join(',')
         }
     },
 
     apollo: {
-        liturgical_references: {
+        song_lyrics : {
             query: FETCH_ITEMS,
             variables() {
                 return {
-                    date: this.thisDate
-                };
+                    bible_reference_osis: this.currentOsis
+                }
+            },
+            skip() {
+                return !this.litCalendarLoaded
             }
-        },
-        tags_enum: {
-            query: FETCH_TAGS
         }
     },
 
-    mounted() {
+    async mounted() {
         if (window.location.hash) {
             this.seed = parseInt(window.location.hash.replace('#', ''));
         }
@@ -313,6 +339,9 @@ export default {
         if (window.document.title && window.document.title != this.getTitle()) {
             window.document.title = this.getTitle();
         }
+
+        this.litCalendarDays = await liturgy.csRomcal.generateCalendar()
+        this.litCalendarLoaded = true
     }
 };
 </script>
