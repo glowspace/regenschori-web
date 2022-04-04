@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@bit/proscholy.search.authors-list": "^1.0.0",
-    "@bit/proscholy.search.build-elastic-search-params": "^1.0.0",
+    "@bit/proscholy.search.build-elastic-search-params": "^1.1.0",
     "@bit/proscholy.search.merge-fetch-more-result": "^1.0.0",
     "@bit/proscholy.search.scroll-trigger": "^1.0.0",
     "@bit/proscholy.search.search-history-manager": "^1.0.0",
