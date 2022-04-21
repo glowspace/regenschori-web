@@ -1,12 +1,10 @@
-production-deploy:
+production-pull:
 	git checkout master -f
 	git pull origin master
-	make deploy
 
-staging-deploy:
+staging-pull:
 	git checkout develop -f
 	git pull origin develop
-	make deploy
 
 deploy:
 	docker-compose up --build -d
@@ -16,3 +14,4 @@ deploy:
 	else \
 		echo 'yarn build was not successful, not restarting the server'; \
 	fi
+	sudo /var/www/html/nginx_clear_cache.sh
