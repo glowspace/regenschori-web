@@ -172,7 +172,7 @@ export default {
                     variables: {
                         // todo: detect desktop/mobile on server side
                         is_mobile: process.client ? this.isMobileBrowser() : null,
-                        song_lyric_id: this.$route.params.id,
+                        song_lyric_id: parseInt(this.$route.params.id),
                         visit_type: visit_type
                     }
                 });
