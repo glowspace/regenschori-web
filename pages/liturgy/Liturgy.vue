@@ -137,8 +137,6 @@
             </tbody>
         </table>
 
-        <a :href="regenschoriUrl + '/liturgie/aktualne/' + thisDate + '#' + seed" class="tag tag-blue" v-if="!$apollo.loading">Zobrazit původní Co hrát na mši</a>
-
         <a href="http://www.musicasacra.cz/" class="footer-logo">
             <img src="/img/musica-sacra.svg" />
         </a>
