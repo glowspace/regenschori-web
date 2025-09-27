@@ -19,8 +19,8 @@
 import SongAuthorLabel from './components/SongAuthorLabel';
 import Tags from './components/Tags';
 import SongBox from './components/SongBox';
-import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
-import SongInfo from '@bit/proscholy.utilities.song-info/SongInfo.vue';
+import SongName from '~/components/SongName.vue';
+import SongInfo from '~/components/SongInfo.vue';
 
 export default {
     name: 'SongDetail',

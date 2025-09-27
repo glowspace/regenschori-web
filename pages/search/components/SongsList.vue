@@ -240,13 +240,13 @@
 
 <script>
 import gql from 'graphql-tag';
-import ScrollTrigger from '@bit/proscholy.search.scroll-trigger/ScrollTrigger.vue';
-import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/node_modules/@bit/proscholy.search.build-elastic-search-params/buildElasticSearchParams';
-import mergeFetchMoreResult from '~/node_modules/@bit/proscholy.search.merge-fetch-more-result/mergeFetchMoreResult';
+import ScrollTrigger from '~/components/Search/ScrollTrigger.vue';
+import buildElasticSearchParams, { getSelectedTagsDcnf } from '~/components/Search/buildElasticSearchParams';
+import mergeFetchMoreResult from '~/components/Search/mergeFetchMoreResult';
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
 import Tags from '~/pages/song/components/Tags';
 import bible from 'bible-liturgy-utils/bible/bible';
-import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
+import SongName from '~/components/SongName.vue';
 import { uniqBy } from 'lodash';
 
 // Query

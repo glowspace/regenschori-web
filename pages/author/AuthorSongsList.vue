@@ -20,7 +20,7 @@
 
 <script>
 import SongAuthorLabel from '../song/components/SongAuthorLabel';
-import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
+import SongName from '~/components/SongName.vue';
 
 export default {
     name: 'AuthorSongsList',

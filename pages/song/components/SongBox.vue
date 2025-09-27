@@ -223,10 +223,10 @@
 
 <script>
 import SongAuthorLabel from './SongAuthorLabel';
-import TranslationLine from '@bit/proscholy.utilities.translation-line/TranslationLine.vue';
-import External from '@bit/proscholy.utilities.external/External.vue';
-import { getFullName } from '@bit/proscholy.utilities.song-name/SongName.vue';
-import SongInfo from '@bit/proscholy.utilities.song-info/SongInfo.vue';
+import TranslationLine from '~/components/TranslationLine.vue';
+import External from '~/components/External.vue';
+import { getFullName } from '~/components/SongName.vue';
+import SongInfo from '~/components/SongInfo.vue';
 
 export default {
     name: 'SongBox',

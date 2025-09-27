@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import DarkModeButton from '@bit/proscholy.utilities.dark-mode-button/DarkModeButton.vue';
+import DarkModeButton from '~/components/DarkModeButton.vue';
 
 export default {
     name: 'Navbar',

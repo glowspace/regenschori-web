@@ -155,7 +155,7 @@
 import gql from 'graphql-tag';
 import bible from 'bible-liturgy-utils/bible/bible'
 import liturgy from 'bible-liturgy-utils/litcal/litcal'
-import SongName from '@bit/proscholy.utilities.song-name/SongName.vue';
+import SongName from '~/components/SongName.vue';
 
 const FETCH_ITEMS = gql`
     query($bible_reference_osis: String!) {

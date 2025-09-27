@@ -12,19 +12,6 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,json,vue}\""
   },
   "dependencies": {
-    "@bit/proscholy.search.authors-list": "^1.0.0",
-    "@bit/proscholy.search.build-elastic-search-params": "^1.1.0",
-    "@bit/proscholy.search.merge-fetch-more-result": "^1.0.0",
-    "@bit/proscholy.search.scroll-trigger": "^1.0.0",
-    "@bit/proscholy.search.search-history-manager": "^1.0.0",
-    "@bit/proscholy.search.tag-category": "^1.0.0",
-    "@bit/proscholy.utilities.dark-mode-button": "^1.0.0",
-    "@bit/proscholy.utilities.external": "^1.0.1",
-    "@bit/proscholy.utilities.news": "^1.0.0",
-    "@bit/proscholy.utilities.song-info": "^1.0.0",
-    "@bit/proscholy.utilities.song-name": "^1.0.0",
-    "@bit/proscholy.utilities.translation-line": "^1.0.0",
-    "@bit/proscholy.utilities.universal-link": "^1.0.0",
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/pwa": "^3.0.0-0",
@@ -67,13 +54,6 @@
   },
   "jira-prepare-commit-msg": {
     "messagePattern": "$J $M"
-  },
-  "bit": {
-    "env": {
-      "compiler": "bit.envs/bundlers/vue@2.6.21"
-    },
-    "componentsDefaultDirectory": "components/{name}",
-    "packageManager": "yarn"
   },
   "peerDependencies": {
     "@nuxtjs/router": "^1.5.0",

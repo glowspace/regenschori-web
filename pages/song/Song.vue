@@ -6,7 +6,7 @@
 <script>
 import SongDetail from './SongDetail';
 import SongLoading from './SongLoading';
-import { getFullName } from '@bit/proscholy.utilities.song-name/SongName.vue';
+import { getFullName } from '~/components/SongName.vue';
 
 import gql, { disableFragmentWarnings } from 'graphql-tag';
 

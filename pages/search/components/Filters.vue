@@ -140,7 +140,7 @@
 import gql from 'graphql-tag';
 import Vue from 'vue'
 import fetchFiltersQuery from './fetchFiltersQuery.graphql';
-import TagCategory from '@bit/proscholy.search.tag-category/TagCategory.vue';
+import TagCategory from '~/components/Search/TagCategory.vue';
 
 export default {
     props: ['init', 'selected-tags', 'selected-songbooks', 'selected-languages', 'show-authors', 'sort', 'descending', 'search-string', 'is-liturgy'],

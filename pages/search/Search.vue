@@ -146,10 +146,10 @@
 <script>
 import Song from '../song/Song';
 import SongsList from './components/SongsList';
-import AuthorsList from '@bit/proscholy.search.authors-list/AuthorsList.vue';
+import AuthorsList from '~/components/Search/AuthorsList.vue';
 import Filters from './components/Filters';
-import News from '@bit/proscholy.utilities.news/News.vue';
-import SearchHistoryManager from '@bit/proscholy.search.search-history-manager/SearchHistoryManager.vue';
+import News from '~/components/News.vue';
+import SearchHistoryManager from '~/components/Search/SearchHistoryManager.vue';
 
 import gql from 'graphql-tag';
 
