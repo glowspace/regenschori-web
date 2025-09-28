@@ -138,7 +138,6 @@ export default {
                         path.join(__dirname, './pages/**/*.vue'),
                         path.join(__dirname, './layouts/**/*.vue'),
                         path.join(__dirname, './components/**/*.vue'),
-                        path.join(__dirname, './node_modules/@bit/**/*.vue')
                     ]),
                     whitelist: ['html', 'body', 'nuxt-progress', 'tag-selected'],
                     whitelistPatterns: [/^v-((?!application).)*$/, /^nuxt/],

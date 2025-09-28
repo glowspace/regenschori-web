@@ -212,12 +212,11 @@ a.tag {
     }
 }
 
-.lilypond-container {
-    svg {
-        width: 100%;
-        max-width: 500px;
-        height: auto;
-    }
+.lilypond-container svg,
+.external-score {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
 }
 /*! purgecss end ignore */
 

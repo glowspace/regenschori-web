@@ -10,6 +10,14 @@
                 <i class="fas fa-language"></i><span class="d-none d-sm-inline pl-2">Překlady</span>
             </a>
             <a
+                v-if="currentSource.hymnology"
+                class="btn btn-secondary"
+                href="#hymnologie"
+                @click.prevent="scrollTo('#hymnologie')"
+            >
+                <i class="fas fa-info"></i><span class="d-none d-sm-inline pl-2">Hymnologie</span>
+            </a>
+            <a
                 v-if="song_lyric.arrangements.length"
                 class="btn btn-secondary"
                 href="#aranze"
@@ -18,7 +26,7 @@
                 <i class="fas fa-edit"></i><span class="d-none d-sm-inline pl-2">Aranže</span>
             </a>
             <a
-                v-if="scores.length || currentSource.lilypond_svg"
+                v-if="scores.length || currentSource.lilypond_svg || currentSource.external_rendered_scores[0]"
                 class="btn btn-secondary"
                 href="#noty"
                 @click.prevent="scrollTo('#noty')"
@@ -152,7 +160,16 @@
                 <song-info :song="currentSource" />
             </div>
         </div>
-        <div v-if="scores.length || currentSource.lilypond_svg">
+        <div v-if="currentSource.hymnology">
+            <div id="hymnologie" class="anchor"></div>
+            <h2 class="h4">Hymnologie</h2>
+            <div class="d-inline-block border py-2 px-4">
+                <p class="my-2" v-for="line in currentSource.hymnology.split('\n')">
+                {{ line }}
+                </p>
+            </div>
+        </div>
+        <div v-if="scores.length || currentSource.lilypond_svg || currentSource.external_rendered_scores[0]">
             <div id="noty" class="anchor"></div>
             <h2 class="h4">Noty</h2>
             <div>
@@ -175,6 +192,11 @@
                     v-html="currentSource.lilypond_svg"
                     class="lilypond-container"
                 ></div>
+                <img
+                    v-if="currentSource.external_rendered_scores[0]"
+                    :src="currentSource.external_rendered_scores[0].public_url"
+                    class="external-score"
+                />
             </div>
         </div>
         <div v-if="recordings.length">

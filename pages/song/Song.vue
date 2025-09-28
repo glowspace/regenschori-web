@@ -89,10 +89,14 @@ const FETCH_SONG_LYRIC = gql`
         id
         name
         lilypond_svg
+        external_rendered_scores {
+            public_url
+        }
         lang
         lang_string
         licence_type_cc
         licence_type_cc_string_values
+        hymnology
         authors_pivot {
             pivot {
                 author {

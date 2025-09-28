@@ -28,8 +28,8 @@
             </span>
         </span>
         <span v-else>
-            <span v-if="song.authors_pivot.length == 0">Autor neznámý</span>
-            <span v-else>
+            <span v-if="song.authors_pivot.length == 0 && !song.hymnology">Autor neznámý</span>
+            <span v-else-if="song.authors_pivot.length > 0">
                 <span v-if="song.authors_pivot.length == 1">Autor:</span>
                 <span v-else>Autoři:</span>
                 <span v-for="(ap, key3) in song.authors_pivot" :key="key3">

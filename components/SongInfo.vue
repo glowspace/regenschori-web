@@ -5,9 +5,9 @@
             class="text-uppercase text-secondary ml-3"
             :title="song.lang_string"
         >{{ song.lang }}</span>
-        <span
+        <div
             v-if="song.licence_type_cc != 'UNSET'"
-        ><br>Licence: {{ licenceValues ? licenceValues[song.licence_type_cc] : '' }}</span>
+        >Licence: {{ licenceValues ? licenceValues[song.licence_type_cc] : '' }}</div>
     </span>
 </template>
 
