@@ -43,7 +43,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.3.4",
     "jira-prepare-commit-msg": "^1.4.2",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "prettier": "^1.19.1",
     "sass-loader": "^10.0.2"
   },
