@@ -18,7 +18,7 @@
     "@nuxtjs/router": "^1.5.0",
     "@nuxtjs/sentry": "^4.1.2",
     "@nuxtjs/vuetify": "^1.11.2",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bible-liturgy-utils": "https://github.com/glowspace/bible-liturgy-utils#2.0.2",
     "bigpicture": "^2.5.3",
     "bootstrap": "^4.5.3",
