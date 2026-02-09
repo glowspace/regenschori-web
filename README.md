@@ -1,8 +1,6 @@
 # Regenschori SPA
 
-[![Gitpod ready](https://img.shields.io/badge/Gitpod-ready-blue?logo=gitpod)](https://gitpod.io/#https://github.com/proscholy/regenschori.cz)
-
->  User frontend of www.regenschori.cz written in Nuxt.js
+User frontend of www.regenschori.cz written in Nuxt v2
 
 ## Build Setup
 
@@ -16,9 +14,4 @@ $ yarn dev
 # build for production and launch server
 $ yarn build
 $ yarn start
-
-# generate static project
-$ yarn generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
