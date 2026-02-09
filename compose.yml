@@ -1,0 +1,8 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "${HTTP_PORT?}:3000"
+    restart: always

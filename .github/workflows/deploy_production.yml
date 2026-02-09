@@ -11,7 +11,7 @@ jobs:
       - name: SSH in production server
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd /var/www/html/regenschori-web && make production-pull --silent && make deploy --silent
+          command: cd /var/www/regenschori-web && sh deploy/deploy.sh master
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
@@ -21,6 +21,6 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_DEPLOY_WEBHOOK_URL }}
           DISCORD_USERNAME: "${{ github.workflow }} - ${{ github.event.repository.name }}"
-          DISCORD_AVATAR: "https://zpevnik.proscholy.cz/img/icons/michalhappy.png"
+          DISCORD_AVATAR: "https://c.tenor.com/kiv30bAOYtEAAAAd/gandalf-yes.gif"
         with:
           args: "Proběhlo produkční nasazení na www.regenschori.cz! :tada:"

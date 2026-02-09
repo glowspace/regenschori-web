@@ -36,8 +36,8 @@ export default {
             // { rel: 'manifest', href: '/favicon/site.webmanifest' },
             // { rel: 'mask-icon', href: '/favicon/safari-pinned-tab.svg', color: '#5bbad5' },
 
-            { rel: 'preconnect', href: 'https://fonts.gstatic.com'},
-            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Amiri&display=swap'},
+            { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Amiri&display=swap' },
 
             {
                 rel: 'stylesheet',
@@ -57,7 +57,7 @@ export default {
         nuxtjs: '',
         back_to_home: 'Zpět na úvodní stránku',
         server_error_details:
-          `Ajajaj, na našem serveru se někde stala chyba.
+            `Ajajaj, na našem serveru se někde stala chyba.
           <br>Zkuste <u><a href="/">použít vyhledávání</a></u>.
           <br>Chybu také můžete <u><a
           href="https://proscholy.atlassian.net/servicedesk/customer/portal/1/group/6/create/20?customfield_10056=&summary=Chyba%20webu"
@@ -67,7 +67,7 @@ export default {
           document.getElementById('report-link').getAttribute('href').replace('=&', '=' + encodeURIComponent(window.location.href) + '&'));}</script>`,
         client_error: 'Chyba',
         client_error_details:
-          'Během renderování stránky došlo k chybě. Více informací najdeš v konzoli nástrojů pro vývojáře.'
+            'Během renderování stránky došlo k chybě. Více informací najdeš v konzoli nástrojů pro vývojáře.'
     },
     /*
      ** Customize the progress-bar color
@@ -100,27 +100,25 @@ export default {
     /*
     ** Nuxt.js modules
     */
-   modules: [
-       // '@nuxtjs/pwa',
-       '@nuxtjs/apollo',
-       '@nuxtjs/axios',
-       '@nuxtjs/proxy',
-       '@nuxtjs/sentry',
-       'nuxt-helmet'
+    modules: [
+        // '@nuxtjs/pwa',
+        '@nuxtjs/apollo',
+        '@nuxtjs/axios',
+        '@nuxtjs/proxy',
+        '@nuxtjs/sentry',
+        'nuxt-helmet'
     ],
     apollo: {
         clientConfigs: {
             default: '~/plugins/apollo-config-auth.js',
         }
     },
-    proxy: {
-        '/api': {
-            target: process.env.GRAPHQL_TARGET,
-            pathRewrite: {
-                '^/api': '/'
-            }
-        }
+    axios: {
+        proxy: true,
     },
+    proxy: [
+        process.env.GRAPHQL_TARGET,
+    ],
     sentry: {
         dsn: process.env.SENTRY_DSN
     },
